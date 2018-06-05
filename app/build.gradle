@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.dayishiapp.doctor.dayishidoctor"
+        applicationId "com.dayishiapp.doctor"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
@@ -19,6 +19,37 @@ android {
 }
 
 dependencies {
+
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    // If you want to use Android Lifecycle for providers
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle:2.2.1'
+
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.hannesdorfmann.mosby3:viewstate:3.1.0' // MVP + ViewState support
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //dagger2
+    implementation 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
+    implementation ('com.qmuiteam:qmui:1.0.8', {
+        exclude group: 'com.android.support'
+    })
+
+    // To use Gson
+    implementation 'com.github.VictorAlbertos.Jolyglot:gson:0.0.3'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    //implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    //implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation 'com.orhanobut:logger:2.2.0'
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
