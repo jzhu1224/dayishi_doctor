@@ -17,8 +17,11 @@ import com.dayishiapp.doctor.R;
 import com.dayishiapp.doctor.di.component.ActivityComponent;
 import com.dayishiapp.doctor.di.component.DaggerActivityComponent;
 import com.dayishiapp.doctor.di.module.ActivityModule;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.trello.lifecycle2.android.lifecycle.AndroidLifecycle;
 import com.trello.rxlifecycle2.LifecycleProvider;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,6 +34,10 @@ public abstract class BaseFragment extends Fragment {
     private ActivityComponent mActivityComponent;
     protected Activity activity;
     protected boolean mIsLoadedData;
+
+    @Nullable
+    @BindView(R.id.toolbar)
+    protected QMUITopBar toolbar;
 
     @Override
     public void onAttach(Context context) {

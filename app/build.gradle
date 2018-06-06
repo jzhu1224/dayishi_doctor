@@ -16,9 +16,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+
+
+    implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
     // If you want to use Android Lifecycle for providers

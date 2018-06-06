@@ -3,4 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="tab1">咨询</string>
+    <string name="tab2">患者</string>
+    <string name="tab3">消息</string>
+    <string name="tab4">我的</string>
+    <string name="consult">咨询</string>
+    <string name="customer">患者</string>
 </resources>

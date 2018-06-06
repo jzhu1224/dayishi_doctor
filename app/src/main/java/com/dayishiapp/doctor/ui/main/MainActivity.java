@@ -1,49 +1,160 @@
 package com.dayishiapp.doctor.ui.main;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.dayishiapp.doctor.R;
 import com.dayishiapp.doctor.ui.MvpActivity;
+import com.dayishiapp.doctor.ui.consult.ConsultFragment;
+import com.dayishiapp.doctor.ui.customer.CustomerFragment;
+import com.dayishiapp.doctor.utils.FragmentUtils;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
 public class MainActivity extends MvpActivity<MainView, MainPresenter> implements MainView {
+
+    public final static String KEY_SELECT_INDEX = "key_select_index";
+
+    @BindView(R.id.bottom_navigation)
+    AHBottomNavigation bottomNavigation;
 
     @Inject
     MainPresenter mainPresenter;
 
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
+    private int selectIndex;
+    private Fragment mCurrentFragment,consultFragment,customerFragment;
+    FragmentManager fragmentManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void afterBindView(@Nullable Bundle savedInstanceState) {
+        super.afterBindView(savedInstanceState);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        fragmentManager = getSupportFragmentManager();
+
+        initBottomNavigation();
+        setNotification("1",2);
+
+        if (savedInstanceState != null) {
+            selectIndex = savedInstanceState.getInt(KEY_SELECT_INDEX,0);
+            consultFragment = findFragmentByPosition(0);
+            customerFragment = findFragmentByPosition(1);
+        }
+
+        setCurrentSelectedTab(selectIndex);
+    }
+
+    private Fragment findFragmentByPosition(int position) {
+        return fragmentManager.findFragmentByTag(FragmentUtils.makeFragmentName(R.id.fr_content,position));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_SELECT_INDEX,selectIndex);
+    }
+
+    private void setNotification(String title, int position) {
+        // Customize notification (title, background, typeface)
+        bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
+        // Add or remove notification for each item
+        bottomNavigation.setNotification(title, position);
+    }
+
+    private void setCurrentSelectedTab(int position) {
+        // Set current item programmatically
+        bottomNavigation.setCurrentItem(position);
+    }
+
+    private void initBottomNavigation() {
+        // Create items
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_home_black_24dp, R.color.color_white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_dashboard_black_24dp, R.color.color_white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab3, R.drawable.ic_notifications_black_24dp, R.color.color_white);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab4, R.drawable.notification_background, R.color.color_white);
+
+        // Add items
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+
+        // Set background color
+        //bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FEFEFE"));
+
+        // Disable the translation inside the CoordinatorLayout
+        bottomNavigation.setBehaviorTranslationEnabled(false);
+
+        // Enable the translation of the FloatingActionButton
+        //bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
+
+        // Change colors
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorAccent));
+        //bottomNavigation.setInactiveColor(Color.parseColor("#747474"));
+
+        // Force to tint the drawable (useful for font with icon for example)
+        bottomNavigation.setForceTint(true);
+
+        // Display color under navigation bar (API 21+)
+        // Don't forget these lines in your style-v21
+        // <item name="android:windowTranslucentNavigation">true</item>
+        // <item name="android:fitsSystemWindows">true</item>
+        bottomNavigation.setTranslucentNavigationEnabled(true);
+
+        // Manage titles
+        //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        //bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
+
+        // Use colored navigation with circle reveal effect
+        //bottomNavigation.setColored(true);
+
+
+        // Enable / disable item & set disable color
+        //bottomNavigation.enableItemAtPosition(2);
+        //bottomNavigation.disableItemAtPosition(2);
+        //bottomNavigation.setItemDisableColor(Color.parseColor("#3A000000"));
+
+        // Set listeners
+        bottomNavigation.setOnTabSelectedListener((position, wasSelected) -> {
+            // Do something cool here...
+            doOnTabSelected(position);
+            return true;
+        });
+        bottomNavigation.setOnNavigationPositionListener(y -> {
+            // Manage the new y position
+        });
+    }
+
+    private void doOnTabSelected(@IntRange(from = 0, to = 3) int position) {
+        switch (position) {
+            case 0:
+                if (consultFragment == null) {
+                    consultFragment = new ConsultFragment();
+                }
+                mCurrentFragment = FragmentUtils.switchContent(fragmentManager, mCurrentFragment, consultFragment, R.id.fr_content, position, false);
+                break;
+            case 1:
+                if (customerFragment == null) {
+                    customerFragment = new CustomerFragment();
+                }
+                mCurrentFragment = FragmentUtils.switchContent(fragmentManager,mCurrentFragment,customerFragment, R.id.fr_content, position,false);
+                break;
+            default:
+        }
+        selectIndex = position;
     }
 
     @NonNull
