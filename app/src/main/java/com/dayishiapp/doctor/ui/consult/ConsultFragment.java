@@ -1,19 +1,16 @@
 package com.dayishiapp.doctor.ui.consult;
 
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import com.dayishiapp.doctor.R;
 import com.dayishiapp.doctor.ui.MvpFragment;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 
@@ -27,54 +24,22 @@ public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> i
     @BindView(R.id.contentViewPager)
     ViewPager mContentViewPager;
 
-    private Map<ContentPage, View> mPageMap = new HashMap<>();
-    private ContentPage mDestPage = ContentPage.Item1;
+    ContentPagerAdapter contentPagerAdapter;
+    List<Fragment> fragmentList;
 
-    private PagerAdapter mPagerAdapter = new PagerAdapter() {
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
+    private class ContentPagerAdapter extends FragmentPagerAdapter {
+
+        public ContentPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
-
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
         @Override
         public int getCount() {
-            return ContentPage.SIZE;
+            return fragmentList.size();
         }
-
-        @Override
-        public Object instantiateItem(final ViewGroup container, int position) {
-            ContentPage page = ContentPage.getPage(position);
-            View view = getPageView(page);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            container.addView(view, params);
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-    };
-
-    private View getPageView(ContentPage page) {
-        View view = mPageMap.get(page);
-        if (view == null) {
-            TextView textView = new TextView(getContext());
-            textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            textView.setTextColor(ContextCompat.getColor(getContext(), R.color.app_color_description));
-
-            if (page == ContentPage.Item1) {
-                textView.setText("电话");
-            } else if (page == ContentPage.Item2) {
-                textView.setText("门诊");
-            }
-
-            view = textView;
-            mPageMap.put(page, view);
-        }
-        return view;
     }
 
     @Override
@@ -84,8 +49,14 @@ public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> i
     }
 
     private void initTabAndPager() {
-        mContentViewPager.setAdapter(mPagerAdapter);
-        mContentViewPager.setCurrentItem(mDestPage.getPosition(), false);
+        fragmentList = new ArrayList<>();
+
+        fragmentList.add(new PhoneFragment());
+        fragmentList.add(new DoorFragment());
+
+        contentPagerAdapter = new ContentPagerAdapter(getFragmentManager());
+        mContentViewPager.setAdapter(contentPagerAdapter);
+        mContentViewPager.setCurrentItem(0, false);
         mTabSegment.setHasIndicator(true);
         mTabSegment.setIndicatorPosition(false);
         mTabSegment.setIndicatorWidthAdjustContent(true);
@@ -150,31 +121,5 @@ public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> i
     public ConsultPresenter createPresenter() {
         getActivityComponent().inject(this);
         return consultPresenter;
-    }
-
-    public enum ContentPage {
-        Item1(0),
-        Item2(1);
-        public static final int SIZE = 2;
-        private final int position;
-
-        ContentPage(int pos) {
-            position = pos;
-        }
-
-        public static ContentPage getPage(int position) {
-            switch (position) {
-                case 0:
-                    return Item1;
-                case 1:
-                    return Item2;
-                default:
-                    return Item1;
-            }
-        }
-
-        public int getPosition() {
-            return position;
-        }
     }
 }

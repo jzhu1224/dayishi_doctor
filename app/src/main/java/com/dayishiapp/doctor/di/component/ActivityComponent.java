@@ -3,6 +3,8 @@ package com.dayishiapp.doctor.di.component;
 import com.dayishiapp.doctor.di.PerActivity;
 import com.dayishiapp.doctor.di.module.ActivityModule;
 import com.dayishiapp.doctor.ui.consult.ConsultFragment;
+import com.dayishiapp.doctor.ui.consult.DoorFragment;
+import com.dayishiapp.doctor.ui.consult.PhoneFragment;
 import com.dayishiapp.doctor.ui.customer.CustomerFragment;
 import com.dayishiapp.doctor.ui.login.LoginActivity;
 import com.dayishiapp.doctor.ui.main.MainActivity;
@@ -21,4 +23,6 @@ public interface ActivityComponent {
     void inject(CustomerFragment consultFragment);
     void inject(MineFragment mineFragment);
     void inject(LoginActivity loginActivity);
+    void inject(PhoneFragment phoneFragment);
+    void inject(DoorFragment doorFragment);
 }
