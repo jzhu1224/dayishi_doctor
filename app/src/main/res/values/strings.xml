@@ -11,4 +11,6 @@
     <string name="person_center">个人中心</string>
     <string name="customer">患者</string>
     <string name="message">消息</string>
+    <string name="tabSegment_item_1_title">电话</string>
+    <string name="tabSegment_item_2_title">门诊</string>
 </resources>
