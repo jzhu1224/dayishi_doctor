@@ -29,7 +29,7 @@ public class FragmentUtils {
         if (fragmentManager == null) {
             return null;
         }
-        FragmentTransaction transaction = fragmentManager.beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();//.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         //如果当前为空，则直接加入
         if (currentFragment == null) {
             transaction.add(viewId, toShowFragment, FragmentUtils.makeFragmentName(viewId, itemId)).commit();

@@ -8,5 +8,7 @@
     <string name="tab3">消息</string>
     <string name="tab4">我的</string>
     <string name="consult">咨询</string>
+    <string name="person_center">个人中心</string>
     <string name="customer">患者</string>
+    <string name="message">消息</string>
 </resources>

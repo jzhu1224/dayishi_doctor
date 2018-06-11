@@ -4,7 +4,9 @@ import com.dayishiapp.doctor.di.PerActivity;
 import com.dayishiapp.doctor.di.module.ActivityModule;
 import com.dayishiapp.doctor.ui.consult.ConsultFragment;
 import com.dayishiapp.doctor.ui.customer.CustomerFragment;
+import com.dayishiapp.doctor.ui.login.LoginActivity;
 import com.dayishiapp.doctor.ui.main.MainActivity;
+import com.dayishiapp.doctor.ui.mine.MineFragment;
 
 import dagger.Component;
 
@@ -17,4 +19,6 @@ public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(ConsultFragment consultFragment);
     void inject(CustomerFragment consultFragment);
+    void inject(MineFragment mineFragment);
+    void inject(LoginActivity loginActivity);
 }

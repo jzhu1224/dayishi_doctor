@@ -51,7 +51,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     @Nullable
-    QMUITopBar toolbar;
+    protected QMUITopBar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

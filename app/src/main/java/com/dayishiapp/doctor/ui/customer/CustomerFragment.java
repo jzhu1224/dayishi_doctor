@@ -1,18 +1,12 @@
 package com.dayishiapp.doctor.ui.customer;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
-
 import com.dayishiapp.doctor.R;
 import com.dayishiapp.doctor.ui.MvpFragment;
-import com.dayishiapp.doctor.ui.TestActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
-
 import javax.inject.Inject;
-
 import butterknife.OnClick;
 
 public class CustomerFragment extends MvpFragment<CustomerView,CustomerPresenter> implements CustomerView {

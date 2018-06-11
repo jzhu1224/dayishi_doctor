@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.MenuItem;
-import android.widget.TextView;
-
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.dayishiapp.doctor.R;
 import com.dayishiapp.doctor.ui.MvpActivity;
 import com.dayishiapp.doctor.ui.consult.ConsultFragment;
 import com.dayishiapp.doctor.ui.customer.CustomerFragment;
+import com.dayishiapp.doctor.ui.mine.MineFragment;
 import com.dayishiapp.doctor.utils.FragmentUtils;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import javax.inject.Inject;
 
@@ -35,7 +31,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     MainPresenter mainPresenter;
 
     private int selectIndex;
-    private Fragment mCurrentFragment,consultFragment,customerFragment;
+    private Fragment mCurrentFragment,consultFragment,customerFragment,mineFragment;
     FragmentManager fragmentManager;
 
     @Override
@@ -51,6 +47,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             selectIndex = savedInstanceState.getInt(KEY_SELECT_INDEX,0);
             consultFragment = findFragmentByPosition(0);
             customerFragment = findFragmentByPosition(1);
+            mineFragment = findFragmentByPosition(3);
         }
 
         setCurrentSelectedTab(selectIndex);
@@ -80,10 +77,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     private void initBottomNavigation() {
         // Create items
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_home_black_24dp, R.color.color_white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_dashboard_black_24dp, R.color.color_white);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab3, R.drawable.ic_notifications_black_24dp, R.color.color_white);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab4, R.drawable.notification_background, R.color.color_white);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab1, R.drawable.ic_consult_normal, R.color.color_white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab2, R.drawable.ic_customers_normal, R.color.color_white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab3, R.drawable.ic_message_normal, R.color.color_white);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab4, R.drawable.ic_mine_normal_, R.color.color_white);
 
         // Add items
         bottomNavigation.addItem(item1);
@@ -101,8 +98,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         //bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
 
         // Change colors
-        bottomNavigation.setAccentColor(getResources().getColor(R.color.colorAccent));
-        //bottomNavigation.setInactiveColor(Color.parseColor("#747474"));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.color_6196FF));
+        bottomNavigation.setInactiveColor(getResources().getColor(R.color.color_ADB5C1));
 
         // Force to tint the drawable (useful for font with icon for example)
         bottomNavigation.setForceTint(true);
@@ -151,6 +148,12 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                     customerFragment = new CustomerFragment();
                 }
                 mCurrentFragment = FragmentUtils.switchContent(fragmentManager,mCurrentFragment,customerFragment, R.id.fr_content, position,false);
+                break;
+            case 3:
+                if (mineFragment == null) {
+                    mineFragment = new MineFragment();
+                }
+                mCurrentFragment = FragmentUtils.switchContent(fragmentManager,mCurrentFragment,mineFragment, R.id.fr_content, position,false);
                 break;
             default:
         }
