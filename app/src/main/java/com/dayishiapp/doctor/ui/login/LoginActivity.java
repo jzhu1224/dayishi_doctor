@@ -68,7 +68,7 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (TextUtils.isEmpty(editable.toString())) {
+                if (TextUtils.isEmpty(editable.toString().trim())) {
                     btnNextStep.setEnabled(false);
                     imgClose.setVisibility(View.GONE);
                 } else {
