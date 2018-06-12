@@ -43,10 +43,17 @@
     <color name="colorHelper_square_from_ratio_background">@color/app_color_blue</color>
     <color name="colorHelper_square_to_ratio_background">@color/app_color_theme_3</color>
 
+    <color name="code_text_color">#212121</color>
+
     <color name="color_6196FF">#6196FF</color>
     <color name="color_ADB5C1">#ADB5C1</color>
     <color name="color_B7CEFF">#B7CEFF</color>
     <color name="color_E6E6E6">#E6E6E6</color>
     <color name="color_0A1D3D">#0A1D3D</color>
+    <color name="color_BDBDBD">#BDBDBD</color>
+    <color name="color_757575">#757575</color>
+    <color name="color_fff">#FFFFFF</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_3a9cff">#3a9cff</color>
 
 </resources>

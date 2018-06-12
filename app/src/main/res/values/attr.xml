@@ -3,4 +3,13 @@
     <attr name="app_primary_color" format="color"/> <!-- topbar -->
     <attr name="app_content_bg_color" format="color"/> <!-- content-->
     <attr name="cardCornerRadius" format="dimension"/> <!-- content-->
+    <declare-styleable name="CodeItemView">
+        <attr name="length" format="integer"/>
+        <attr name="width" format="dimension"/>
+        <attr name="divideWidth" format="dimension"/>
+        <attr name="height" format="dimension"/>
+        <attr name="textsize" format="integer"/>
+        <attr name="textcolor" format="color"/>
+        <attr name="textbg" format="reference|color"/>
+    </declare-styleable>
 </resources>
