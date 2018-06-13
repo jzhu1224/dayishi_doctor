@@ -45,6 +45,7 @@ public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> i
     @Override
     protected void initViews(View view) {
         toolbar.setTitle(R.string.consult);
+        toolbar.setBackgroundDividerEnabled(false);
         initTabAndPager();
     }
 

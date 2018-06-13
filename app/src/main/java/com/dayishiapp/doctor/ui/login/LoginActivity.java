@@ -1,5 +1,6 @@
 package com.dayishiapp.doctor.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -81,6 +82,9 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> {
     @OnClick(R.id.btn_next_step)
     void onNextBtnClicked() {
         Toast.makeText(LoginActivity.this,"click",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this,LoginSmsActivity.class);
+        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString());
+        startActivity(intent);
     }
 
     @OnClick(R.id.img_close)

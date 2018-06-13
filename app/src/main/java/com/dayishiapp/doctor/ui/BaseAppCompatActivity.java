@@ -11,8 +11,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.dayishiapp.doctor.MyApplication;
 import com.dayishiapp.doctor.R;
@@ -78,8 +80,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(int layoutResID) {
+        initStatusBar(getResources().getColor(android.R.color.black));
         super.setContentView(layoutResID);
-        initStatusBar(getResources().getColor(R.color.color_white));
     }
 
     protected void initStatusBar(int color) {
@@ -94,6 +96,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             Window window = getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            QMUIStatusBarHelper.setStatusBarLightMode(this);
             return;
         }
 
@@ -101,11 +104,25 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(color);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && QMUIStatusBarHelper.supportTransclentStatusBar6()) {
+                // android 6以后可以改状态栏字体颜色，因此可以自行设置为透明
+                // ZUK Z1是个另类，自家应用可以实现字体颜色变色，但没开放接口
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(Color.TRANSPARENT);
+            } else {
+                // android 5不能修改状态栏字体颜色，因此直接用FLAG_TRANSLUCENT_STATUS，nexus表现为半透明
+                // 魅族和小米的表现如何？
+                // update: 部分手机运用FLAG_TRANSLUCENT_STATUS时背景不是半透明而是没有背景了。。。。。
+//                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+                // 采取setStatusBarColor的方式，部分机型不支持，那就纯黑了，保证状态栏图标可见
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(color);
+            }
+            QMUIStatusBarHelper.setStatusBarLightMode(this);
         }
-        QMUIStatusBarHelper.setStatusBarLightMode(this);
     }
 
     /**

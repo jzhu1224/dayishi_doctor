@@ -14,6 +14,8 @@ import com.dayishiapp.doctor.widget.CodeInputView;
 import com.dayishiapp.doctor.widget.CountdownView;
 import com.dayishiapp.doctor.widget.CountdownView1;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
 /**
@@ -30,6 +32,9 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     public CountdownView1 requestSmsBtn;
 
     private String mobile;
+
+    @Inject
+    LoginPresenter loginPresenter;
 
     @Override
     public void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -102,6 +107,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @NonNull
     @Override
     public LoginPresenter createPresenter() {
-        return null;
+        getActivityComponent().inject(this);
+        return loginPresenter;
     }
 }

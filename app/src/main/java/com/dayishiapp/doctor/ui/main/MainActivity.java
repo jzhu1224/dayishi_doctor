@@ -15,6 +15,7 @@ import com.dayishiapp.doctor.ui.consult.ConsultFragment;
 import com.dayishiapp.doctor.ui.customer.CustomerFragment;
 import com.dayishiapp.doctor.ui.mine.MineFragment;
 import com.dayishiapp.doctor.utils.FragmentUtils;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import javax.inject.Inject;
 

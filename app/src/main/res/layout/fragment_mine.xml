@@ -8,12 +8,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/toolbar"
+        <com.dayishiapp.doctor.widget.MyToolbar
+            android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
-            android:layout_below="@id/toolbar"
+            android:layout_below="@id/my_toolbar"
             android:id="@+id/rl_mine_info"
             android:background="@drawable/bg_mine_info"
             android:layout_marginTop="12dp"
