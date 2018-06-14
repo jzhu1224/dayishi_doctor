@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <com.dayishiapp.doctor.widget.MyToolbar
+    <com.jkdys.doctor.widget.MyToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <com.qmuiteam.qmui.widget.QMUITabSegment

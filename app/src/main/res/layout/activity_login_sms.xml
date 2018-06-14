@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.dayishiapp.doctor.widget.MyToolbar
+    <com.jkdys.doctor.widget.MyToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -21,7 +21,7 @@
         android:textSize="18sp"
         tools:text="验证码已发送至 186 8999 1432" />
 
-    <com.dayishiapp.doctor.widget.CountdownView1
+    <com.jkdys.doctor.widget.CountdownView1
         android:id="@+id/requestSmsBtn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -32,7 +32,7 @@
         android:textSize="14sp"
         tools:text="重新获取" />
 
-    <com.dayishiapp.doctor.widget.CodeInputView
+    <com.jkdys.doctor.widget.CodeInputView
         android:id="@+id/codeInputView"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

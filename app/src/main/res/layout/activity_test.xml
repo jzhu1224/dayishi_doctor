@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_color_theme_2"
     android:fitsSystemWindows="true"
-    tools:context="com.dayishiapp.doctor.ui.main.MainActivity">
+    tools:context="com.jkdys.doctor.ui.main.MainActivity">
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

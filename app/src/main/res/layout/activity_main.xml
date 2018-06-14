@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dayishiapp.doctor.ui.main.MainActivity">
+    tools:context="com.jkdys.doctor.ui.main.MainActivity">
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
         android:layout_alignParentBottom="true"
         android:id="@+id/bottom_navigation"

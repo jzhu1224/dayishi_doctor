@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.dayishiapp.doctor.widget.MyToolbar
+        <com.jkdys.doctor.widget.MyToolbar
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
