@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -81,7 +82,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     protected abstract int getLayout();
@@ -168,7 +168,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -176,33 +175,29 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(NetworkRequestEvent event) {
-        switch (event.type) {
-            case NetworkRequestEvent.TOAST:
-                ToastUtil.show(mActivity,event.msg);
-                break;
-            case NetworkRequestEvent.DIALOG:
+    Dialog dialog;
 
-                QMUIDialog.MessageDialogBuilder builder = new QMUIDialog.MessageDialogBuilder(mActivity);
-                builder.setTitle("提示")
-                .setMessage(event.msg)
-                        .addAction("确定", (dialog, index) -> dialog.dismiss())
-                        .show();
-                break;
-            case NetworkRequestEvent.HIDING_LOADING:
-                if (dialog != null) {
-                    if (dialog.isShowing())
-                        dialog.dismiss();
-                    dialog = null;
-                }
-                break;
-            default:
-                break;
+    public void showError(String msg) {
+        QMUIDialog.MessageDialogBuilder builder = new QMUIDialog.MessageDialogBuilder(mActivity);
+        builder.setTitle("提示")
+                .setMessage(msg)
+                .addAction("确定", (dialog, index) -> dialog.dismiss())
+                .show();
+    }
+
+    public void showMessage(String msg) {
+        ToastUtil.show(mActivity,msg);
+    }
+
+    public void showContent() {
+        if (dialog != null) {
+            if (dialog.isShowing())
+                dialog.dismiss();
+            dialog = null;
         }
     }
 
-    Dialog dialog;
+
 
     public void showLoading(boolean pullToRefresh) {
         if (!pullToRefresh) {

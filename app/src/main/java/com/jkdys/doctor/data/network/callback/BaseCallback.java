@@ -1,41 +1,49 @@
 package com.jkdys.doctor.data.network.callback;
 
 import com.jkdys.doctor.data.model.BaseResponse;
-import com.jkdys.doctor.event.NetworkRequestEvent;
-import org.greenrobot.eventbus.EventBus;
+import com.jkdys.doctor.ui.BaseView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public abstract class BaseCallback<T extends BaseResponse> implements Callback<T> {
 
+    private BaseView view;
+
+    public BaseCallback(BaseView view) {
+        this.view = view;
+    }
+
+    private boolean isViewAttached() {
+        return view != null;
+    }
+
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
 
         BaseResponse baseResponse = response.body();
 
-        if (baseResponse == null)
+        view.showContent();
+
+        if (!isViewAttached() || baseResponse == null)
             return;
 
         if (baseResponse.getCode() == 0) {
             onBusinessSuccess(response.body());
         } else if (baseResponse.isShowdialog()) {
-            postEvent(NetworkRequestEvent.DIALOG,baseResponse.getMsg());
+            view.showError(baseResponse.getMsg());
         } else if (baseResponse.isShowmessage()) {
-            postEvent(NetworkRequestEvent.TOAST,baseResponse.getMsg());
+            view.showMessage(baseResponse.getMsg());
         }
-        postEvent(NetworkRequestEvent.HIDING_LOADING,"");
     }
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-        postEvent(NetworkRequestEvent.HIDING_LOADING,"");
-        postEvent(NetworkRequestEvent.TOAST,"network error:"+t.getMessage());
+        if (!isViewAttached())
+            return;
+        view.showContent();
+        view.showMessage(t.getMessage());
     }
 
     public abstract void onBusinessSuccess(T response);
-
-    private void postEvent(@NetworkRequestEvent.Type int type, String msg) {
-        EventBus.getDefault().post(new NetworkRequestEvent(type,msg));
-    }
 }

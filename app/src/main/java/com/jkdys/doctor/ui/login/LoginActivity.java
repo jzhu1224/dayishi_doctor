@@ -89,19 +89,4 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     void onCloseClicked() {
         edtPhone.setText("");
     }
-
-    @Override
-    public void showContent() {
-
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void showError(String message) {
-
-    }
 }

@@ -21,7 +21,7 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
         ifViewAttached(view -> view.showLoading(false));
         HashMap<String,Object> map = new HashMap<>();
         map.put("mobile",mobilePhone);
-        daYiShiServiceApi.login(map).enqueue(new BaseCallback<BaseResponse<UserInfoModel>>() {
+        daYiShiServiceApi.login(map).enqueue(new BaseCallback<BaseResponse<UserInfoModel>>(getView()) {
             @Override
             public void onBusinessSuccess(BaseResponse<UserInfoModel> response) {
 
