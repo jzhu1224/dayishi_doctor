@@ -117,7 +117,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         String appversion = BuildConfig.VERSION_NAME;
 
         String packageId = BuildConfig.APPLICATION_ID;
-        String platform = "Android";
+        String platform = "android";
 
         long timestamp = System.currentTimeMillis();
 
@@ -128,7 +128,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         signature = MD5Util.getMD5String(signature).toUpperCase();
 
 
-        //requestBuilder.header("token", "max-age=0");
+        requestBuilder.header("token", "");
         requestBuilder.header("appversion", appversion);
         requestBuilder.header("platform", platform);
         requestBuilder.header("timestamp", timestamp+"");

@@ -29,6 +29,7 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
+        postEvent(NetworkRequestEvent.HIDING_LOADING,"");
         postEvent(NetworkRequestEvent.TOAST,"network error:"+t.getMessage());
     }
 

@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,6 +76,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         setContentView(getLayout());
         ButterKnife.bind(this);
         afterBindView(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         EventBus.getDefault().register(this);
     }
 
@@ -159,9 +166,14 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -179,14 +191,35 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                         .show();
                 break;
             case NetworkRequestEvent.HIDING_LOADING:
-
+                if (dialog != null) {
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                    dialog = null;
+                }
                 break;
             default:
                 break;
         }
     }
 
+    Dialog dialog;
 
+    public void showLoading(boolean pullToRefresh) {
+        if (!pullToRefresh) {
+
+            if (dialog != null) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                dialog = null;
+            }
+
+            dialog =  new QMUITipDialog.Builder(mActivity)
+                    .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                    .setTipWord("正在加载")
+                    .create();
+            dialog.show();
+        }
+    }
 
     //    protected void initToolBar(Toolbar toolbar) {
 //        if (toolbar == null) {

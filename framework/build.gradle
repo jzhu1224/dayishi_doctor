@@ -30,7 +30,7 @@ dependencies {
     implementation "com.android.support:design:${SUPPORT_VERSION}"
     implementation 'com.android.support:multidex:1.0.2'
 
-    //compileOnly project(':easeui')
+    compileOnly project(':easeui')
     compileOnly "com.alibaba:fastjson:${FAST_JSON_VERSION}"
     compileOnly "org.greenrobot:eventbus:${EVENT_BUS_VERSION}"
     compileOnly "com.tencent.bugly:crashreport:${BUGLY_VERSION}"

@@ -1,6 +1,5 @@
 package com.jkdys.doctor.ui.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,18 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.utils.AddSpaceTextWatcher;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> {
+public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implements LoginView{
 
     @Inject
     LoginPresenter loginPresenter;
@@ -81,14 +76,32 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> {
     }
     @OnClick(R.id.btn_next_step)
     void onNextBtnClicked() {
-        Toast.makeText(LoginActivity.this,"click",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this,LoginSmsActivity.class);
-        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString());
-        startActivity(intent);
+
+        loginPresenter.login(edtPhone.getText().toString());
+
+//        Toast.makeText(LoginActivity.this,"click",Toast.LENGTH_LONG).show();
+//        Intent intent = new Intent(this,LoginSmsActivity.class);
+//        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString());
+//        startActivity(intent);
     }
 
     @OnClick(R.id.img_close)
     void onCloseClicked() {
         edtPhone.setText("");
+    }
+
+    @Override
+    public void showContent() {
+
+    }
+
+    @Override
+    public void showMessage(String msg) {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
     }
 }
