@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.utils.AddSpaceTextWatcher;
+import com.jkdys.doctor.utils.ManyiUtils;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,8 +73,12 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
                     btnNextStep.setEnabled(true);
                     imgClose.setVisibility(View.VISIBLE);
                 }
+                if (editable.toString().length() == 13) {
+                    ManyiUtils.closeKeyBoard(mActivity, edtPhone);
+                }
             }
         });
+        ManyiUtils.showKeyBoard(mActivity,edtPhone);
     }
     @OnClick(R.id.btn_next_step)
     void onNextBtnClicked() {
