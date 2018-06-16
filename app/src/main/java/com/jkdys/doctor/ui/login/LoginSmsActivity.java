@@ -39,6 +39,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @Override
     public void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
+        toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
         mobile = getIntent().getStringExtra(PARAM_MOBILE);
         if(TextUtils.isEmpty(mobile)) {
             finish();
@@ -50,6 +51,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
         codeInputView.setListener(new CodeInputView.CodeInputListener() {
             @Override
             public void finish() {
+                codeInputView.hideSoftInput();
                 //mPresenter.login(mobile,codeInputView.getText());
             }
 
@@ -59,6 +61,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
             }
         });
         codeInputView.setInputStyle(InputType.TYPE_CLASS_NUMBER);
+        codeInputView.showSoftInput();
 
         requestSmsBtn.setCountDownListener(new CountdownView.CountDownListener() {
             @Override

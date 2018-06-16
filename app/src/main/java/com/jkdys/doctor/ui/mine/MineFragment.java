@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
+import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import javax.inject.Inject;
@@ -46,7 +47,8 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
 
         QMUIGroupListView.newSection(getContext())
                 .addItemView(itemAccount, view1 -> {
-
+                    Intent intent = new Intent(getActivity(), MyAccountActivity.class);
+                    startActivity(intent);
                 })
                 .addItemView(itemOrder, view1 -> {
 

@@ -21,17 +21,6 @@
         android:textSize="18sp"
         tools:text="验证码已发送至 186 8999 1432" />
 
-    <com.jkdys.doctor.widget.CountdownView1
-        android:id="@+id/requestSmsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginLeft="40dp"
-        android:background="@color/color_transparent"
-        android:padding="0dp"
-        android:textColor="@color/color_3a9cff"
-        android:textSize="14sp"
-        tools:text="重新获取" />
-
     <com.jkdys.doctor.widget.CodeInputView
         android:id="@+id/codeInputView"
         android:layout_gravity="center_horizontal"
@@ -40,10 +29,21 @@
         android:layout_marginTop="32dp"
         code:length="4"
         code:divideWidth="11dp"
-        code:width="40dp"
+        code:width="48dp"
         code:height="48dp"
         code:textsize="22"
-        code:textcolor="#212121"
-        code:textbg="@drawable/bg_bdbdbd_212121_edittext"/>
+        code:textcolor="#212121"/>
+
+
+    <com.jkdys.doctor.widget.CountdownView1
+        android:id="@+id/requestSmsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:background="@color/color_transparent"
+        android:padding="0dp"
+        android:textColor="@color/color_3a9cff"
+        android:textSize="14sp"
+        tools:text="重新获取" />
 
 </LinearLayout>

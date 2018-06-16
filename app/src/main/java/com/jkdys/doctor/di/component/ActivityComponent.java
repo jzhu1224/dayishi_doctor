@@ -10,6 +10,7 @@ import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.login.LoginSmsActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
+import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 
 import dagger.Component;
 
@@ -27,4 +28,5 @@ public interface ActivityComponent {
     void inject(PhoneFragment phoneFragment);
     void inject(DoorFragment doorFragment);
     void inject(LoginSmsActivity loginSmsActivity);
+    void inject(MyAccountActivity myAccountActivity);
 }

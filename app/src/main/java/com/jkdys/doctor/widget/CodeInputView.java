@@ -81,7 +81,7 @@ public class CodeInputView extends LinearLayout {
             InputFilter[] filters = {new InputFilter.LengthFilter(1)};
             editText.setFilters(filters);
             editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-            editText.setCursorVisible(false);
+            editText.setCursorVisible(true);
             editText.setGravity(Gravity.CENTER);
             editText.setTextSize(textSize);
 

@@ -23,6 +23,8 @@ public class MyToolbar extends FrameLayout {
     public MyToolbar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.layout_my_toolbar,this);
+
+
         setBackgroundColor(getResources().getColor(R.color.color_white));
         if (Build.VERSION.SDK_INT >= 14) {
             setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(context),0,0);
