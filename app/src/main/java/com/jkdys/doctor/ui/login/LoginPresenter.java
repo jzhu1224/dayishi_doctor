@@ -1,7 +1,6 @@
 package com.jkdys.doctor.ui.login;
 
 import com.jkdys.doctor.data.model.BaseResponse;
-import com.jkdys.doctor.data.model.UserInfoModel;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
@@ -10,7 +9,7 @@ import javax.inject.Inject;
 
 public class LoginPresenter extends MvpBasePresenter<LoginView> {
 
-    DaYiShiServiceApi daYiShiServiceApi;
+    private DaYiShiServiceApi daYiShiServiceApi;
 
     @Inject
     public LoginPresenter(DaYiShiServiceApi daYiShiServiceApi) {
@@ -20,11 +19,11 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
     public void login(String mobilePhone) {
         ifViewAttached(view -> view.showLoading(false));
         HashMap<String,Object> map = new HashMap<>();
-        map.put("mobile",mobilePhone);
-        daYiShiServiceApi.login(map).enqueue(new BaseCallback<BaseResponse<UserInfoModel>>(getView()) {
+        map.put("cellphone",mobilePhone);
+        daYiShiServiceApi.sentVerificationCode(map).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
             @Override
-            public void onBusinessSuccess(BaseResponse<UserInfoModel> response) {
-
+            public void onBusinessSuccess(BaseResponse<Object> response) {
+                ifViewAttached(LoginView::sendVerifyCodeSuccess);
             }
         });
     }

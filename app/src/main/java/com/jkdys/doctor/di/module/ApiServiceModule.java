@@ -12,8 +12,6 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.orhanobut.logger.Logger;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -56,6 +54,7 @@ public class ApiServiceModule {
             }
         });
         logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         return logging;
     }
 
@@ -76,7 +75,7 @@ public class ApiServiceModule {
     Retrofit providesRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(Api.KAIYAN_DOMAIN)
+                .baseUrl(Api.DOCTOR_DOMAIN)
                 //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 //.addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

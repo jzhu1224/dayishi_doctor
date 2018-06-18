@@ -113,4 +113,9 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
         getActivityComponent().inject(this);
         return loginPresenter;
     }
+
+    @Override
+    public void sendVerifyCodeSuccess() {
+
+    }
 }

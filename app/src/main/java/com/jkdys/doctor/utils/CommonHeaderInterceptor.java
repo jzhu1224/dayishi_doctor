@@ -129,6 +129,7 @@ public class CommonHeaderInterceptor implements Interceptor {
 
 
         requestBuilder.header("token", "");
+        requestBuilder.header("packageId", packageId);
         requestBuilder.header("appversion", appversion);
         requestBuilder.header("platform", platform);
         requestBuilder.header("timestamp", timestamp+"");

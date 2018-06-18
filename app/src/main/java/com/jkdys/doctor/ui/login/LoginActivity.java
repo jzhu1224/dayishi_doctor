@@ -84,16 +84,24 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     @OnClick(R.id.btn_next_step)
     void onNextBtnClicked() {
 
-        //loginPresenter.login(edtPhone.getText().toString());
+        loginPresenter.login(edtPhone.getText().toString().replace(" ",""));
 
         //Toast.makeText(LoginActivity.this,"click",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this,LoginSmsActivity.class);
-        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString());
-        startActivity(intent);
+//        Intent intent = new Intent(this,LoginSmsActivity.class);
+//        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString());
+//        startActivity(intent);
     }
 
     @OnClick(R.id.img_close)
     void onCloseClicked() {
         edtPhone.setText("");
+    }
+
+    @Override
+    public void sendVerifyCodeSuccess() {
+        Intent intent = new Intent(this,LoginSmsActivity.class);
+        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString().replace(" ",""));
+        startActivity(intent);
+        finish();
     }
 }

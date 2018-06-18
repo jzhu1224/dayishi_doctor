@@ -15,8 +15,8 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface DaYiShiServiceApi {
-    @POST("/login")
-    Call<BaseResponse<UserInfoModel>> login(@Body HashMap<String,Object> map);
+    @POST("/api/Doctor/Access/SentVerificationCode")
+    Call<BaseResponse<Object>> sentVerificationCode(@Body HashMap<String,Object> map);
 
     /**
      *
