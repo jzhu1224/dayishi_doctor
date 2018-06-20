@@ -1,6 +1,7 @@
 package com.jkdys.doctor.data.network;
 
 import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.data.model.UserInfoModel;
 
 import java.util.HashMap;
@@ -32,4 +33,7 @@ public interface DaYiShiServiceApi {
     @Multipart
     @POST("/")
     Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
+
+    @POST("/api/Doctor/Access/LoginByCode")
+    Call<BaseResponse<LoginResponse>> login(@Body HashMap<String,Object> map);
 }

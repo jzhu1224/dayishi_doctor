@@ -28,7 +28,7 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
         if (!isViewAttached() || baseResponse == null)
             return;
 
-        if (baseResponse.getCode() == 0) {
+        if (baseResponse.getCode() == 1) {
             onBusinessSuccess(response.body());
         } else if (baseResponse.isShowdialog()) {
             view.showError(baseResponse.getMsg());

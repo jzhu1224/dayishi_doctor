@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.chairoad.framework.encrypt.MD5Util;
 import com.jkdys.doctor.BuildConfig;
+import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,8 +63,11 @@ public class CommonHeaderInterceptor implements Interceptor {
      *
      */
 
+    private LoginInfoUtil loginInfoUtil;
+
     @Inject
-    public CommonHeaderInterceptor() {
+    public CommonHeaderInterceptor(LoginInfoUtil loginInfoUtil) {
+        this.loginInfoUtil = loginInfoUtil;
     }
 
     @Override
@@ -128,7 +132,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         signature = MD5Util.getMD5String(signature).toUpperCase();
 
 
-        requestBuilder.header("token", "");
+        requestBuilder.header("token", loginInfoUtil.getToken());
         requestBuilder.header("packageId", packageId);
         requestBuilder.header("appversion", appversion);
         requestBuilder.header("platform", platform);

@@ -7,7 +7,11 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.ToastUtil;
+import com.google.gson.Gson;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.LoginResponse;
+import com.jkdys.doctor.data.sharedpreferences.SharedPreferencesUtils;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.utils.StringUtils;
 import com.jkdys.doctor.widget.CodeInputView;
@@ -36,6 +40,9 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @Inject
     LoginPresenter loginPresenter;
 
+    @Inject
+    Gson gson;
+
     @Override
     public void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
@@ -52,7 +59,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
             @Override
             public void finish() {
                 codeInputView.hideSoftInput();
-                //mPresenter.login(mobile,codeInputView.getText());
+                loginPresenter.loginByVerifyCode(mobile,codeInputView.getText());
             }
 
             @Override
@@ -71,6 +78,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
 
             @Override
             public void start() {
+                loginPresenter.login(mobile);
                 //mPresenter.requestLoginSms(mobile);
             }
 
@@ -87,26 +95,6 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
         return R.layout.activity_login_sms;
     }
 
-    @Override
-    public void showLoading(boolean pullToRefresh) {
-
-    }
-
-    @Override
-    public void showContent() {
-
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void showError(String message) {
-
-    }
-
     @NonNull
     @Override
     public LoginPresenter createPresenter() {
@@ -117,5 +105,11 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @Override
     public void sendVerifyCodeSuccess() {
 
+    }
+
+    @Override
+    public void loginSuccess(LoginResponse response) {
+
+        ToastUtil.show(mActivity,"登录成功");
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.utils.AddSpaceTextWatcher;
 import com.jkdys.doctor.utils.ManyiUtils;
@@ -83,13 +84,7 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
     }
     @OnClick(R.id.btn_next_step)
     void onNextBtnClicked() {
-
         loginPresenter.login(edtPhone.getText().toString().replace(" ",""));
-
-        //Toast.makeText(LoginActivity.this,"click",Toast.LENGTH_LONG).show();
-//        Intent intent = new Intent(this,LoginSmsActivity.class);
-//        intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString());
-//        startActivity(intent);
     }
 
     @OnClick(R.id.img_close)
@@ -103,5 +98,10 @@ public class LoginActivity extends MvpActivity<LoginView, LoginPresenter> implem
         intent.putExtra(LoginSmsActivity.PARAM_MOBILE,edtPhone.getText().toString().replace(" ",""));
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void loginSuccess(LoginResponse response) {
+
     }
 }
