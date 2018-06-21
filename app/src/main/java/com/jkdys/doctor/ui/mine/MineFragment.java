@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
@@ -29,13 +30,15 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
     @BindView(R.id.tv_info)
     TextView tvInfo;
 
+    @Inject
+    LoginInfoUtil loginInfoUtil;
 
     @Override
     protected void initViews(View view) {
         toolbar.setTitle(R.string.person_center);
 
         profileImg.setImageResource(R.drawable.test_image);
-        tvName.setText("沈月");
+        tvName.setText("未实名认证");
         tvInfo.setText("上海第九人民医院 \n儿科 主治医师");
 
         QMUICommonListItemView itemAccount = createItemView(R.drawable.ic_account,"我的账户");
@@ -43,7 +46,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         QMUICommonListItemView itemFee = createItemView(R.drawable.ic_fee,"就诊费用");
         QMUICommonListItemView itemSetting = createItemView(R.drawable.ic_setting,"设置");
         QMUICommonListItemView itemCustomerService = createItemView(R.drawable.ic_customer_service,"联系客服");
-        QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"邀请码","yaoqingma",QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"邀请码",loginInfoUtil.getToken(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
 
         QMUIGroupListView.newSection(getContext())
                 .addItemView(itemAccount, view1 -> {

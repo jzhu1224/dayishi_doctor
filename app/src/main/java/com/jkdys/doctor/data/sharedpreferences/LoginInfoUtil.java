@@ -32,6 +32,21 @@ public class LoginInfoUtil {
         return gson.fromJson(sLoginResponse,LoginResponse.class);
     }
 
+    public int getRedirecttopage() {
+        if (getLoginResponse() == null)
+            return -1;
+        return getLoginResponse().getDoctorauthstatus().getRedirecttopage();
+    }
+
+    public void updateRedirecttopage(int page) {
+        LoginResponse loginResponse = getLoginResponse();
+        if (loginResponse != null) {
+            loginResponse.getDoctorauthstatus().setRedirecttopage(page);
+            saveLoginResponse(loginResponse);
+        }
+
+    }
+
     public void saveLoginResponse(LoginResponse loginResponse) {
         SharedPreferencesUtils.put(context,"loginResponse",gson.toJson(loginResponse));
     }

@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,12 +8,12 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import com.chairoad.framework.util.ToastUtil;
 import com.google.gson.Gson;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.LoginResponse;
-import com.jkdys.doctor.data.sharedpreferences.SharedPreferencesUtils;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
+import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.StringUtils;
 import com.jkdys.doctor.widget.CodeInputView;
 import com.jkdys.doctor.widget.CountdownView;
@@ -110,6 +111,28 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @Override
     public void loginSuccess(LoginResponse response) {
 
-        ToastUtil.show(mActivity,"登录成功");
+        int redirect = response.getDoctorauthstatus().getRedirecttopage();
+
+        Intent intent = new Intent();
+
+        switch (redirect) {
+            case 0:
+                //首页
+                break;
+            case 1:
+                //实名认证页面
+                intent.setClass(mActivity, IdentityActivity.class);
+                break;
+            case 2:
+                //所属医院页面
+                intent.setClass(mActivity, PersonalInfoActivity.class);
+                break;
+            case 3:
+                //上传医生上岗证和医院工牌页面
+                intent.setClass(mActivity, IdentityActivity.class);
+                break;
+        }
+        startActivity(intent);
+        finish();
     }
 }

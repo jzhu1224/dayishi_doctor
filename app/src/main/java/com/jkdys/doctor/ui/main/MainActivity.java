@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.main;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
@@ -10,12 +11,15 @@ import android.support.v4.app.FragmentManager;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.consult.ConsultFragment;
 import com.jkdys.doctor.ui.customer.CustomerFragment;
+import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
+import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
+import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import javax.inject.Inject;
 
@@ -31,6 +35,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Inject
     MainPresenter mainPresenter;
 
+    @Inject
+    LoginInfoUtil loginInfoUtil;
+
     private int selectIndex;
     private Fragment mCurrentFragment,consultFragment,customerFragment,mineFragment;
     FragmentManager fragmentManager;
@@ -38,6 +45,40 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
+
+        getActivityComponent().inject(this);
+
+        if (loginInfoUtil.getLoginResponse() == null) {
+            //未登录
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
+        int redirect = loginInfoUtil.getRedirecttopage();
+
+        if (redirect > 0) {
+            Intent intent = new Intent();
+
+            switch (redirect) {
+                case 1:
+                    //实名认证页面
+                    intent.setClass(mActivity, IdentityActivity.class);
+                    break;
+                case 2:
+                    //所属医院页面
+                    intent.setClass(mActivity, PersonalInfoActivity.class);
+                    break;
+                case 3:
+                    //上传医生上岗证和医院工牌页面
+                    intent.setClass(mActivity, IdentityActivity.class);
+                    break;
+            }
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         fragmentManager = getSupportFragmentManager();
 
@@ -164,7 +205,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @NonNull
     @Override
     public MainPresenter createPresenter() {
-        getActivityComponent().inject(this);
+        //getActivityComponent().inject(this);
         return mainPresenter;
     }
 

@@ -36,4 +36,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Access/LoginByCode")
     Call<BaseResponse<LoginResponse>> login(@Body HashMap<String,Object> map);
+
+    @POST("/api/Doctor/Access/VerifyUser")
+    Call<BaseResponse<Object>> verifyUser(@Body HashMap<String, Object> map);
 }
