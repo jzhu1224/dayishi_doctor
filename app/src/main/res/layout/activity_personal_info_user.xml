@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
     <com.jkdys.doctor.widget.MyToolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -26,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_height="48dp">
+            android:layout_height="55dp">
             <TextView
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -36,14 +38,22 @@
                 android:textSize="14sp"
                 />
             <TextView
+                tools:text="上海市第九人民医院"
+                android:id="@+id/tv_hospital"
                 android:layout_gravity="right|center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="上海第九人民医院"
                 android:textColor="@color/color_0A1D3D"
                 android:textSize="14sp"
                 android:gravity="right"
+                android:layout_marginRight="18dp"
                 />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:rotation="180"
+                android:src="@drawable/left_back"/>
         </FrameLayout>
         <View
             android:id="@+id/line"
@@ -60,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_height="48dp">
+            android:layout_height="55dp">
             <TextView
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -70,23 +80,110 @@
                 android:textSize="14sp"
                 />
             <TextView
+                tools:text="儿科"
                 android:gravity="right"
-                android:id="@+id/edt_id_number"
+                android:id="@+id/tv_department"
                 android:layout_gravity="center_vertical|right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_0A1D3D"
                 android:textSize="14sp"
+                android:layout_marginRight="18dp"
                 />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:rotation="180"
+                android:src="@drawable/left_back"/>
         </FrameLayout>
         <View
-            android:id="@+id/line1"
+            android:id="@+id/line2"
             android:layout_below="@id/item2"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@color/color_ededf0"/>
+
+        <FrameLayout
+            android:id="@+id/item3"
+            android:layout_below="@id/line2"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="55dp">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择您的职称"
+                android:textColor="@color/color_ADB5C1"
+                android:textSize="14sp"
+                />
+            <TextView
+                tools:text="主治医师"
+                android:gravity="right"
+                android:id="@+id/tv_title"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_0A1D3D"
+                android:textSize="14sp"
+                android:layout_marginRight="18dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:rotation="180"
+                android:src="@drawable/left_back"/>
+        </FrameLayout>
+        <View
+            android:id="@+id/line3"
+            android:layout_below="@id/item3"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/color_ededf0"/>
+
+        <FrameLayout
+            android:id="@+id/item4"
+            android:layout_below="@id/line3"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="55dp">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邀请码（选填）"
+                android:textColor="@color/color_ADB5C1"
+                android:textSize="14sp"
+                />
+            <EditText
+                tools:text="yaoqingma"
+                android:gravity="right"
+                android:id="@+id/edt_invent_code"
+                android:layout_gravity="center_vertical|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_0A1D3D"
+                android:background="@null"
+                android:textSize="14sp"
+                />
+        </FrameLayout>
+
+        <View
+            android:layout_below="@id/item4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/color_ededf0"/>
+
         <Button
             android:id="@+id/btn_next"
             android:layout_alignParentBottom="true"

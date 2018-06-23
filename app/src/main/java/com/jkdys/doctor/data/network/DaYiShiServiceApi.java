@@ -2,9 +2,12 @@ package com.jkdys.doctor.data.network;
 
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.LoginResponse;
+import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.UserInfoModel;
+import com.jkdys.doctor.data.network.callback.BaseCallback;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -39,4 +42,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Access/VerifyUser")
     Call<BaseResponse<Object>> verifyUser(@Body HashMap<String, Object> map);
+
+    @POST("/api/Doctor/Hospital/GetPhysiciansTitleList")
+    Call<BaseResponse<List<Physicianstitle>>> getPhysiciansTitleList();
 }

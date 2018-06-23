@@ -11,6 +11,8 @@ import com.jkdys.doctor.ui.login.LoginSmsActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
+import com.jkdys.doctor.ui.search.SearchDepartmentActivity;
+import com.jkdys.doctor.ui.search.SearchDepartmentPresenter;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 
@@ -33,4 +35,5 @@ public interface ActivityComponent {
     void inject(MyAccountActivity myAccountActivity);
     void inject(IdentityActivity identityActivity);
     void inject(PersonalInfoActivity identityActivity);
+    void inject(SearchDepartmentActivity identityActivity);
 }

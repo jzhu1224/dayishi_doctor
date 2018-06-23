@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.verify.userVerify;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.utils.ManyiUtils;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -66,6 +68,7 @@ public class IdentityActivity extends MvpActivity<IdentityView,IdentityPresenter
     @Override
     public void onIdentitySuccess() {
         loginInfoUtil.updateRedirecttopage(2);
-        ToastUtil.show(mActivity,"实名认证成功");
+        Intent intent = new Intent(mActivity, PersonalInfoActivity.class);
+        startActivity(intent);
     }
 }

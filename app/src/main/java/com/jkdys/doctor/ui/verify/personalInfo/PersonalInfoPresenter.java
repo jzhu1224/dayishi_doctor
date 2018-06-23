@@ -17,19 +17,4 @@ public class PersonalInfoPresenter extends MvpBasePresenter<PersonalInfoView> {
     public PersonalInfoPresenter(DaYiShiServiceApi daYiShiServiceApi) {
         this.daYiShiServiceApi = daYiShiServiceApi;
     }
-
-
-    public void verifyUser(String name, String certificateno) {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("name",name);
-        map.put("certificateno",certificateno);
-        ifViewAttached(view -> view.showLoading(false));
-        daYiShiServiceApi.verifyUser(map).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
-            @Override
-            public void onBusinessSuccess(BaseResponse<Object> response) {
-                ifViewAttached(PersonalInfoView::onIdentitySuccess);
-            }
-        });
-    }
-
 }
