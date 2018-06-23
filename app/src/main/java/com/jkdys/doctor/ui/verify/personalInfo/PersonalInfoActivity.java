@@ -7,11 +7,12 @@ import android.support.annotation.Nullable;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.search.SearchData;
 import com.jkdys.doctor.ui.search.SearchDepartmentActivity;
+import com.jkdys.doctor.ui.search.SearchDepartmentPresenter;
+import com.jkdys.doctor.ui.search.SearchPhysiciansTitleActivity;
 
 import javax.inject.Inject;
 
@@ -61,22 +62,33 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
     @OnClick(R.id.item2)
     void onDepartmentClick() {
         //选择科室
+        Intent intent = new Intent(mActivity, SearchDepartmentActivity.class);
+        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_NAME,"上海市第九人民医院");
+        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_ID,"C88615E8-1BAF-455F-BD67-4085AAD39055");
+        startActivityForResult(intent,1);
     }
 
     @OnClick(R.id.item3)
     void onTitleClick() {
         //选择职称
-        Intent intent = new Intent(mActivity, SearchDepartmentActivity.class);
-        startActivityForResult(intent,1);
+        Intent intent = new Intent(mActivity, SearchPhysiciansTitleActivity.class);
+        startActivityForResult(intent,2);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            SearchData searchData = (SearchData) data.getExtras().get(SearchDepartmentActivity.KEY_RETURN_DATA);
-            tvTitle.setText(searchData.getText());
+
+        if (resultCode == RESULT_OK) {
+            SearchData searchData = (SearchData) data.getExtras().get(SearchPhysiciansTitleActivity.KEY_RETURN_DATA);
+            if (requestCode == 1) {
+                tvDepartment.setText(searchData.getText());
+            } else if (requestCode == 2) {
+                tvTitle.setText(searchData.getText());
+            }
         }
+
+
     }
 
     @OnClick(R.id.btn_next)

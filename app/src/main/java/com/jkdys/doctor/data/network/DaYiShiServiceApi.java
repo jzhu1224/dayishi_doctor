@@ -1,6 +1,8 @@
 package com.jkdys.doctor.data.network;
 
 import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.DepartmentData;
+import com.jkdys.doctor.data.model.HospitalData;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.UserInfoModel;
@@ -45,4 +47,10 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Hospital/GetPhysiciansTitleList")
     Call<BaseResponse<List<Physicianstitle>>> getPhysiciansTitleList();
+
+    @POST("/api/Doctor/Hospital/GetHospitalListByHospitalName")
+    Call<BaseResponse<List<HospitalData>>> getHospitalListByHospitalName(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Hospital/GetFacultyInfoListByHospitalId")
+    Call<BaseResponse<List<DepartmentData>>> getFacultyInfoListByHospitalId(@Body HashMap<String, Object> params);
 }

@@ -27,6 +27,7 @@
         <activity android:name=".ui.myAccount.MyAccountActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.verify.userVerify.IdentityActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.verify.personalInfo.PersonalInfoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.search.SearchPhysiciansTitleActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.search.SearchDepartmentActivity" android:screenOrientation="portrait"/>
     </application>
 
