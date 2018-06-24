@@ -1,1 +1,1 @@
-include ':app',':framework', ':easeui'
+include ':app',':framework', ':easeui', ':zz-secondary-linkage'

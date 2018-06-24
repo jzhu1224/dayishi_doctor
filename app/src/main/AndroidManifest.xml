@@ -29,6 +29,7 @@
         <activity android:name=".ui.verify.personalInfo.PersonalInfoActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.search.SearchPhysiciansTitleActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.search.SearchDepartmentActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.search.selectArea.SelectAreaActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

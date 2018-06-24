@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/act_main_root_layout"
+    android:orientation="vertical">
+    <com.jkdys.doctor.widget.MyToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <me.zhouzhuo.zzsecondarylinkage.ZzSecondaryLinkage
+        android:id="@+id/zz_linkage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </me.zhouzhuo.zzsecondarylinkage.ZzSecondaryLinkage>
+</LinearLayout>

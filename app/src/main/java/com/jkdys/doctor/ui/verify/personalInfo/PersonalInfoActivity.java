@@ -13,6 +13,7 @@ import com.jkdys.doctor.ui.search.SearchData;
 import com.jkdys.doctor.ui.search.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.SearchDepartmentPresenter;
 import com.jkdys.doctor.ui.search.SearchPhysiciansTitleActivity;
+import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
 
 import javax.inject.Inject;
 
@@ -57,6 +58,8 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
     @OnClick(R.id.item1)
     void onHospitalClick() {
         //选择医院
+        Intent intent = new Intent(mActivity, SelectAreaActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.item2)
