@@ -28,11 +28,13 @@ public class ProvinceListAdapter extends LeftMenuBaseListAdapter<ViewHolder, Pro
     public void bindView(ViewHolder leftListViewHolder, View itemView) {
         //ViewUtil.scaleContentView((ViewGroup) itemView.findViewById(R.id.root));
         leftListViewHolder.tvName = (TextView) itemView.findViewById(R.id.tv_menu);
+        leftListViewHolder.imgArrow = itemView.findViewById(R.id.img_arrow);
 
     }
 
     @Override
     public void bindData(ViewHolder leftListViewHolder, int position) {
+        leftListViewHolder.imgArrow.setVisibility(list.get(position).isSelected()?View.VISIBLE:View.INVISIBLE);
         leftListViewHolder.tvName.setText(list.get(position).getName());
     }
 
@@ -43,6 +45,6 @@ public class ProvinceListAdapter extends LeftMenuBaseListAdapter<ViewHolder, Pro
 
     @Override
     public int getIndicatorResId() {
-        return R.drawable.list_select;
+        return R.color.color_white;
     }
 }

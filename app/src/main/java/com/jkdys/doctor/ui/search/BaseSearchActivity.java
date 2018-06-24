@@ -102,6 +102,20 @@ public abstract class BaseSearchActivity<V extends SearchView,P extends BaseSear
     }
 
     @Override
+    public void showContent() {
+        //super.showContent();
+        emptyView.setLoadingShowing(false);
+        emptyView.setDetailText("暂无数据");
+        //listView.setEmptyView(emptyView);
+    }
+
+    @Override
+    public void showLoading(boolean pullToRefresh) {
+        //super.showLoading(pullToRefresh);
+        emptyView.show(true);
+    }
+
+    @Override
     protected int getLayout() {
         return R.layout.activity_base_search;
     }

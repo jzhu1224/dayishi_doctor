@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="48dp">
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/img_arrow"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selected_arrow"/>
 
     <TextView
         android:id="@+id/tv_menu"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_gravity="center_vertical"
         android:textColor="@color/list_item_menu_text_color_selector"
         android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/tv_id"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone" />
 </LinearLayout>
