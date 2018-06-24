@@ -10,9 +10,8 @@ import android.widget.TextView;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.search.SearchData;
-import com.jkdys.doctor.ui.search.SearchDepartmentActivity;
-import com.jkdys.doctor.ui.search.SearchDepartmentPresenter;
-import com.jkdys.doctor.ui.search.SearchPhysiciansTitleActivity;
+import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
+import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
 import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
 
 import javax.inject.Inject;

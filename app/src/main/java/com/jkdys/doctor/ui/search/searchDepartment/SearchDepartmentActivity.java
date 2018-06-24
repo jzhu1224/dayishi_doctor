@@ -1,19 +1,29 @@
-package com.jkdys.doctor.ui.search;
+package com.jkdys.doctor.ui.search.searchDepartment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Filter;
+
+import com.jkdys.doctor.ui.search.BaseSearchActivity;
+import com.jkdys.doctor.ui.search.SearchData;
+import com.jkdys.doctor.ui.search.SearchView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
 
-public class SearchPhysiciansTitleActivity extends BaseSearchActivity<SearchView,SearchPhysiciansTitlePresenter> {
+public class SearchDepartmentActivity extends BaseSearchActivity<SearchView,SearchDepartmentPresenter> {
+
+    public static final String KEY_HOSPITAL_ID = "key_hospital_id";
+    public static final String KEY_HOSPITAL_NAME = "key_hospital_name";
 
     @Inject
-    SearchPhysiciansTitlePresenter searchDepartmentPresenter;
+    SearchDepartmentPresenter searchDepartmentPresenter;
 
+    String hospitalId,hospitalName;
     Filter filter;
 
     List<SearchData> searchDataList;
@@ -21,9 +31,14 @@ public class SearchPhysiciansTitleActivity extends BaseSearchActivity<SearchView
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
-        toolbar.setTitle("职称");
-        edtContent.setHint("搜索职称");
+
+        hospitalId = getIntent().getStringExtra(KEY_HOSPITAL_ID);
+        hospitalName = getIntent().getStringExtra(KEY_HOSPITAL_NAME);
+        edtContent.setHint("搜索科室");
+
+        toolbar.setTitle(hospitalName+"->科室");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
+
         filter = new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
@@ -52,17 +67,17 @@ public class SearchPhysiciansTitleActivity extends BaseSearchActivity<SearchView
         };
     }
 
+    @NonNull
+    @Override
+    public SearchDepartmentPresenter createPresenter() {
+        getActivityComponent().inject(this);
+        return searchDepartmentPresenter;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        searchDepartmentPresenter.search("");
-    }
-
-    @NonNull
-    @Override
-    public SearchPhysiciansTitlePresenter createPresenter() {
-        getActivityComponent().inject(this);
-        return searchDepartmentPresenter;
+        searchDepartmentPresenter.search(hospitalId);
     }
 
     @Override

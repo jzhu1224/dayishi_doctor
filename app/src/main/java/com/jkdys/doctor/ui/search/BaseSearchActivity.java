@@ -28,14 +28,14 @@ import butterknife.OnClick;
 public abstract class BaseSearchActivity<V extends SearchView,P extends BaseSearchPresenter<V>> extends MvpActivity<V, P> implements SearchView{
 
     @BindView(R.id.edt_content)
-    EditText edtContent;
+    protected EditText edtContent;
     @BindView(R.id.fl_clear)
-    FrameLayout rlClear;
+    protected FrameLayout rlClear;
 
     @BindView(R.id.list_view)
-    ListView listView;
+    protected ListView listView;
     @BindView(R.id.empty_view)
-    QMUIEmptyView emptyView;
+    protected QMUIEmptyView emptyView;
 
     protected SearchAdapter searchAdapter;
 
@@ -142,7 +142,7 @@ public abstract class BaseSearchActivity<V extends SearchView,P extends BaseSear
         searchAdapter.notifyDataSetChanged();
     }
 
-    class SearchAdapter extends BaseAdapter implements Filterable {
+    public class SearchAdapter extends BaseAdapter implements Filterable {
 
         @Override
         public int getCount() {

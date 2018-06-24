@@ -1,9 +1,12 @@
-package com.jkdys.doctor.ui.search;
+package com.jkdys.doctor.ui.search.searchDepartment;
 
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.DepartmentData;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
+import com.jkdys.doctor.ui.search.BaseSearchPresenter;
+import com.jkdys.doctor.ui.search.SearchData;
+import com.jkdys.doctor.ui.search.SearchView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
