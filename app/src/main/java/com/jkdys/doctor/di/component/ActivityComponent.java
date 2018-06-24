@@ -12,6 +12,7 @@ import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
+import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
 import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
@@ -39,4 +40,5 @@ public interface ActivityComponent {
     void inject(SearchPhysiciansTitleActivity identityActivity);
     void inject(SearchDepartmentActivity searchDepartmentActivity);
     void inject(SelectAreaActivity selectAreaActivity);
+    void inject(SearchHospitalActivity searchHospitalActivity);
 }

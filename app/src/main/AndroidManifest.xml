@@ -30,6 +30,7 @@
         <activity android:name=".ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.search.searchDepartment.SearchDepartmentActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.search.selectArea.SelectAreaActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.search.searchHospital.SearchHospitalActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

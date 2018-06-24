@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.search.selectArea;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.CityData;
 import com.jkdys.doctor.data.model.ProvinceData;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.selectArea.adapter.CityListAdapter;
 import com.jkdys.doctor.ui.search.selectArea.adapter.ProvinceListAdapter;
 import com.jkdys.doctor.utils.ViewUtil;
@@ -70,7 +72,8 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
 
             @Override
             public void onRightClick(View itemView, int position) {
-
+                Intent intent = new Intent(mActivity, SearchHospitalActivity.class);
+                startActivity(intent);
             }
         });
     }
