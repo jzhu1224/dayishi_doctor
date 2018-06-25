@@ -39,6 +39,8 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
     ProvinceListAdapter provinceListAdapter;
     CityListAdapter cityListAdapter;
 
+    private int currentProvincePosition;
+
     @NonNull
     @Override
     public SelectAreaPresenter createPresenter() {
@@ -65,14 +67,33 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
         zzSecondaryLinkage.setOnItemClickListener(new ILinkage.OnItemClickListener() {
             @Override
             public void onLeftClick(View itemView, int position) {
-                // TODO: 2018/6/24 请求接口
-                //cityListAdapter.setList();
-                selectAreaPresenter.requestCityData(((ProvinceData)provinceListAdapter.getItem(position)).getId());
+
+                currentProvincePosition = position;
+
+                if (position == 0) {
+                    //选择全国
+                    cityListAdapter.setList(new ArrayList<>());
+                    cityListAdapter.notifyDataSetChanged();
+                    Intent intent = new Intent(mActivity, SearchHospitalActivity.class);
+                    intent.putExtra(SearchHospitalActivity.KEY_AREA_NAME,"全国");
+                    startActivity(intent);
+                } else {
+                    selectAreaPresenter.requestCityData(((ProvinceData)provinceListAdapter.getItem(position)).getId());
+                }
             }
 
             @Override
             public void onRightClick(View itemView, int position) {
                 Intent intent = new Intent(mActivity, SearchHospitalActivity.class);
+                if (position == 0) {
+                    ProvinceData provinceData = (ProvinceData) provinceListAdapter.getItem(currentProvincePosition);
+                    intent.putExtra(SearchHospitalActivity.KEY_AREA_NAME, provinceData.getName());
+                    intent.putExtra(SearchHospitalActivity.KEY_PROVINCE_ID, provinceData.getId());
+                } else {
+                    CityData cityData = cityListAdapter.getItem(position);
+                    intent.putExtra(SearchHospitalActivity.KEY_AREA_NAME, cityData.getName());
+                    intent.putExtra(SearchHospitalActivity.KEY_PROVINCE_ID, cityData.getId());
+                }
                 startActivity(intent);
             }
         });

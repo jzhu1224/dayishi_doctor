@@ -1,79 +1,70 @@
 package com.jkdys.doctor.ui.search.selectArea;
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
+import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.CityData;
 import com.jkdys.doctor.data.model.ProvinceData;
+import com.jkdys.doctor.data.network.DaYiShiServiceApi;
+import com.jkdys.doctor.data.network.callback.BaseCallback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class SelectAreaPresenter extends MvpBasePresenter<SelectAreaView> {
-    @Inject
-    public SelectAreaPresenter() {
 
+    @Inject
+    DaYiShiServiceApi api;
+
+    @Inject
+    public SelectAreaPresenter(DaYiShiServiceApi api) {
+        this.api = api;
     }
 
     public void requestProvinceData() {
-        List<ProvinceData> list = new ArrayList<>();
-        ProvinceData provinceData = new ProvinceData();
-        provinceData.setName("上海市");
-        provinceData.setId("1");
-        list.add(provinceData);
-        provinceData = new ProvinceData();
-        provinceData.setName("北京市");
-        provinceData.setId("2");
-        list.add(provinceData);
-        provinceData = new ProvinceData();
-        provinceData.setName("江苏省");
-        provinceData.setId("3");
-        list.add(provinceData);
-        ifViewAttached(view -> view.onRequestProvinceSuccess(list));
+
+
+        ifViewAttached(view -> view.showLoading(false));
+
+        api.getProvinceList().enqueue(new BaseCallback<BaseResponse<List<ProvinceData>>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<List<ProvinceData>> response) {
+                List<ProvinceData> provinceDatas = new ArrayList<>();
+                ProvinceData provinceData = new ProvinceData();
+                provinceData.setId(null);
+                provinceData.setName("全国");
+                provinceDatas.add(provinceData);
+                provinceDatas.addAll(response.getData());
+                ifViewAttached(view -> view.onRequestProvinceSuccess(provinceDatas));
+            }
+        });
     }
 
     public void requestCityData(String id) {
-        List<CityData> list = new ArrayList<>();
-        if (id.equals("1")) {
-            CityData cityData = new CityData();
-            cityData.setParentId("1");
-            cityData.setName("黄浦区");
-            list.add(cityData);
-            cityData = new CityData();
-            cityData.setParentId("1");
-            cityData.setName("普陀区");
-            list.add(cityData);
-            cityData = new CityData();
-            cityData.setParentId("1");
-            cityData.setName("青浦区");
-            list.add(cityData);
-        } else if (id.equals("2")) {
-            CityData cityData = new CityData();
-            cityData.setParentId("2");
-            cityData.setName("海淀区");
-            list.add(cityData);
-            cityData = new CityData();
-            cityData.setParentId("2");
-            cityData.setName("朝阳区");
-            list.add(cityData);
-            cityData = new CityData();
-            cityData.setParentId("2");
-            cityData.setName("通州");
-            list.add(cityData);
-        } else {
-            CityData cityData = new CityData();
-            cityData.setParentId("3");
-            cityData.setName("南京市");
-            list.add(cityData);
-            cityData = new CityData();
-            cityData.setParentId("3");
-            cityData.setName("苏州市");
-            list.add(cityData);
-            cityData = new CityData();
-            cityData.setParentId("3");
-            cityData.setName("常州市");
-            list.add(cityData);
-        }
-        ifViewAttached(view -> view.onRequestCitySuccess(list));
+
+        ifViewAttached(view -> view.showLoading(false));
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("provinceid", id);
+
+        api.getCityList(params).enqueue(new BaseCallback<BaseResponse<List<CityData>>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<List<CityData>> response) {
+
+                List<CityData> cityDatas = new ArrayList<>();
+
+                CityData cityData = new CityData();
+                cityData.setId(null);
+                cityData.setName("不限");
+
+                cityDatas.add(cityData);
+                cityDatas.addAll(response.getData());
+
+
+                ifViewAttached(view -> view.onRequestCitySuccess(cityDatas));
+            }
+        });
     }
 }

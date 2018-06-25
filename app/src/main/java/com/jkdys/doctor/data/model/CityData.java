@@ -1,9 +1,13 @@
 package com.jkdys.doctor.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import me.zhouzhuo.zzsecondarylinkage.bean.BaseMenuBean;
 
 public class CityData extends BaseMenuBean {
+    @SerializedName("aid")
     private String id;
+    @SerializedName("areaname")
     private String name;
     private String parentId;
 

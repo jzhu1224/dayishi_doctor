@@ -1,6 +1,5 @@
 package com.jkdys.doctor.ui.main;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,12 +23,6 @@ import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.listener.DexterError;
-import com.karumi.dexter.listener.PermissionRequestErrorListener;
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
-import com.karumi.dexter.listener.single.PermissionListener;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -74,8 +67,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         getActivityComponent().inject(this);
 
 
-//        if (jump())
-//            return;
+        if (jump())
+            return;
 
         fragmentManager = getSupportFragmentManager();
 
