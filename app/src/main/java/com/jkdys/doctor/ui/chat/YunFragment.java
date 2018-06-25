@@ -86,13 +86,10 @@ public class YunFragment extends MvpFragment<IYunView,YunPresenter> implements I
         yunAdapter = new YunAdapter(getContext());
         conversationListView.setAdapter(yunAdapter);
 
-        conversationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                intent.putExtra(ChatConstant.EXTRA_USER_ID, yunAdapter.getItem(i).conversationId());
-                startActivity(intent);
-            }
+        conversationListView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(ChatConstant.EXTRA_USER_ID, yunAdapter.getItem(i).conversationId());
+            startActivity(intent);
         });
         EMClient.getInstance().addConnectionListener(connectionListener);
     }

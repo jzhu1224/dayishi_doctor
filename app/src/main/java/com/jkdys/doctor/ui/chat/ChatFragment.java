@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +37,12 @@ import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -129,7 +133,6 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
     @Override
     protected void selectPicFromLocal() {
-
         Dexter.withActivity(getActivity())
                 .withPermissions(
                         Manifest.permission.CAMERA,
@@ -151,6 +154,39 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
             }
 
         }).withErrorListener(error -> ToastUtil.show(getActivity(),"error:"+error.name())).check();
+    }
+
+    @Override
+    protected void selectPicFromCamera() {
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        if (!EaseCommonUtils.isSdcardExist()) {
+                            Toast.makeText(getActivity(), com.hyphenate.easeui.R.string.sd_card_does_not_exist, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        cameraFile = new File(PathUtil.getInstance().getImagePath(), EMClient.getInstance().getCurrentUser()
+                                + System.currentTimeMillis() + ".jpg");
+                        //noinspection ResultOfMethodCallIgnored
+                        cameraFile.getParentFile().mkdirs();
+                        startActivityForResult(
+                                new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
+                                REQUEST_CODE_CAMERA);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        ToastUtil.show(getActivity(),"访问相机或者读取媒体权限被拒绝");
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        ToastUtil.show(getActivity(),"访问相机或者读取媒体权限被拒绝");
+                    }
+                }).check();
     }
 
     @Override

@@ -6,8 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,9 @@ public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> i
     protected void initViews(View view) {
         toolbar.setTitle(R.string.consult);
         toolbar.setBackgroundDividerEnabled(false);
+        toolbar.addRightImageButton(R.drawable.ic_share,R.id.id_share).setOnClickListener(view1 -> {
+            ShareManager.get().share(getActivity(),new ShareInfoModel());
+        });
         initTabAndPager();
     }
 
