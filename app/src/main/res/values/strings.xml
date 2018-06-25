@@ -13,4 +13,5 @@
     <string name="message">消息</string>
     <string name="tabSegment_item_1_title">电话</string>
     <string name="tabSegment_item_2_title">门诊</string>
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
 </resources>

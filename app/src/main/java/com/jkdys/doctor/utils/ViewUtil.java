@@ -142,6 +142,14 @@ public class ViewUtil {
         return Math.round(pxValue * scale + 0.5f);
     }
 
+    /**
+     * dip转px
+     */
+    public static int dipToPx(final Context ctx, float dip) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dip, ctx.getResources().getDisplayMetrics());
+    }
+
     public static float applyDimension(int unit, float value, DisplayMetrics metrics) {
         switch (unit) {
             case TypedValue.COMPLEX_UNIT_PX:

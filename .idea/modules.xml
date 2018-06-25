@@ -7,8 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/dayishi_doctor.iml" filepath="$PROJECT_DIR$/dayishi_doctor.iml" />
       <module fileurl="file://$PROJECT_DIR$/easeui/easeui.iml" filepath="$PROJECT_DIR$/easeui/easeui.iml" />
       <module fileurl="file://$PROJECT_DIR$/framework/framework.iml" filepath="$PROJECT_DIR$/framework/framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/image-selector/image-selector.iml" filepath="$PROJECT_DIR$/image-selector/image-selector.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" filepath="$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" />
       <module fileurl="file://$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" filepath="$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" />
     </modules>
   </component>

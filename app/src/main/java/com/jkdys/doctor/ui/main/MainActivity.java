@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.main;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,8 +12,11 @@ import android.support.v4.app.FragmentManager;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.chat.YunFragment;
 import com.jkdys.doctor.ui.consult.ConsultFragment;
 import com.jkdys.doctor.ui.customer.CustomerFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
@@ -20,6 +24,15 @@ import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -39,8 +52,20 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     LoginInfoUtil loginInfoUtil;
 
     private int selectIndex;
-    private Fragment mCurrentFragment,consultFragment,customerFragment,mineFragment;
+    private Fragment mCurrentFragment,consultFragment,yunFragment,customerFragment,mineFragment;
     FragmentManager fragmentManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -48,22 +73,39 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
         getActivityComponent().inject(this);
 
+
 //        if (jump())
 //            return;
 
         fragmentManager = getSupportFragmentManager();
 
         initBottomNavigation();
-        setNotification("1",2);
 
         if (savedInstanceState != null) {
             selectIndex = savedInstanceState.getInt(KEY_SELECT_INDEX,0);
             consultFragment = findFragmentByPosition(0);
             customerFragment = findFragmentByPosition(1);
+            yunFragment = findFragmentByPosition(2);
             mineFragment = findFragmentByPosition(3);
         }
 
         setCurrentSelectedTab(selectIndex);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUnReadMessageCount();
+    }
+
+    private void updateUnReadMessageCount() {
+
+        int unRead = ChatHelper.getInstance().getUnReadMessageCount();
+        if (unRead == 0) {
+            setNotification("",2);
+        } else {
+            setNotification(unRead+"",2);
+        }
     }
 
     private boolean jump() {
@@ -197,6 +239,12 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 }
                 mCurrentFragment = FragmentUtils.switchContent(fragmentManager,mCurrentFragment,customerFragment, R.id.fr_content, position,false);
                 break;
+            case 2:
+                if (yunFragment == null) {
+                    yunFragment = new YunFragment();
+                }
+                mCurrentFragment = FragmentUtils.switchContent(fragmentManager,mCurrentFragment,yunFragment, R.id.fr_content, position,false);
+                break;
             case 3:
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();
@@ -238,5 +286,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     public void showError(String message) {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(OnNewMessageArriveEvent event) {
+        setNotification(ChatHelper.getInstance().getUnReadMessageCount()+"",2);
     }
 }

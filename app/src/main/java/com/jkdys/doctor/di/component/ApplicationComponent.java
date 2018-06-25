@@ -9,6 +9,8 @@ import com.jkdys.doctor.di.ApplicationContext;
 import com.jkdys.doctor.di.module.ApiServiceModule;
 import com.jkdys.doctor.di.module.ApplicationModule;
 import com.google.gson.Gson;
+import com.jkdys.doctor.ui.chat.YunModel;
+
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -29,4 +31,6 @@ public interface ApplicationComponent {
     Gson getGson();
 
     LoginInfoUtil getLoginInfoUtil();
+
+    YunModel getYunModel();
 }

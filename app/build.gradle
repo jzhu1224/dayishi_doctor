@@ -11,6 +11,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+
+        manifestPlaceholders = [EASEMOB_KEY: easemobKey()]
     }
     buildTypes {
         release {
@@ -25,8 +29,11 @@ android {
     }
 }
 
+
+
 dependencies {
-    compile 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.karumi:dexter:5.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
     implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
@@ -65,4 +72,28 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':zz-secondary-linkage')
     implementation project(':sharesdk')
+    implementation project(':easeui')
+    implementation project(':image-selector')
 }
+
+String getServerEnv() {
+    def env = "test"
+    if (hasProperty("profile")) {
+        env = getProperty("profile")
+    }
+    println("打包接口环境：" + env)
+    return env
+}
+
+String easemobKey() {
+    def productFlavorName = getServerEnv();
+    if (productFlavorName.equals("test"))
+        return 'jensenzhu#jkdystest'
+    else if (productFlavorName.equals("beta"))
+        return 'jensenzhu#jkdystest'
+    else if (productFlavorName.equals("prod"))
+        return 'jensenzhu#jkdystest'
+    return 'jensenzhu#jkdystest'
+}
+
+
