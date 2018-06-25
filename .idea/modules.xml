@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DaYiShiDoctor.iml" filepath="$PROJECT_DIR$/DaYiShiDoctor.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dayishi_doctor.iml" filepath="$PROJECT_DIR$/dayishi_doctor.iml" />
       <module fileurl="file://$PROJECT_DIR$/easeui/easeui.iml" filepath="$PROJECT_DIR$/easeui/easeui.iml" />
       <module fileurl="file://$PROJECT_DIR$/framework/framework.iml" filepath="$PROJECT_DIR$/framework/framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" filepath="$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" />
       <module fileurl="file://$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" filepath="$PROJECT_DIR$/zz-secondary-linkage/zz-secondary-linkage.iml" />
     </modules>
   </component>

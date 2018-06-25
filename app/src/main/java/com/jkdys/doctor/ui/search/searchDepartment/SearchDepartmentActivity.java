@@ -75,8 +75,7 @@ public class SearchDepartmentActivity extends BaseSearchActivity<SearchView,Sear
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void afterMvpDelegateCreateInvoked() {
         searchDepartmentPresenter.search(hospitalId);
     }
 

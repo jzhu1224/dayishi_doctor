@@ -58,8 +58,7 @@ public class SearchPhysiciansTitleActivity extends BaseSearchActivity<SearchView
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void afterMvpDelegateCreateInvoked() {
         searchDepartmentPresenter.search("");
     }
 

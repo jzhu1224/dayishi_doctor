@@ -79,8 +79,7 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void afterMvpDelegateCreateInvoked() {
         selectAreaPresenter.requestProvinceData();
     }
 
