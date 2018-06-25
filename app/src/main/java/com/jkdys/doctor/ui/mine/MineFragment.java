@@ -5,11 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
+import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
+import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import javax.inject.Inject;
@@ -63,7 +65,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
 
                 })
                 .addItemView(itemCustomerService, view1 -> {
-
+                    ShareManager.get().share(getActivity(),new ShareInfoModel());
                 })
                 .addItemView(itemInvent, view1 -> {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);

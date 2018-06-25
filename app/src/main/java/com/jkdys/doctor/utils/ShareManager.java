@@ -3,11 +3,16 @@ package com.jkdys.doctor.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.Toast;
+
 import com.chairoad.framework.util.ToastUtil;
 import com.framework.share.ShareInfoModel;
 import com.framework.share.ShareListener;
 import com.framework.share.SharePlatformEnum;
 import com.framework.share.ShareUtils;
+import com.jkdys.doctor.R;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 /**
  * Created by yanxin on 2018/4/13.
@@ -29,48 +34,38 @@ public class ShareManager {
         return shareManager;
     }
 
-    public void show(Context context, ShareInfoModel shareInfoModel) {
+    public void share(Context context, ShareInfoModel shareInfoModel) {
         showDialog(context, shareInfoModel);
     }
 
     private void showDialog(final Context context, final ShareInfoModel shareInfoModel) {
-//        View view = LayoutInflater.from(context).inflate(R.layout.layout_share, null);
-//        final AppAlertDialog dialog = AppAlertDialog.create(context, view);
-//
-//        view.findViewById(R.id.wechatBtn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                share(context, shareInfoModel, SharePlatformEnum.WECHAI);
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        view.findViewById(R.id.wechatFriendBtn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                share(context, shareInfoModel, SharePlatformEnum.WechatMoments);
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        view.findViewById(R.id.weiboBtn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                share(context, shareInfoModel, SharePlatformEnum.SINAWEIBO);
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        view.findViewById(R.id.copyBtn).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SystemUtil.copy(context, shareInfoModel.siteUrl);
-//                ToastUtil.show(context,"复制成功");
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.showFromBottom();
+        final int TAG_SHARE_WECHAT_FRIEND = 0;
+        final int TAG_SHARE_WECHAT_MOMENT = 1;
+        final int TAG_SHARE_WEIBO = 2;
+        QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(context);
+        builder.addItem(R.drawable.icon_more_operation_share_friend, "分享到微信", TAG_SHARE_WECHAT_FRIEND, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.icon_more_operation_share_moment, "分享到朋友圈", TAG_SHARE_WECHAT_MOMENT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.icon_more_operation_share_weibo, "分享到微博", TAG_SHARE_WEIBO, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                //.addItem(R.mipmap.icon_more_operation_share_chat, "分享到私信", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                //.addItem(R.mipmap.icon_more_operation_save, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+                .setOnSheetItemClickListener((dialog, itemView) -> {
+                    dialog.dismiss();
+                    int tag = (int) itemView.getTag();
+                    switch (tag) {
+                        case TAG_SHARE_WECHAT_FRIEND:
+                            Toast.makeText(context, "分享到微信", Toast.LENGTH_SHORT).show();
+                            share(context, shareInfoModel, SharePlatformEnum.WECHAI);
+                            break;
+                        case TAG_SHARE_WECHAT_MOMENT:
+                            Toast.makeText(context, "分享到朋友圈", Toast.LENGTH_SHORT).show();
+                            share(context, shareInfoModel, SharePlatformEnum.WechatMoments);
+                            break;
+                        case TAG_SHARE_WEIBO:
+                            Toast.makeText(context, "分享到微博", Toast.LENGTH_SHORT).show();
+                            share(context, shareInfoModel, SharePlatformEnum.SINAWEIBO);
+                            break;
+                    }
+                }).build().show();
     }
 
     private void share(final Context context, ShareInfoModel shareInfoModel, final SharePlatformEnum sharePlatformEnum) {

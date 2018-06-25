@@ -48,12 +48,31 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
         getActivityComponent().inject(this);
 
+//        if (jump())
+//            return;
+
+        fragmentManager = getSupportFragmentManager();
+
+        initBottomNavigation();
+        setNotification("1",2);
+
+        if (savedInstanceState != null) {
+            selectIndex = savedInstanceState.getInt(KEY_SELECT_INDEX,0);
+            consultFragment = findFragmentByPosition(0);
+            customerFragment = findFragmentByPosition(1);
+            mineFragment = findFragmentByPosition(3);
+        }
+
+        setCurrentSelectedTab(selectIndex);
+    }
+
+    private boolean jump() {
         if (loginInfoUtil.getLoginResponse() == null) {
             //未登录
             Intent intent = new Intent(mActivity, LoginActivity.class);
             startActivity(intent);
             finish();
-            return;
+            return true;
         }
 
         int redirect = loginInfoUtil.getRedirecttopage();
@@ -77,22 +96,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             }
             startActivity(intent);
             finish();
-            return;
+            return true;
         }
-
-        fragmentManager = getSupportFragmentManager();
-
-        initBottomNavigation();
-        setNotification("1",2);
-
-        if (savedInstanceState != null) {
-            selectIndex = savedInstanceState.getInt(KEY_SELECT_INDEX,0);
-            consultFragment = findFragmentByPosition(0);
-            customerFragment = findFragmentByPosition(1);
-            mineFragment = findFragmentByPosition(3);
-        }
-
-        setCurrentSelectedTab(selectIndex);
+        return false;
     }
 
     private Fragment findFragmentByPosition(int position) {
