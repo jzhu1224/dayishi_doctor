@@ -1,45 +1,38 @@
 package com.jkdys.doctor.ui.consult;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.chairoad.framework.util.ToastUtil;
-import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
+import com.jkdys.doctor.ui.consult.adapter.OrderAdapter;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class PhoneFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadMoreView<OrderInfo>,ConsultPresenter> {
+public class PhoneFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadMoreView<OrderInfo>,OrderPresenter,OrderAdapter.OrderViewHolder> {
 
     @Inject
-    ConsultPresenter consultPresenter;
+    OrderPresenter orderPresenter;
 
     @NonNull
     @Override
-    public ConsultPresenter createPresenter() {
+    public OrderPresenter createPresenter() {
         getActivityComponent().inject(this);
-        return consultPresenter;
+        return orderPresenter;
     }
 
     @Override
-    protected void initViews(View view) {
-
+    protected void afterCreatePresenter() {
+        orderPresenter.setOrderstate(1);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_phone_consult;
-    }
-
-    @Override
-    protected BaseQuickAdapter<OrderInfo, BaseViewHolder> createAdapter(List<OrderInfo> mDatas) {
-        return null;
+    protected BaseQuickAdapter<OrderInfo,OrderAdapter.OrderViewHolder> createAdapter(List<OrderInfo> mDatas) {
+        return new OrderAdapter(mDatas);
     }
 
     @Override

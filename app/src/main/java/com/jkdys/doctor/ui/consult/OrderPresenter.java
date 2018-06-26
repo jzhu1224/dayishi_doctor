@@ -13,18 +13,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ConsultPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreView<OrderInfo>,OrderInfo> {
+public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreView<OrderInfo>,OrderInfo> {
 
     private int page = 1;
     private int totalPage = 1;
     private int pageSize = 20;
 
+    private int orderstate;
+
     @Inject
     DaYiShiServiceApi api;
 
     @Inject
-    public ConsultPresenter(DaYiShiServiceApi api) {
+    public OrderPresenter(DaYiShiServiceApi api) {
         this.api = api;
+    }
+
+    public void setOrderstate(int orderstate) {
+        this.orderstate = orderstate;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class ConsultPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreV
         HashMap<String, Object> params = new HashMap<>();
         params.put("pageindex", page);
         params.put("pagesize", pageSize);
-        params.put("orderstate", 1);
+        params.put("orderstate", orderstate);
 
         if (isViewAttached())
         api.getDoctorOrderInfo(params).enqueue(new BaseCallback<BaseResponse<List<OrderInfo>>>(getView()) {

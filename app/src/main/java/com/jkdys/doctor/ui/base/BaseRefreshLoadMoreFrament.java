@@ -15,7 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>, P extends BaseRefreshLoadMorePresenter<V,T>> extends MvpFragment<V,P>
+public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>, P extends BaseRefreshLoadMorePresenter<V,T>, K extends BaseViewHolder> extends MvpFragment<V,P>
         implements SwipeRefreshLayout.OnRefreshListener, BaseLoadMoreView<T>{
 
     @BindView(R.id.recycler_view)
@@ -24,8 +24,9 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    protected BaseQuickAdapter<T,BaseViewHolder> adapter;
+    protected BaseQuickAdapter<T,K> adapter;
     protected List<T> mDatas;
+
 
     @Override
     protected void initViews(View view) {
@@ -50,7 +51,7 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
         loadData(true, true);
     }
 
-    protected abstract BaseQuickAdapter<T,BaseViewHolder> createAdapter(List<T> mDatas);
+    protected abstract BaseQuickAdapter<T,K> createAdapter(List<T> mDatas);
 
     @Override
     public void setData(List<T> data) {

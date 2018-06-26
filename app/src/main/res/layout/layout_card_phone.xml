@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="4dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
@@ -11,6 +12,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp">
     <RelativeLayout
+        android:id="@+id/ll_container"
         android:background="@drawable/bg_card_vip"
         android:layout_width="match_parent"
         android:padding="16dp"
@@ -21,10 +23,12 @@
             android:gravity="center_vertical"
             android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avatar"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/img_doctor"/>
             <TextView
+                android:id="@+id/name"
                 android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,6 +37,7 @@
                 android:textSize="16sp"
                 />
             <TextView
+                android:id="@+id/tv_state"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:paddingTop="1dp"
@@ -46,6 +51,7 @@
                 android:textSize="10sp"
                 />
             <ImageView
+                android:id="@+id/img_vip"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -55,10 +61,11 @@
 
 
         <TextView
+            android:id="@+id/tv_price"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥200.0"
+            tools:text="￥200.0"
             android:textColor="#FF0A1D3D"
             android:textSize="24sp"
             />
@@ -73,16 +80,18 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_time"/>
             <TextView
+                android:id="@+id/tv_time"
                 android:layout_marginLeft="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提交时间 16-07-01 23:01"
+                tools:text="提交时间 16-07-01 23:01"
                 android:textColor="#FFADB5C1"
                 android:textSize="12sp"
                 />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/img_phone"
             android:layout_marginTop="10dp"
             android:layout_below="@id/ll_prpfile"
             android:layout_alignParentRight="true"

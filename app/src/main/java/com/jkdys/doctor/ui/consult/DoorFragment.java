@@ -3,29 +3,36 @@ package com.jkdys.doctor.ui.consult;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.jkdys.doctor.R;
-import com.jkdys.doctor.ui.MvpFragment;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chairoad.framework.util.ToastUtil;
+import com.jkdys.doctor.data.model.OrderInfo;
+import com.jkdys.doctor.ui.BaseLoadMoreView;
+import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
+import com.jkdys.doctor.ui.consult.adapter.OrderAdapter;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
-public class DoorFragment extends MvpFragment<ConsultView,ConsultPresenter> {
+public class DoorFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadMoreView<OrderInfo>,OrderPresenter,OrderAdapter.OrderViewHolder> {
 
     @Inject
-    ConsultPresenter consultPresenter;
+    OrderPresenter orderPresenter;
 
     @NonNull
     @Override
-    public ConsultPresenter createPresenter() {
+    public OrderPresenter createPresenter() {
         getActivityComponent().inject(this);
-        return consultPresenter;
+        return orderPresenter;
     }
 
     @Override
-    protected void initViews(View view) {
-
+    protected BaseQuickAdapter<OrderInfo, OrderAdapter.OrderViewHolder> createAdapter(List<OrderInfo> mDatas) {
+        return new OrderAdapter(mDatas);
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_door_consult;
+    public void showMessage(String msg) {
+        ToastUtil.show(getActivity(),msg);
     }
 }

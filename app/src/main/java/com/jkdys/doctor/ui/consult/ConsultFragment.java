@@ -1,26 +1,21 @@
 package com.jkdys.doctor.ui.consult;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
-import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.ui.BaseFragment;
 import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import butterknife.BindView;
 
-public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> implements ConsultView{
+public class ConsultFragment extends BaseFragment{
 
-    @Inject
-    ConsultPresenter consultPresenter;
 
     @BindView(R.id.tabSegment)
     QMUITabSegment mTabSegment;
@@ -96,37 +91,8 @@ public class ConsultFragment extends MvpFragment<ConsultView,ConsultPresenter> i
         });
     }
 
-
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_consult;
-    }
-
-    @Override
-    public void showLoading(boolean pullToRefresh) {
-
-    }
-
-    @Override
-    public void showContent() {
-
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void showError(String message) {
-
-    }
-
-    @NonNull
-    @Override
-    public ConsultPresenter createPresenter() {
-        getActivityComponent().inject(this);
-        return consultPresenter;
     }
 }
