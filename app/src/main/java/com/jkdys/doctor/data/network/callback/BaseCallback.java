@@ -1,7 +1,11 @@
 package com.jkdys.doctor.data.network.callback;
 
+import com.jkdys.doctor.core.event.LogoutEvent;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.ui.BaseView;
+
+import org.greenrobot.eventbus.EventBus;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +34,9 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
 
         if (baseResponse.getCode() == 1) {
             onBusinessSuccess(response.body());
+        } else if (baseResponse.getCode() == 100) {
+            //token失效
+            EventBus.getDefault().postSticky(new LogoutEvent(LogoutEvent.TOKEN_EXPIRED));
         } else if (baseResponse.isShowdialog()) {
             view.showError(baseResponse.getMsg());
         } else if (baseResponse.isShowmessage()) {

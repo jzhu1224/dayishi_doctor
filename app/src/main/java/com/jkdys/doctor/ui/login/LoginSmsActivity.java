@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.StringUtils;
@@ -118,6 +119,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
         switch (redirect) {
             case 0:
                 //首页
+                intent.setClass(mActivity, MainActivity.class);
                 break;
             case 1:
                 //实名认证页面

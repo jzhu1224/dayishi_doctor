@@ -1,12 +1,68 @@
 package com.jkdys.doctor.ui.consult;
 
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
+
+import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.OrderInfo;
+import com.jkdys.doctor.data.network.DaYiShiServiceApi;
+import com.jkdys.doctor.data.network.callback.BaseCallback;
+import com.jkdys.doctor.ui.BaseLoadMoreView;
+import com.jkdys.doctor.ui.base.BaseRefreshLoadMorePresenter;
+
+import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
-public class ConsultPresenter extends MvpBasePresenter<ConsultView> {
-    @Inject
-    public ConsultPresenter() {
+public class ConsultPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreView<OrderInfo>,OrderInfo> {
 
+    private int page = 1;
+    private int totalPage = 1;
+    private int pageSize = 20;
+
+    @Inject
+    DaYiShiServiceApi api;
+
+    @Inject
+    public ConsultPresenter(DaYiShiServiceApi api) {
+        this.api = api;
+    }
+
+    @Override
+    public void loadMore(boolean pullToRefresh) {
+        if (pullToRefresh) {
+            page = 1;
+        }
+
+        ifViewAttached(view -> view.showLoading(pullToRefresh));
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageindex", page);
+        params.put("pagesize", pageSize);
+        params.put("orderstate", 1);
+
+        if (isViewAttached())
+        api.getDoctorOrderInfo(params).enqueue(new BaseCallback<BaseResponse<List<OrderInfo>>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<List<OrderInfo>> response) {
+
+                totalPage = response.getTotalPage();
+
+                if (page == 1) {
+                    ifViewAttached(view -> {
+                        view.setData(response.getData());
+                        view.showContent();
+                    });
+                } else {
+                    ifViewAttached(view -> view.setMoreData(response.getData()));
+                }
+                //已经最后一页了
+                if (page >= totalPage) {
+                    ifViewAttached(BaseLoadMoreView::noMoreData);
+                    //view.noMoreData();
+                } else {
+                    page++;
+                }
+            }
+        });
     }
 }

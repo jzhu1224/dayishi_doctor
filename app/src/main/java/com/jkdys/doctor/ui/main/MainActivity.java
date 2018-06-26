@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.main;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.event.LogoutEvent;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -23,6 +25,9 @@ import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -284,5 +289,27 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(OnNewMessageArriveEvent event) {
         setNotification(ChatHelper.getInstance().getUnReadMessageCount()+"",2);
+    }
+
+    private Dialog logoutDialog;
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogout(LogoutEvent logoutEvent) {
+        if (logoutEvent.logoutReason == LogoutEvent.TOKEN_EXPIRED) {
+            if (logoutDialog == null) {
+                logoutDialog = new QMUIDialog.MessageDialogBuilder(mActivity)
+                        .setMessage("登录过期，请重新登录")
+                        .addAction("确定", (dialog, index) -> {
+                            Intent intent = new Intent(mActivity, LoginActivity.class);
+                            startActivity(intent);
+                        }).create();
+            }
+
+            if (!logoutDialog.isShowing()) {
+                logoutDialog.show();
+            }
+
+        }
+        mainPresenter.logout();
     }
 }

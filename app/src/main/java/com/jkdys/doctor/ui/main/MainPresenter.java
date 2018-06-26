@@ -9,4 +9,8 @@ public class MainPresenter extends MvpBasePresenter<MainView> {
     public MainPresenter() {
 
     }
+
+    public void logout() {
+
+    }
 }

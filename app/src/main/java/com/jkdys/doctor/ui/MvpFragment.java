@@ -66,6 +66,11 @@ public abstract class MvpFragment<V extends MvpView, P extends MvpPresenter<V>> 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getMvpDelegate().onCreate(savedInstanceState);
+        afterCreatePresenter();
+    }
+
+    protected void afterCreatePresenter() {
+
     }
 
     @Override

@@ -15,6 +15,7 @@ public class BaseResponse<D> {
     private boolean showmessage;
     private boolean showdialog;
     private String msg;
+    private int totalPage;
 
     public int getCode() {
         return code;
@@ -56,5 +57,13 @@ public class BaseResponse<D> {
 
     public void setData(D data) {
         this.data = data;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 }

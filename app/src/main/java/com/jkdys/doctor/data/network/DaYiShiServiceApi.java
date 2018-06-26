@@ -5,6 +5,7 @@ import com.jkdys.doctor.data.model.CityData;
 import com.jkdys.doctor.data.model.DepartmentData;
 import com.jkdys.doctor.data.model.HospitalData;
 import com.jkdys.doctor.data.model.LoginResponse;
+import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.ProvinceData;
 import com.jkdys.doctor.data.model.UserInfoModel;
@@ -61,4 +62,8 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Hospital/GetAreaCode")
     Call<BaseResponse<List<CityData>>> getCityList(@Body HashMap<String, Object> params);
+
+
+    @POST("/api/Doctor/Doctor/GetDoctorOrderInfo")
+    Call<BaseResponse<List<OrderInfo>>> getDoctorOrderInfo(@Body HashMap<String, Object> params);
 }

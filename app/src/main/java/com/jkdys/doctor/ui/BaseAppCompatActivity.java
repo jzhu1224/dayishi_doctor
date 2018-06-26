@@ -19,10 +19,12 @@ import com.jkdys.doctor.di.ApplicationContext;
 import com.jkdys.doctor.di.component.ActivityComponent;
 import com.jkdys.doctor.di.component.DaggerActivityComponent;
 import com.jkdys.doctor.di.module.ActivityModule;
+import com.jkdys.doctor.ui.login.LoginActivity;
 import com.qmuiteam.qmui.util.QMUIDeviceHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import javax.inject.Inject;
@@ -201,7 +203,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             dialog.show();
         }
     }
-
     //    protected void initToolBar(Toolbar toolbar) {
 //        if (toolbar == null) {
 //            return;
