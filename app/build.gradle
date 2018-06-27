@@ -16,10 +16,44 @@ android {
 
         manifestPlaceholders = [EASEMOB_KEY: easemobKey()]
     }
-    buildTypes {
+
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    signingConfigs {
         release {
+            storeFile file("dayishi.jks")
+            storePassword "dys20180627"
+            keyAlias "dys"
+            keyPassword "dys20180627"
+            //v2SigningEnabled false //强制V1签名方式
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
             minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            debuggable false
+            shrinkResources true
+            zipAlignEnabled true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
