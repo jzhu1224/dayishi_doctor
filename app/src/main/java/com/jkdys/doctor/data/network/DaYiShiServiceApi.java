@@ -57,13 +57,16 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/Hospital/GetFacultyInfoListByHospitalId")
     Call<BaseResponse<List<DepartmentData>>> getFacultyInfoListByHospitalId(@Body HashMap<String, Object> params);
 
-    @POST("/api/Doctor/Hospital/GetParentAreaCode")
+    @POST("/api/Doctor/Hospital/GetProvinceList")
     Call<BaseResponse<List<ProvinceData>>> getProvinceList();
 
-    @POST("/api/Doctor/Hospital/GetAreaCode")
+    @POST("/api/Doctor/Hospital/GetCityList")
     Call<BaseResponse<List<CityData>>> getCityList(@Body HashMap<String, Object> params);
 
 
     @POST("/api/Doctor/Doctor/GetDoctorOrderInfo")
     Call<BaseResponse<List<OrderInfo>>> getDoctorOrderInfo(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Hospital/GetHospitalList")
+    Call<BaseResponse<List<HospitalData>>> getHospitalList(@Body HashMap<String, Object> params);
 }

@@ -76,7 +76,7 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
                     cityListAdapter.notifyDataSetChanged();
                     Intent intent = new Intent(mActivity, SearchHospitalActivity.class);
                     intent.putExtra(SearchHospitalActivity.KEY_AREA_NAME,"全国");
-                    startActivity(intent);
+                    startActivityForResult(intent, 0x1);
                 } else {
                     selectAreaPresenter.requestCityData(((ProvinceData)provinceListAdapter.getItem(position)).getId());
                 }
@@ -85,16 +85,17 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
             @Override
             public void onRightClick(View itemView, int position) {
                 Intent intent = new Intent(mActivity, SearchHospitalActivity.class);
+                ProvinceData provinceData = (ProvinceData) provinceListAdapter.getItem(currentProvincePosition);
                 if (position == 0) {
-                    ProvinceData provinceData = (ProvinceData) provinceListAdapter.getItem(currentProvincePosition);
                     intent.putExtra(SearchHospitalActivity.KEY_AREA_NAME, provinceData.getName());
                     intent.putExtra(SearchHospitalActivity.KEY_PROVINCE_ID, provinceData.getId());
                 } else {
                     CityData cityData = cityListAdapter.getItem(position);
                     intent.putExtra(SearchHospitalActivity.KEY_AREA_NAME, cityData.getName());
-                    intent.putExtra(SearchHospitalActivity.KEY_PROVINCE_ID, cityData.getId());
+                    intent.putExtra(SearchHospitalActivity.KEY_CITY_ID, cityData.getId());
+                    intent.putExtra(SearchHospitalActivity.KEY_PROVINCE_ID, provinceData.getId());
                 }
-                startActivity(intent);
+                startActivityForResult(intent, 0x2);
             }
         });
     }
@@ -117,5 +118,14 @@ public class SelectAreaActivity extends MvpActivity<SelectAreaView, SelectAreaPr
     @Override
     public void onRequestCitySuccess(List<CityData> cityDataList) {
         cityListAdapter.setList(cityDataList);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            setResult(RESULT_OK, data);
+            finish();
+        }
     }
 }

@@ -23,15 +23,16 @@ import butterknife.OnClick;
 public class SearchHospitalActivity extends BaseSearchActivity<SearchView,SearchHospitalPresenter> {
 
     @Inject
-    SearchHospitalPresenter searchDepartmentPresenter;
+    SearchHospitalPresenter searchHospitalPresenter;
 
     public static final String KEY_PROVINCE_ID = "key_province_id";
+    public static final String KEY_CITY_ID = "key_city_id";
     public static final String KEY_AREA_NAME = "key_area_name";
 
     @BindView(R.id.tv_area)
     TextView tvArea;
 
-    String provinceId, areaName;
+    String provinceId, cityId, areaName;
 
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class SearchHospitalActivity extends BaseSearchActivity<SearchView,Search
         edtContent.setHint("搜索医院");
 
         provinceId = getIntent().getStringExtra(KEY_PROVINCE_ID);
+        cityId = getIntent().getStringExtra(KEY_CITY_ID);
         areaName = getIntent().getStringExtra(KEY_AREA_NAME);
 
         if (areaName.length()>5) {
@@ -60,12 +62,12 @@ public class SearchHospitalActivity extends BaseSearchActivity<SearchView,Search
     @Override
     public SearchHospitalPresenter createPresenter() {
         getActivityComponent().inject(this);
-        return searchDepartmentPresenter;
+        return searchHospitalPresenter;
     }
 
     @Override
     protected void onSearch(String text) {
-
+        searchHospitalPresenter.search(provinceId,cityId,text);
     }
 
     @OnClick(R.id.ll_area)

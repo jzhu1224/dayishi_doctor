@@ -58,7 +58,7 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
     void onHospitalClick() {
         //选择医院
         Intent intent = new Intent(mActivity, SelectAreaActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,3);
     }
 
     @OnClick(R.id.item2)
@@ -87,6 +87,8 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
                 tvDepartment.setText(searchData.getText());
             } else if (requestCode == 2) {
                 tvTitle.setText(searchData.getText());
+            } else if (requestCode == 3) {
+                tvHospital.setText(searchData.getText());
             }
         }
 
