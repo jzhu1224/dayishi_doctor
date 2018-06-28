@@ -67,7 +67,8 @@ public class SearchHospitalActivity extends BaseSearchActivity<SearchView,Search
 
     @Override
     protected void onSearch(String text) {
-        searchHospitalPresenter.search(provinceId,cityId,text);
+        if (text.length() >3)
+            searchHospitalPresenter.search(provinceId,cityId,text);
     }
 
     @OnClick(R.id.ll_area)

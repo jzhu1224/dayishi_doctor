@@ -64,7 +64,7 @@ public interface DaYiShiServiceApi {
     Call<BaseResponse<List<CityData>>> getCityList(@Body HashMap<String, Object> params);
 
 
-    @POST("/api/Doctor/Doctor/GetDoctorOrderInfo")
+    @POST("/api/Doctor/OrderInfo/GetDoctorOrderInfo")
     Call<BaseResponse<List<OrderInfo>>> getDoctorOrderInfo(@Body HashMap<String, Object> params);
 
     @POST("/api/Doctor/Hospital/GetHospitalList")

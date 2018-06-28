@@ -27,6 +27,12 @@ public class DoorFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadM
     }
 
     @Override
+    protected void afterCreatePresenter() {
+        super.afterCreatePresenter();
+        orderPresenter.setParams(0,2);
+    }
+
+    @Override
     protected BaseQuickAdapter<OrderInfo, OrderAdapter.OrderViewHolder> createAdapter(List<OrderInfo> mDatas) {
         return new OrderAdapter(mDatas);
     }

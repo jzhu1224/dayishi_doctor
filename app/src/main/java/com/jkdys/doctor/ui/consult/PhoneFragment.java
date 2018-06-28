@@ -27,7 +27,7 @@ public class PhoneFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoad
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setOrderstate(1);
+        orderPresenter.setParams(0,1);
     }
 
     @Override

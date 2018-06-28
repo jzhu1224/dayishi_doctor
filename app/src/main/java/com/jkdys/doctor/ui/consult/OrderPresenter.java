@@ -20,6 +20,7 @@ public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreVie
     private int pageSize = 20;
 
     private int orderstate;
+    private int ordertype;//1 电话订单 2 门诊订单
 
     @Inject
     DaYiShiServiceApi api;
@@ -29,8 +30,9 @@ public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreVie
         this.api = api;
     }
 
-    public void setOrderstate(int orderstate) {
+    public void setParams(int orderstate, int ordertype) {
         this.orderstate = orderstate;
+        this.ordertype = ordertype;
     }
 
     @Override
@@ -45,6 +47,7 @@ public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreVie
         params.put("pageindex", page);
         params.put("pagesize", pageSize);
         params.put("orderstate", orderstate);
+        params.put("ordertype", ordertype);
 
         if (isViewAttached())
         api.getDoctorOrderInfo(params).enqueue(new BaseCallback<BaseResponse<List<OrderInfo>>>(getView()) {
