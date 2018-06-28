@@ -22,6 +22,7 @@ import com.jkdys.doctor.ui.consult.ConsultFragment;
 import com.jkdys.doctor.ui.customer.CustomerFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
+import com.jkdys.doctor.ui.verify.JumpHelper;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
@@ -48,6 +49,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     @Inject
     LoginInfoUtil loginInfoUtil;
+
+    @Inject
+    JumpHelper jumpHelper;
 
     private int selectIndex;
     private Fragment mCurrentFragment,consultFragment,yunFragment,customerFragment,mineFragment;
@@ -263,39 +267,15 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         needLogout(intent);
     }
 
-    private boolean jump() {
+    private void jump() {
         if (loginInfoUtil.getLoginResponse() == null) {
             //未登录
             Intent intent = new Intent(mActivity, LoginActivity.class);
             startActivity(intent);
             finish();
-            return true;
         }
-
         int redirect = loginInfoUtil.getRedirecttopage();
-
-        if (redirect > 0) {
-            Intent intent = new Intent();
-
-            switch (redirect) {
-                case 1:
-                    //实名认证页面
-                    intent.setClass(mActivity, IdentityActivity.class);
-                    break;
-                case 2:
-                    //所属医院页面
-                    intent.setClass(mActivity, PersonalInfoActivity.class);
-                    break;
-                case 3:
-                    //上传医生上岗证和医院工牌页面
-                    intent.setClass(mActivity, IdentityActivity.class);
-                    break;
-            }
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return false;
+        jumpHelper.jump(mActivity,redirect);
     }
 
     private boolean needLogout(Intent intent) {

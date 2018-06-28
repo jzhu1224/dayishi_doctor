@@ -13,6 +13,7 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
+import com.jkdys.doctor.ui.verify.JumpHelper;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.StringUtils;
@@ -44,6 +45,9 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
 
     @Inject
     Gson gson;
+
+    @Inject
+    JumpHelper jumpHelper;
 
     @Override
     public void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -111,30 +115,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
 
     @Override
     public void loginSuccess(LoginResponse response) {
-
         int redirect = response.getDoctorauthstatus().getRedirecttopage();
-
-        Intent intent = new Intent();
-
-        switch (redirect) {
-            case 0:
-                //首页
-                intent.setClass(mActivity, MainActivity.class);
-                break;
-            case 1:
-                //实名认证页面
-                intent.setClass(mActivity, IdentityActivity.class);
-                break;
-            case 2:
-                //所属医院页面
-                intent.setClass(mActivity, PersonalInfoActivity.class);
-                break;
-            case 3:
-                //上传医生上岗证和医院工牌页面
-                intent.setClass(mActivity, IdentityActivity.class);
-                break;
-        }
-        startActivity(intent);
-        finish();
+        jumpHelper.jump(mActivity, redirect);
     }
 }
