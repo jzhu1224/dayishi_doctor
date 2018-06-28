@@ -56,13 +56,11 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -70,10 +68,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         super.afterBindView(savedInstanceState);
 
         getActivityComponent().inject(this);
-
-
-        if (jump())
-            return;
 
         fragmentManager = getSupportFragmentManager();
 
@@ -88,6 +82,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         }
 
         setCurrentSelectedTab(selectIndex);
+
+        if (!needLogout(getIntent())) {
+            jump();
+        }
     }
 
     @Override
@@ -104,41 +102,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         } else {
             setNotification(unRead+"",2);
         }
-    }
-
-    private boolean jump() {
-        if (loginInfoUtil.getLoginResponse() == null) {
-            //未登录
-            Intent intent = new Intent(mActivity, LoginActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-
-        int redirect = loginInfoUtil.getRedirecttopage();
-
-        if (redirect > 0) {
-            Intent intent = new Intent();
-
-            switch (redirect) {
-                case 1:
-                    //实名认证页面
-                    intent.setClass(mActivity, IdentityActivity.class);
-                    break;
-                case 2:
-                    //所属医院页面
-                    intent.setClass(mActivity, PersonalInfoActivity.class);
-                    break;
-                case 3:
-                    //上传医生上岗证和医院工牌页面
-                    intent.setClass(mActivity, IdentityActivity.class);
-                    break;
-            }
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return false;
     }
 
     private Fragment findFragmentByPosition(int position) {
@@ -293,23 +256,68 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     private Dialog logoutDialog;
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLogout(LogoutEvent logoutEvent) {
-        if (logoutEvent.logoutReason == LogoutEvent.TOKEN_EXPIRED) {
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        needLogout(intent);
+    }
+
+    private boolean jump() {
+        if (loginInfoUtil.getLoginResponse() == null) {
+            //未登录
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        int redirect = loginInfoUtil.getRedirecttopage();
+
+        if (redirect > 0) {
+            Intent intent = new Intent();
+
+            switch (redirect) {
+                case 1:
+                    //实名认证页面
+                    intent.setClass(mActivity, IdentityActivity.class);
+                    break;
+                case 2:
+                    //所属医院页面
+                    intent.setClass(mActivity, PersonalInfoActivity.class);
+                    break;
+                case 3:
+                    //上传医生上岗证和医院工牌页面
+                    intent.setClass(mActivity, IdentityActivity.class);
+                    break;
+            }
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean needLogout(Intent intent) {
+        if (intent.getBooleanExtra("TOKEN_EXPIRED",false)) {
             if (logoutDialog == null) {
                 logoutDialog = new QMUIDialog.MessageDialogBuilder(mActivity)
                         .setMessage("登录过期，请重新登录")
+                        .setCancelable(false)
+                        .addAction("退出", ((dialog, index) -> finish()))
                         .addAction("确定", (dialog, index) -> {
-                            Intent intent = new Intent(mActivity, LoginActivity.class);
-                            startActivity(intent);
+                            Intent intent2 = new Intent(mActivity, LoginActivity.class);
+                            startActivity(intent2);
+                            finish();
                         }).create();
             }
 
             if (!logoutDialog.isShowing()) {
                 logoutDialog.show();
             }
-
+            mainPresenter.logout();
+            return true;
         }
-        mainPresenter.logout();
+        return false;
     }
 }

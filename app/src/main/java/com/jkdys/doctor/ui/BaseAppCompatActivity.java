@@ -20,6 +20,7 @@ import com.jkdys.doctor.di.component.ActivityComponent;
 import com.jkdys.doctor.di.component.DaggerActivityComponent;
 import com.jkdys.doctor.di.module.ActivityModule;
 import com.jkdys.doctor.ui.login.LoginActivity;
+import com.jkdys.doctor.utils.ManyiUtils;
 import com.qmuiteam.qmui.util.QMUIDeviceHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -203,6 +204,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
             dialog.show();
         }
     }
+
     //    protected void initToolBar(Toolbar toolbar) {
 //        if (toolbar == null) {
 //            return;
