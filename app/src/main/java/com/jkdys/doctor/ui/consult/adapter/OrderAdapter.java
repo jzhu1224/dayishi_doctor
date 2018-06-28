@@ -2,6 +2,7 @@ package com.jkdys.doctor.ui.consult.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,15 @@ public class OrderAdapter extends BaseQuickAdapter<OrderInfo,OrderAdapter.OrderV
         helper.tvName.setText(item.getPatientname());
         helper.tvTime.setText(item.getOrderdate());
         helper.tvPrice.setText("￥"+item.getAmount());
+        helper.imgVip.setVisibility(item.isIsvip()?View.VISIBLE:View.GONE);
+        if (item.isIsvip()) {
+            helper.container.setBackgroundResource(R.drawable.bg_card_vip);
+        } else {
+            helper.container.setBackgroundResource(R.drawable.bg_card);
+        }
+
+        helper.imgPhone.setVisibility(item.getOrdertype().equals("1")?View.VISIBLE:View.GONE);
+        helper.tvPrice.setVisibility(item.getOrdertype().equals("1")?View.VISIBLE:View.GONE);
     }
 
     public static class OrderViewHolder extends BaseViewHolder{
