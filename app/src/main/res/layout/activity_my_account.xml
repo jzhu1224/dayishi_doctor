@@ -37,9 +37,10 @@
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_total_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1400.0"
+                        tools:text="1400.0"
                         android:textColor="@color/color_white"
                         android:textSize="32sp"
                         />
@@ -61,14 +62,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="总收入(元)"
+                        android:text="可提现(元)"
                         android:textColor="@color/color_white"
                         android:textSize="12sp"
                         />
                     <TextView
+                        android:id="@+id/tv_allow_withdraw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1400.0"
+                        tools:text="1400.0"
                         android:textColor="@color/color_white"
                         android:textSize="32sp"
                         />
@@ -77,6 +79,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_withdraw"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/ll_fee"
                 android:layout_width="110dp"

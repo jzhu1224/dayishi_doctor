@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -14,6 +17,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresenter> implements MyAccountView {
 
@@ -25,6 +29,15 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
 
     @BindView(R.id.groupListView)
     QMUIGroupListView qmuiGroupListView;
+
+    @BindView(R.id.tv_total_income)
+    TextView tvTotalIncome;
+
+    @BindView(R.id.tv_allow_withdraw)
+    TextView tvAllWithdraw;
+
+
+    QMUICommonListItemView phoneFee,doorFee,tuiguangFee;
 
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -39,9 +52,9 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         toolbar.setTitle("我的账户");
 
 
-        QMUICommonListItemView phoneFee = createItemView(0,"电话诊断收入","1000,00",0);
-        QMUICommonListItemView doorFee = createItemView(0,"门诊预约收费","1099.00",0);
-        QMUICommonListItemView tuiguangFee = createItemView(0, "推广补贴", "500", 0);
+        phoneFee = createItemView(0,"电话诊断收入","0.00",0);
+        doorFee = createItemView(0,"门诊预约收费","0.00",0);
+        tuiguangFee = createItemView(0, "推广补贴", "0.00", 0);
 
 
         QMUIGroupListView.newSection(mActivity)
@@ -91,5 +104,18 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
                 detailText,
                 QMUICommonListItemView.HORIZONTAL,
                 accessory);
+    }
+
+    @Override
+    public void onRequestSuccess(Doctor doctor) {
+        if (doctor == null)
+            return;
+        tvTotalIncome.setText(doctor.getTelfee());
+
+    }
+
+    @OnClick(R.id.btn_withdraw)
+    void onWithdrawClicked() {
+
     }
 }
