@@ -19,10 +19,10 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
         implements SwipeRefreshLayout.OnRefreshListener, BaseLoadMoreView<T>{
 
     @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefreshLayout;
+    protected SwipeRefreshLayout swipeRefreshLayout;
 
     protected BaseQuickAdapter<T,K> adapter;
     protected List<T> mDatas;
@@ -37,8 +37,16 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
 
         adapter = createAdapter(mDatas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter.setOnLoadMoreListener(() -> loadData(false, false), recyclerView);
+        if (enableLoadMore()) {
+            adapter.setOnLoadMoreListener(() -> loadData(false, false), recyclerView);
+        } else {
+            adapter.setEnableLoadMore(false);
+        }
         recyclerView.setAdapter(adapter);
+    }
+
+    protected boolean enableLoadMore() {
+        return true;
     }
 
     @Override

@@ -7,10 +7,9 @@ import com.jkdys.doctor.data.model.DoctorWorkInfo;
 import com.jkdys.doctor.data.model.HospitalData;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.data.model.OrderInfo;
+import com.jkdys.doctor.data.model.PatientGroup;
 import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.ProvinceData;
-import com.jkdys.doctor.data.model.UserInfoModel;
-import com.jkdys.doctor.data.network.callback.BaseCallback;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,4 +72,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Access/DoctorWorkInfoCheck")
     Call<BaseResponse<LoginResponse>> doctorWorkInfoCheck(@Body DoctorWorkInfo doctorWorkInfo);
+
+    @POST("/api/Doctor/Doctor/GetMyPatientList")
+    Call<BaseResponse<List<PatientGroup>>> getMyPatientList();
 }

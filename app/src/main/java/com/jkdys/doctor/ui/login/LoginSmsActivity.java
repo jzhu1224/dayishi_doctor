@@ -116,6 +116,7 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @Override
     public void loginSuccess(LoginResponse response) {
         int redirect = response.getDoctorauthstatus().getRedirecttopage();
+
         jumpHelper.jump(mActivity, redirect);
     }
 }

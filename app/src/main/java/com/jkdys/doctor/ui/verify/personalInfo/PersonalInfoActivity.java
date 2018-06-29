@@ -18,6 +18,7 @@ import com.jkdys.doctor.ui.search.SearchData;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
 import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
+import com.jkdys.doctor.ui.verify.JumpHelper;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 
 import javax.inject.Inject;
@@ -30,6 +31,8 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
 
     @Inject
     PersonalInfoPresenter personalInfoPresenter;
+    @Inject
+    JumpHelper jumpHelper;
 
     @BindView(R.id.tv_hospital)
     TextView tvHospital;
@@ -122,28 +125,6 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
     @Override
     public void onPersonalInfoUpdateSuccess(LoginResponse response) {
         int redirect = response.getDoctorauthstatus().getRedirecttopage();
-
-        Intent intent = new Intent();
-
-        switch (redirect) {
-            case 0:
-                //首页
-                intent.setClass(mActivity, MainActivity.class);
-                break;
-            case 1:
-                //实名认证页面
-                intent.setClass(mActivity, IdentityActivity.class);
-                break;
-            case 2:
-                //所属医院页面
-                intent.setClass(mActivity, PersonalInfoActivity.class);
-                break;
-            case 3:
-                //上传医生上岗证和医院工牌页面
-                intent.setClass(mActivity, IdentityActivity.class);
-                break;
-        }
-        startActivity(intent);
-        finish();
+        jumpHelper.jump(mActivity,redirect);
     }
 }

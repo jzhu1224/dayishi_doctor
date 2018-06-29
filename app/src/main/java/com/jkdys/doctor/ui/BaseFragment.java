@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.di.component.ActivityComponent;
@@ -151,4 +153,9 @@ public abstract class BaseFragment extends Fragment {
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.side_out_left);
         }
     }
+
+    public void showMessage(String message) {
+        ToastUtil.show(getActivity(),message);
+    }
+
 }

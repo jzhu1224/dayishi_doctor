@@ -25,13 +25,10 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-
         BaseResponse baseResponse = response.body();
-
-        view.showContent();
-
         if (!isViewAttached() || baseResponse == null)
             return;
+        view.showContent();
 
         if (baseResponse.getCode() == 1) {
             onBusinessSuccess(response.body());

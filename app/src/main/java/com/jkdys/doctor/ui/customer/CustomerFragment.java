@@ -1,40 +1,35 @@
 package com.jkdys.doctor.ui.customer;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
-import com.jkdys.doctor.R;
-import com.jkdys.doctor.ui.MvpFragment;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import javax.inject.Inject;
-import butterknife.OnClick;
 
-public class CustomerFragment extends MvpFragment<CustomerView,CustomerPresenter> implements CustomerView {
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseSectionQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.jkdys.doctor.R;
+import com.jkdys.doctor.ui.BaseLoadMoreView;
+import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSection,BaseLoadMoreView<MyPatientSection>,CustomerPresenter,CustomerFragment.CustomerViewHolder> {
 
     @Inject
     CustomerPresenter consultPresenter;
+
     @Override
     protected void initViews(View view) {
-        toolbar.setTitle(R.string.customer);
+        super.initViews(view);
+        toolbar.setTitle("我的患者");
     }
 
-    @OnClick(R.id.btn_test)
-    void onBtnTestClick() {
-       showMessagePositiveDialog();
+    @Override
+    protected boolean enableLoadMore() {
+        return false;
     }
-
-    private void showMessagePositiveDialog() {
-        new QMUIDialog.MessageDialogBuilder(getActivity())
-                .setTitle("标题")
-                .setMessage("确定要发送吗？")
-                .addAction("取消", (dialog, index) -> dialog.dismiss())
-                .addAction("确定", (dialog, index) -> {
-                    dialog.dismiss();
-                    Toast.makeText(getActivity(), "发送成功", Toast.LENGTH_SHORT).show();
-                })
-                .create().show();
-    }
-
 
     @Override
     protected int getLayoutId() {
@@ -42,23 +37,8 @@ public class CustomerFragment extends MvpFragment<CustomerView,CustomerPresenter
     }
 
     @Override
-    public void showLoading(boolean pullToRefresh) {
-
-    }
-
-    @Override
-    public void showContent() {
-
-    }
-
-    @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
-    public void showError(String message) {
-
+    protected BaseQuickAdapter<MyPatientSection, CustomerViewHolder> createAdapter(List<MyPatientSection> mDatas) {
+        return new CustomerAdapter(mDatas);
     }
 
     @NonNull
@@ -66,5 +46,29 @@ public class CustomerFragment extends MvpFragment<CustomerView,CustomerPresenter
     public CustomerPresenter createPresenter() {
         getActivityComponent().inject(this);
         return consultPresenter;
+    }
+
+    class CustomerAdapter extends BaseSectionQuickAdapter<MyPatientSection,CustomerViewHolder> {
+
+        public CustomerAdapter(@Nullable List<MyPatientSection> data) {
+            super(R.layout.item_my_patient,R.layout.item_section_header, data);
+        }
+
+        @Override
+        protected void convert(CustomerViewHolder helper, MyPatientSection item) {
+
+        }
+
+        @Override
+        protected void convertHead(CustomerViewHolder helper, MyPatientSection item) {
+            helper.setText(R.id.tv_header, item.header);
+        }
+    }
+
+    public static class CustomerViewHolder extends BaseViewHolder {
+
+        public CustomerViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 }
