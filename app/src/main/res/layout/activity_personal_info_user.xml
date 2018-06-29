@@ -165,6 +165,7 @@
                 />
             <EditText
                 tools:text="yaoqingma"
+                android:hint="请输入邀请码"
                 android:gravity="right"
                 android:id="@+id/edt_invent_code"
                 android:layout_gravity="center_vertical|right"

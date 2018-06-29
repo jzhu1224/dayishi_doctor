@@ -3,6 +3,7 @@ package com.jkdys.doctor.data.network;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.CityData;
 import com.jkdys.doctor.data.model.DepartmentData;
+import com.jkdys.doctor.data.model.DoctorWorkInfo;
 import com.jkdys.doctor.data.model.HospitalData;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.data.model.OrderInfo;
@@ -69,4 +70,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Hospital/GetHospitalList")
     Call<BaseResponse<List<HospitalData>>> getHospitalList(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Access/DoctorWorkInfoCheck")
+    Call<BaseResponse<LoginResponse>> doctorWorkInfoCheck(@Body DoctorWorkInfo doctorWorkInfo);
 }
