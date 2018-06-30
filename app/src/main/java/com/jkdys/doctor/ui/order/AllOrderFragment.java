@@ -28,7 +28,7 @@ public class AllOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseL
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setParams(0,1);
+        orderPresenter.setParams(0,0);
     }
 
     @Override

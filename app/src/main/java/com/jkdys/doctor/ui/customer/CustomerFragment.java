@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseSectionQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.PatientInfo;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
 
@@ -56,7 +57,10 @@ public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSectio
 
         @Override
         protected void convert(CustomerViewHolder helper, MyPatientSection item) {
-
+            PatientInfo patientInfo = item.t;
+            helper.setText(R.id.tv_name, patientInfo.getPatientname());
+            helper.setText(R.id.tv_age, patientInfo.getAge());
+            helper.setText(R.id.tv_gender, patientInfo.getGender());
         }
 
         @Override
