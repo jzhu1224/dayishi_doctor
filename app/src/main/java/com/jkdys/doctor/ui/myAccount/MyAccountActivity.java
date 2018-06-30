@@ -67,14 +67,14 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         QMUICommonListItemView bindCard = createItemView(R.drawable.ic_bank, "绑定银行卡", "未绑定", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 
 
-        QMUIGroupListView.newSection(mActivity)
+        QMUIGroupListView.newSection(mActivity) //绑定银行卡
                 .addItemView(bindCard, view -> {})
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
 
         QMUICommonListItemView tradeRecord = createItemView(R.drawable.ic_trade_record, "交易记录", "", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 
-        QMUIGroupListView.newSection(mActivity)
+        QMUIGroupListView.newSection(mActivity) //交易记录
                 .addItemView(tradeRecord, view -> {})
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
@@ -84,6 +84,12 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     protected void initStatusBar(int color) {
         super.initStatusBar(color);
         QMUIStatusBarHelper.setStatusBarDarkMode(mActivity);
+    }
+
+    @Override
+    protected void afterMvpDelegateCreateInvoked() {
+        super.afterMvpDelegateCreateInvoked();
+        myAccountPresenter.getDoctorInfo();
     }
 
     @NonNull
@@ -110,7 +116,11 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     public void onRequestSuccess(Doctor doctor) {
         if (doctor == null)
             return;
-        tvTotalIncome.setText(doctor.getTelfee());
+        tvTotalIncome.setText(doctor.getTelfee()+"");
+        tvAllWithdraw.setText(doctor.getUndrawnamount()+"");
+        phoneFee.setDetailText(doctor.getTelfee()+"");
+        doorFee.setDetailText(doctor.getOutpatientfee()+"");
+        tuiguangFee.setDetailText(doctor.getPromotefee()+"");
 
     }
 

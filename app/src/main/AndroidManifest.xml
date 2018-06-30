@@ -101,6 +101,7 @@
         <activity android:name=".ui.chat.ChatActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
         <activity android:name=".ui.chat.ShowBigImageActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.verify.doctorVerify.DoctorVerifyActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.order.MyOrderActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

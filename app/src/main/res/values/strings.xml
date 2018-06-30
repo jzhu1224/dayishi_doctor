@@ -16,4 +16,9 @@
     <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
     <string name="is_resend">立即重发？</string>
     <string name="blank"></string>
+    <string name="all">全部</string>
+    <string name="process">待处理</string>
+    <string name="completed">已完成</string>
+    <string name="canceled">已取消</string>
+    <string name="invalided">已作废</string>
 </resources>

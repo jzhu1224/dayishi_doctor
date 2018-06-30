@@ -12,6 +12,11 @@ import com.jkdys.doctor.ui.login.LoginSmsActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
+import com.jkdys.doctor.ui.order.AllOrderFragment;
+import com.jkdys.doctor.ui.order.CanceledOrderFragment;
+import com.jkdys.doctor.ui.order.CompletedOrderFragment;
+import com.jkdys.doctor.ui.order.InvalidedOrderFragment;
+import com.jkdys.doctor.ui.order.ProcessOrderFragment;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
@@ -46,4 +51,9 @@ public interface ActivityComponent {
     void inject(SearchHospitalActivity searchHospitalActivity);
     void inject(YunFragment yunFragment);
     void inject(DoctorVerifyActivity doctorVerifyActivity);
+    void inject(AllOrderFragment allOrderFragment);
+    void inject(ProcessOrderFragment allOrderFragment);
+    void inject(CompletedOrderFragment completedOrderFragment);
+    void inject(CanceledOrderFragment completedOrderFragment);
+    void inject(InvalidedOrderFragment completedOrderFragment);
 }
