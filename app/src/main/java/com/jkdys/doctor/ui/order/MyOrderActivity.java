@@ -31,7 +31,8 @@ public class MyOrderActivity extends BaseAppCompatActivity{
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
-        toolbar.setTitle(R.string.consult);
+        toolbar.setTitle("我的订单");
+        toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
         toolbar.setBackgroundDividerEnabled(false);
         initTabAndPager();
     }

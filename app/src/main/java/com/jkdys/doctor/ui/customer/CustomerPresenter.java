@@ -9,6 +9,7 @@ import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMorePresenter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,12 +30,12 @@ public class CustomerPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMore
             @Override
             public void onBusinessSuccess(BaseResponse<List<PatientGroup>> response) {
 
-                List<MyPatientSection> myPatientSectionList = new ArrayList<>();
+                LinkedList<MyPatientSection> myPatientSectionList = new LinkedList<>();
 
                 if (response.getData() != null) {
                     for (PatientGroup patienGroup:response.getData()) {
                         MyPatientSection myPatientSection = new MyPatientSection(true,patienGroup.getGroupname());
-                        myPatientSectionList.add(myPatientSection);
+                        myPatientSectionList.addFirst(myPatientSection);
                         if (patienGroup.getDetail() != null) {
                             for (PatientInfo patienInfo: patienGroup.getDetail()) {
                                 myPatientSection = new MyPatientSection(patienInfo);
