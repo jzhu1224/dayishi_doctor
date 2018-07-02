@@ -284,6 +284,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 logoutDialog = new QMUIDialog.MessageDialogBuilder(mActivity)
                         .setMessage("登录过期，请重新登录")
                         .setCancelable(false)
+                        .setCanceledOnTouchOutside(false)
                         .addAction("退出", ((dialog, index) -> finish()))
                         .addAction("确定", (dialog, index) -> {
                             Intent intent2 = new Intent(mActivity, LoginActivity.class);
