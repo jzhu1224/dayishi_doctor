@@ -18,8 +18,6 @@ public class JumpHelper {
     }
 
     public boolean jump(Activity mActivity, int redirect) {
-        if (redirect == 0)
-            return false;
         Intent intent = null;
         switch (redirect) {
             case 0:
