@@ -30,8 +30,10 @@ import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.chat.ChatConstant;
 import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.ui.chat.custom.MyEaseChatExtendMenu;
+import com.jkdys.doctor.ui.chat.custom.PatientChatRow;
 import com.jkdys.doctor.ui.main.MainActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -72,14 +74,21 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     static final int ITEM_LOCATION = 3;
     static final int ITEM_PATIENT = 4;
 
+
+    private static final int REQUEST_CODE_LOCAL_IMAGE = 4;
+    protected static final int REQUEST_CODE_PATIENT = 4;
+
+    //患者名片
+    private static final int MESSAGE_TYPE_SENT_PATIENT_CARD = 1;
+    private static final int MESSAGE_TYPE_RECV_PATIENT_CARD = 2;
+
     protected int[] itemStrings = { R.string.attach_picture, R.string.attach_take_pic, R.string.attach_location };
     protected int[] itemIconFonts = {R.drawable.img_doctor,R.drawable.img_doctor,R.drawable.img_doctor, R.drawable.img_doctor};
     protected int[] itemIds = { ITEM_PICTURE, ITEM_TAKE_PICTURE, ITEM_LOCATION, ITEM_PATIENT};
 
     private MyEaseChatExtendMenu.EaseChatExtendMenuItemClickListener myExtendMenuItemClickListener;
 
-    private static final int REQUEST_CODE_LOCAL_IMAGE = 4;
-    protected static final int REQUEST_CODE_PATIENT = 4;
+
 
 
     @Override
@@ -307,29 +316,27 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
         public int getCustomChatRowTypeCount() {
             //here the number is the message type in EMMessage::Type
             //which is used to count the number of different chat row
-            return 0;
+            return 2;
         }
 
         @Override
         public int getCustomChatRowType(EMMessage message) {
-//            if(message.getType() == EMMessage.Type.TXT){
-//                //自定义类型
-//                if (message.getStringAttribute(ChatConstant.MESSAGE_ATTR_IS_MISSED_CALL,"").equals("1") ||
-//                        message.getStringAttribute(ChatConstant.MESSAGE_ATTR_IS_CALL_RECORD,"").equals("1")) {
-//                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_CALL_RECORD : MESSAGE_TYPE_SENT_CALL_RECORD;
-//                }
-//            }
+            if(message.getType() == EMMessage.Type.TXT){
+                //自定义类型
+                if (message.getBooleanAttribute(ChatConstant.MESSAGE_ATTR_IS_PATIENT_CARD,false)) {
+                    return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_PATIENT_CARD : MESSAGE_TYPE_SENT_PATIENT_CARD;
+                }
+            }
             return 0;
         }
 
         @Override
         public EaseChatRow getCustomChatRow(EMMessage message, int position, BaseAdapter adapter) {
-//            if(message.getType() == EMMessage.Type.TXT){
-//                if (message.getStringAttribute(ChatConstant.MESSAGE_ATTR_IS_MISSED_CALL,"").equals("1") ||
-//                        message.getStringAttribute(ChatConstant.MESSAGE_ATTR_IS_CALL_RECORD,"").equals("1")) {
-//                    return new CallRecordChatRow(getActivity(), message, position, adapter);
-//                }
-//            }
+            if(message.getType() == EMMessage.Type.TXT){
+                if (message.getBooleanAttribute(ChatConstant.MESSAGE_ATTR_IS_PATIENT_CARD, false)) {
+                    return new PatientChatRow(getActivity(), message, position, adapter);
+                }
+            }
             return null;
         }
 

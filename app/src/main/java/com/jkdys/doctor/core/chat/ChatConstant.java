@@ -24,4 +24,13 @@ public class ChatConstant extends EaseConstant {
     public static  final String MESSAGE_ATTR_HOUSE_RESOURCE_ID = "houseResourceId";
     public static final String MESSAGE_ATTR_BIZ_TYPE = "bizType";
 
+    /**
+     * 自定义消息类型
+     *
+     */
+    public static final String MESSAGE_ATTR_IS_PATIENT_CARD = "is_patient_card";//患者名片
+
+
+    public static final String MESSAGE_ATTR_PATIENT_NAME = "patient_name";//患者姓名
+    public static final String MESSAGE_ATTR_PATIENT_AVATAR = "patient_avatar";//患者头像
 }
