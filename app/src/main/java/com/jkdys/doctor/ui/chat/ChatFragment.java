@@ -70,14 +70,16 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     static final int ITEM_TAKE_PICTURE = 1;
     static final int ITEM_PICTURE = 2;
     static final int ITEM_LOCATION = 3;
+    static final int ITEM_PATIENT = 4;
 
     protected int[] itemStrings = { R.string.attach_picture, R.string.attach_take_pic, R.string.attach_location };
-    protected int[] itemIconFonts = {R.drawable.img_doctor,R.drawable.img_doctor,R.drawable.img_doctor};
-    protected int[] itemIds = { ITEM_PICTURE,ITEM_TAKE_PICTURE,ITEM_LOCATION};
+    protected int[] itemIconFonts = {R.drawable.img_doctor,R.drawable.img_doctor,R.drawable.img_doctor, R.drawable.img_doctor};
+    protected int[] itemIds = { ITEM_PICTURE, ITEM_TAKE_PICTURE, ITEM_LOCATION, ITEM_PATIENT};
 
     private MyEaseChatExtendMenu.EaseChatExtendMenuItemClickListener myExtendMenuItemClickListener;
 
     private static final int REQUEST_CODE_LOCAL_IMAGE = 4;
+    protected static final int REQUEST_CODE_PATIENT = 4;
 
 
     @Override
@@ -123,7 +125,9 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
                 case ITEM_LOCATION:
                     startActivityForResult(new Intent(getActivity(), MyEaseBaiduMapActivity.class), REQUEST_CODE_MAP);
                     break;
-
+                case ITEM_PATIENT:
+                    //REQUEST_CODE_PATIENT请求患者数据
+                    break;
                 default:
                     break;
             }

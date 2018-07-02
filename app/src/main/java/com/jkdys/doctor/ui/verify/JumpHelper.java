@@ -21,6 +21,9 @@ public class JumpHelper {
         Intent intent = null;
         switch (redirect) {
             case 0:
+                if (mActivity instanceof MainActivity) {
+                    return false;
+                }
                 intent = new Intent(mActivity, MainActivity.class);
                 break;
             case 1:

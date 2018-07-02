@@ -10,6 +10,8 @@ import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
     protected BaseQuickAdapter<T,K> adapter;
     protected List<T> mDatas;
 
+    private QMUIEmptyView qmuiEmptyView;
 
     @Override
     protected void initViews(View view) {
@@ -42,6 +45,10 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
         } else {
             adapter.setEnableLoadMore(false);
         }
+
+        qmuiEmptyView = new QMUIEmptyView(getActivity());
+        adapter.setEmptyView(qmuiEmptyView);
+
         recyclerView.setAdapter(adapter);
     }
 
@@ -95,16 +102,22 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
     @Override
     public void showLoading(boolean pullToRefresh) {
         swipeRefreshLayout.setRefreshing(pullToRefresh);
+        //qmuiEmptyView.show(true);
     }
 
     @Override
     public void showContent() {
         swipeRefreshLayout.setRefreshing(false);
+        qmuiEmptyView.show(false);
+        qmuiEmptyView.setTitleText("暂无数据");
     }
 
     @Override
     public void showError(String message) {
         swipeRefreshLayout.setRefreshing(false);
         showMessage(message);
+        qmuiEmptyView.setTitleText("加载时发生错误");
+        qmuiEmptyView.setDetailText(message);
+        qmuiEmptyView.setButton("重新加载", view -> loadData(true,true));
     }
 }
