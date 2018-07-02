@@ -10,13 +10,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.OrderInfo;
+import com.jkdys.doctor.ui.BaseView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OrderAdapter extends BaseQuickAdapter<OrderInfo,OrderAdapter.OrderViewHolder>{
+public class OrderAdapter extends BaseQuickAdapter<OrderInfo,BaseViewHolder>{
 
 
     public OrderAdapter(@Nullable List<OrderInfo> data) {
@@ -24,43 +25,17 @@ public class OrderAdapter extends BaseQuickAdapter<OrderInfo,OrderAdapter.OrderV
     }
 
     @Override
-    protected void convert(OrderViewHolder helper, OrderInfo item) {
-        helper.tvName.setText(item.getPatientname());
-        helper.tvTime.setText(item.getOrderdate());
-        helper.tvPrice.setText("￥"+item.getAmount());
-        helper.imgVip.setVisibility(item.isIsvip()?View.VISIBLE:View.GONE);
+    protected void convert(BaseViewHolder helper, OrderInfo item) {
+        helper.setText(R.id.tv_name, item.getPatientname());
+        helper.setText(R.id.tv_time, item.getOrderdate());
+        helper.setText(R.id.tv_price, "￥"+ item.getAmount());
+        helper.setVisible(R.id.img_vip, item.isIsvip());
         if (item.isIsvip()) {
-            helper.container.setBackgroundResource(R.drawable.bg_card_vip);
+            helper.setBackgroundRes(R.id.ll_container, R.drawable.bg_card_vip);
         } else {
-            helper.container.setBackgroundResource(R.drawable.bg_card);
+            helper.setBackgroundRes(R.id.ll_container, R.drawable.bg_card);
         }
-
-        helper.imgPhone.setVisibility(item.getOrdertype().equals("1")?View.VISIBLE:View.GONE);
-        helper.tvPrice.setVisibility(item.getOrdertype().equals("1")?View.VISIBLE:View.GONE);
-    }
-
-    public static class OrderViewHolder extends BaseViewHolder{
-
-        @BindView(R.id.ll_container)
-        View container;
-        @BindView(R.id.img_avatar)
-        ImageView imgAvatar;
-        @BindView(R.id.name)
-        TextView tvName;
-        @BindView(R.id.tv_price)
-        TextView tvPrice;
-        @BindView(R.id.tv_state)
-        TextView tvState;
-        @BindView(R.id.img_vip)
-        ImageView imgVip;
-        @BindView(R.id.tv_time)
-        TextView tvTime;
-        @BindView(R.id.img_phone)
-        ImageView imgPhone;
-
-        public OrderViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this,view);
-        }
+        helper.setVisible(R.id.img_phone, item.getOrdertype().equals("1"));
+        helper.setVisible(R.id.tv_price, item.getOrdertype().equals("1"));
     }
 }

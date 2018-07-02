@@ -1,23 +1,27 @@
 package com.jkdys.doctor.ui.base;
 
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chairoad.framework.util.ToastUtil;
+import com.chairoad.framework.util.LogUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.qmuiteam.qmui.widget.QMUIEmptyView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
-public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>, P extends BaseRefreshLoadMorePresenter<V,T>, K extends BaseViewHolder> extends MvpFragment<V,P>
+public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends BaseLoadMoreView<T>, P extends BaseRefreshLoadMorePresenter<V,T>> extends MvpFragment<V,P>
         implements SwipeRefreshLayout.OnRefreshListener, BaseLoadMoreView<T>{
 
     @BindView(R.id.recycler_view)
@@ -26,19 +30,28 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
     @BindView(R.id.swipe_refresh)
     protected SwipeRefreshLayout swipeRefreshLayout;
 
-    protected BaseQuickAdapter<T,K> adapter;
-    protected List<T> mDatas;
+    protected BaseQuickAdapter<T,BaseViewHolder> adapter;
+    protected ArrayList<T> mDatas;
 
     private QMUIEmptyView qmuiEmptyView;
 
+    @Nullable
     @Override
-    protected void initViews(View view) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        mDatas = new ArrayList<>();
+    @Override
+    protected void initViews(View view, Bundle savedInstanceState) {
+        LogUtil.e(this.getClass().getSimpleName(),"initViews");
+        if (savedInstanceState == null) {
+            mDatas = new ArrayList<>();
+        } else {
+            mDatas = savedInstanceState.getParcelableArrayList("mDatas");
+        }
 
         adapter = createAdapter(mDatas);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (enableLoadMore()) {
             adapter.setOnLoadMoreListener(() -> loadData(false, false), recyclerView);
@@ -50,6 +63,12 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
         adapter.setEmptyView(qmuiEmptyView);
 
         recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onLazyLoadOnce() {
+        loadData(true, true);
     }
 
     protected boolean enableLoadMore() {
@@ -66,7 +85,7 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
         loadData(true, true);
     }
 
-    protected abstract BaseQuickAdapter<T,K> createAdapter(List<T> mDatas);
+    protected abstract BaseQuickAdapter<T,BaseViewHolder> createAdapter(List<T> mDatas);
 
     @Override
     public void setData(List<T> data) {
@@ -74,8 +93,20 @@ public abstract class BaseRefreshLoadMoreFrament<T,V extends BaseLoadMoreView<T>
     }
 
     @Override
-    protected void onLazyLoadOnce() {
-        loadData(true, true);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("mDatas", (ArrayList<? extends Parcelable>) adapter.getData());
+        LogUtil.e(this.getClass().getSimpleName(),"onSaveInstanceState:"+ adapter.getData().size());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override

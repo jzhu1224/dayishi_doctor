@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.consult;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -41,7 +42,7 @@ public class ConsultFragment extends BaseFragment{
     }
 
     @Override
-    protected void initViews(View view) {
+    protected void initViews(View view, Bundle saveInstanceState) {
         toolbar.setTitle(R.string.consult);
         toolbar.setBackgroundDividerEnabled(false);
         toolbar.addRightImageButton(R.drawable.ic_share,R.id.id_share).setOnClickListener(view1 -> {

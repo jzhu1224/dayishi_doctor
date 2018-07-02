@@ -3,6 +3,7 @@ package com.jkdys.doctor.ui.order;
 import android.support.annotation.NonNull;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
@@ -13,7 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class InvalidedOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadMoreView<OrderInfo>,OrderPresenter,OrderAdapter.OrderViewHolder> {
+public class InvalidedOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadMoreView<OrderInfo>,OrderPresenter> {
 
     @Inject
     OrderPresenter orderPresenter;
@@ -31,7 +32,7 @@ public class InvalidedOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo
     }
 
     @Override
-    protected BaseQuickAdapter<OrderInfo,OrderAdapter.OrderViewHolder> createAdapter(List<OrderInfo> mDatas) {
+    protected BaseQuickAdapter<OrderInfo,BaseViewHolder> createAdapter(List<OrderInfo> mDatas) {
         return new OrderAdapter(mDatas);
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
@@ -45,11 +46,11 @@ public class MyOrderActivity extends BaseAppCompatActivity{
         fragmentList.add(new ProcessOrderFragment());
         fragmentList.add(new CompletedOrderFragment());
         fragmentList.add(new CanceledOrderFragment());
-        fragmentList.add(new InvalidedOrderFragment());
+        //fragmentList.add(new InvalidedOrderFragment());
 
         contentPagerAdapter = new ContentPagerAdapter(getSupportFragmentManager());
         mContentViewPager.setAdapter(contentPagerAdapter);
-        mContentViewPager.setCurrentItem(0, false);
+        mContentViewPager.setCurrentItem(0, true);
         mTabSegment.setHasIndicator(true);
         mTabSegment.setIndicatorPosition(false);
         mTabSegment.setIndicatorWidthAdjustContent(true);
@@ -59,7 +60,7 @@ public class MyOrderActivity extends BaseAppCompatActivity{
         mTabSegment.addTab(new QMUITabSegment.Tab(getString(R.string.process)));
         mTabSegment.addTab(new QMUITabSegment.Tab(getString(R.string.completed)));
         mTabSegment.addTab(new QMUITabSegment.Tab(getString(R.string.canceled)));
-        mTabSegment.addTab(new QMUITabSegment.Tab(getString(R.string.invalided)));
+        //mTabSegment.addTab(new QMUITabSegment.Tab(getString(R.string.invalided)));
         mTabSegment.setupWithViewPager(mContentViewPager, false);
         mTabSegment.setMode(QMUITabSegment.MODE_FIXED);
         mTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
@@ -85,7 +86,7 @@ public class MyOrderActivity extends BaseAppCompatActivity{
         });
     }
 
-    private class ContentPagerAdapter extends FragmentPagerAdapter {
+    private class ContentPagerAdapter extends FragmentStatePagerAdapter {
 
         public ContentPagerAdapter(FragmentManager fm) {
             super(fm);

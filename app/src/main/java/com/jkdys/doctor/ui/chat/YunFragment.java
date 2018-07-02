@@ -44,8 +44,9 @@ public class YunFragment extends MvpFragment<IYunView,YunPresenter> implements I
     @Inject
     YunPresenter yunPresenter;
 
+
     @Override
-    protected void initViews(View view) {
+    protected void initViews(View view, @Nullable Bundle savedInstanceState) {
         initView();
     }
 

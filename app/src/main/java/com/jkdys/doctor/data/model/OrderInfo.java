@@ -1,6 +1,9 @@
 package com.jkdys.doctor.data.model;
 
-public class OrderInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class OrderInfo implements Parcelable {
     private String orderid;
     private String picheadurl;
     private String patientid;
@@ -100,4 +103,54 @@ return status;
     public void setIsvip(boolean isvip) {
         this.isvip = isvip;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.orderid);
+        dest.writeString(this.picheadurl);
+        dest.writeString(this.patientid);
+        dest.writeString(this.patientname);
+        dest.writeString(this.ordertype);
+        dest.writeString(this.paytype);
+        dest.writeString(this.paytypename);
+        dest.writeString(this.amount);
+        dest.writeString(this.orderdate);
+        dest.writeByte(this.isvip ? (byte) 1 : (byte) 0);
+        dest.writeString(this.status);
+    }
+
+    public OrderInfo() {
+    }
+
+    protected OrderInfo(Parcel in) {
+        this.orderid = in.readString();
+        this.picheadurl = in.readString();
+        this.patientid = in.readString();
+        this.patientname = in.readString();
+        this.ordertype = in.readString();
+        this.paytype = in.readString();
+        this.paytypename = in.readString();
+        this.amount = in.readString();
+        this.orderdate = in.readString();
+        this.isvip = in.readByte() != 0;
+        this.status = in.readString();
+    }
+
+    public static final Parcelable.Creator<OrderInfo> CREATOR = new Parcelable.Creator<OrderInfo>() {
+        @Override
+        public OrderInfo createFromParcel(Parcel source) {
+            return new OrderInfo(source);
+        }
+
+        @Override
+        public OrderInfo[] newArray(int size) {
+            return new OrderInfo[size];
+        }
+    };
 }

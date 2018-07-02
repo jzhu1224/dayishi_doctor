@@ -1,6 +1,7 @@
 package com.jkdys.doctor.ui.mine;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
     LoginInfoUtil loginInfoUtil;
 
     @Override
-    protected void initViews(View view) {
+    protected void initViews(View view, Bundle saveInstanceState) {
         toolbar.setTitle(R.string.person_center);
 
         profileImg.setImageResource(R.drawable.test_image);

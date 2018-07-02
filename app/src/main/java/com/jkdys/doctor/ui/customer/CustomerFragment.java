@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.customer;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -16,14 +17,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSection,BaseLoadMoreView<MyPatientSection>,CustomerPresenter,CustomerFragment.CustomerViewHolder> {
+public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSection,BaseLoadMoreView<MyPatientSection>,CustomerPresenter> {
 
     @Inject
     CustomerPresenter consultPresenter;
 
     @Override
-    protected void initViews(View view) {
-        super.initViews(view);
+    protected void initViews(View view, Bundle saveInstanceState) {
+        super.initViews(view, saveInstanceState);
         toolbar.setTitle("我的患者");
     }
 
@@ -38,7 +39,7 @@ public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSectio
     }
 
     @Override
-    protected BaseQuickAdapter<MyPatientSection, CustomerViewHolder> createAdapter(List<MyPatientSection> mDatas) {
+    protected BaseQuickAdapter<MyPatientSection, BaseViewHolder> createAdapter(List<MyPatientSection> mDatas) {
         return new CustomerAdapter(mDatas);
     }
 
@@ -49,14 +50,14 @@ public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSectio
         return consultPresenter;
     }
 
-    class CustomerAdapter extends BaseSectionQuickAdapter<MyPatientSection,CustomerViewHolder> {
+    class CustomerAdapter extends BaseSectionQuickAdapter<MyPatientSection,BaseViewHolder> {
 
         public CustomerAdapter(@Nullable List<MyPatientSection> data) {
             super(R.layout.item_my_patient,R.layout.item_section_header, data);
         }
 
         @Override
-        protected void convert(CustomerViewHolder helper, MyPatientSection item) {
+        protected void convert(BaseViewHolder helper, MyPatientSection item) {
             PatientInfo patientInfo = item.t;
             helper.setText(R.id.tv_name, patientInfo.getPatientname());
             helper.setText(R.id.tv_age, patientInfo.getAge());
@@ -64,7 +65,7 @@ public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSectio
         }
 
         @Override
-        protected void convertHead(CustomerViewHolder helper, MyPatientSection item) {
+        protected void convertHead(BaseViewHolder helper, MyPatientSection item) {
             helper.setText(R.id.tv_header, item.header);
         }
     }

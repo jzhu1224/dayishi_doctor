@@ -51,7 +51,7 @@ public abstract class BaseFragment extends Fragment {
                 .build();
     }
 
-    protected abstract void initViews(View view);
+    protected abstract void initViews(View view, @Nullable Bundle saveInstanceState);
 
     protected abstract int getLayoutId();
     @Nullable
@@ -59,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this,view);
-        initViews(view);
+        initViews(view,savedInstanceState);
         return view;
     }
 
