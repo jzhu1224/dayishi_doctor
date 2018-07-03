@@ -1,5 +1,6 @@
 package com.jkdys.doctor.data.network;
 
+import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.CityData;
 import com.jkdys.doctor.data.model.DepartmentData;
@@ -79,4 +80,11 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/GetDoctorDetailInfo")
     Call<BaseResponse<Doctor>> getDoctorDetailInfo();//获取医生个人信息
+
+    @POST("/api/Doctor/BaseData/GetDoctorBankList") //获取绑定银行卡的信息
+    Call<BaseResponse<BankCardInfo>> getDoctorBankList();
+
+    @POST("/api/Doctor/BaseData/GetSupportBankList")
+    Call<BaseResponse<List<BankCardInfo>>> getSupportBankList();
+
 }

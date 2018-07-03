@@ -83,6 +83,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             customerFragment = findFragmentByPosition(1);
             yunFragment = findFragmentByPosition(2);
             mineFragment = findFragmentByPosition(3);
+            mCurrentFragment = findFragmentByPosition(selectIndex);
         }
 
         setCurrentSelectedTab(selectIndex);

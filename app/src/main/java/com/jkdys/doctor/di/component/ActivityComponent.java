@@ -12,6 +12,8 @@ import com.jkdys.doctor.ui.login.LoginSmsActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
+import com.jkdys.doctor.ui.myAccount.bank.BankCardListActivity;
+import com.jkdys.doctor.ui.myAccount.bank.SupportBankListFragment;
 import com.jkdys.doctor.ui.order.AllOrderFragment;
 import com.jkdys.doctor.ui.order.CanceledOrderFragment;
 import com.jkdys.doctor.ui.order.CompletedOrderFragment;
@@ -56,4 +58,6 @@ public interface ActivityComponent {
     void inject(CompletedOrderFragment completedOrderFragment);
     void inject(CanceledOrderFragment completedOrderFragment);
     void inject(InvalidedOrderFragment completedOrderFragment);
+    void inject(BankCardListActivity bankCardListActivity);
+    void inject(SupportBankListFragment supportBankListFragment);
 }

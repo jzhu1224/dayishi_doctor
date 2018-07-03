@@ -43,8 +43,6 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        LogUtil.e(this.getClass().getSimpleName(),"initViews");
-
         swipeRefreshLayout.setOnRefreshListener(this);
 
         if (savedInstanceState == null) {
@@ -101,7 +99,6 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("mDatas", (ArrayList<? extends Parcelable>) adapter.getData());
-        LogUtil.e(this.getClass().getSimpleName(),"onSaveInstanceState:"+ adapter.getData().size());
     }
 
     @Override

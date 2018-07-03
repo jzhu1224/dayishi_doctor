@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.myAccount;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.myAccount.bank.BankCardListActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -68,7 +70,9 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
 
 
         QMUIGroupListView.newSection(mActivity) //绑定银行卡
-                .addItemView(bindCard, view -> {})
+                .addItemView(bindCard, view -> {
+                    startActivity(new Intent(mActivity, BankCardListActivity.class));
+                })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
 

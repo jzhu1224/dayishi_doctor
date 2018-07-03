@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/main_bg_view"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:cardBackgroundColor="@color/colorBankZhaoShang"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivBankIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/solid_white_radius_360dp"
+                android:padding="6dp"
+                tools:src="@drawable/mycard_zhaoshang_bank_icon" />
+
+            <TextView
+                android:id="@+id/tvBankName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_toRightOf="@id/ivBankIcon"
+                android:textColor="@color/color_white"
+                android:textSize="16sp"
+                tools:text="招商银行" />
+
+            <TextView
+                android:id="@+id/bankTypeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tvBankName"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tvBankName"
+                android:textColor="#ccffffff"
+                android:textSize="10sp"
+                tools:text="信用卡" />
+
+            <TextView
+                android:id="@+id/tvBankNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBankName"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@id/ivBankIcon"
+                android:text="**** **** **** 5576"
+                android:textColor="@color/color_white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/bizTypeTxt"
+                android:layout_width="46dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textColor="#ccffffff"
+                android:textSize="10sp"
+                tools:text="提现卡" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</merge>

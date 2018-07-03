@@ -162,13 +162,20 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+
+        if (dialog2 != null && dialog2.isShowing()) {
+            dialog2.dismiss();
+        }
     }
 
-    Dialog dialog;
+    Dialog dialog,dialog2;
 
     public void showError(String msg) {
         QMUIDialog.MessageDialogBuilder builder = new QMUIDialog.MessageDialogBuilder(mActivity);
-        builder.setTitle("提示")
+        dialog2 = builder.setTitle("提示")
                 .setMessage(msg)
                 .addAction("确定", (dialog, index) -> dialog.dismiss())
                 .show();

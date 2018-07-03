@@ -69,11 +69,4 @@ public class CustomerFragment extends BaseRefreshLoadMoreFrament<MyPatientSectio
             helper.setText(R.id.tv_header, item.header);
         }
     }
-
-    public static class CustomerViewHolder extends BaseViewHolder {
-
-        public CustomerViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 }
