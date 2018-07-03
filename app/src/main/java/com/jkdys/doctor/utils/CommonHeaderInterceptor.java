@@ -3,6 +3,8 @@ package com.jkdys.doctor.utils;
 import android.support.annotation.NonNull;
 
 import com.chairoad.framework.encrypt.MD5Util;
+import com.chairoad.framework.util.LogUtil;
+import com.google.gson.Gson;
 import com.jkdys.doctor.BuildConfig;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 
@@ -13,15 +15,18 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 
 @Singleton
 public class CommonHeaderInterceptor implements Interceptor {
@@ -65,9 +70,12 @@ public class CommonHeaderInterceptor implements Interceptor {
 
     private LoginInfoUtil loginInfoUtil;
 
+    private Gson gson;
+
     @Inject
-    public CommonHeaderInterceptor(LoginInfoUtil loginInfoUtil) {
+    public CommonHeaderInterceptor(LoginInfoUtil loginInfoUtil, Gson gson) {
         this.loginInfoUtil = loginInfoUtil;
+        this.gson = gson;
     }
 
     @Override
@@ -85,22 +93,40 @@ public class CommonHeaderInterceptor implements Interceptor {
         // requestBuilder.header("X-Forwarded-For","114.114.114.117")
         requestBuilder.method(original.method(), original.body());
 
-        RequestBody requestBody = original.body();
+        String method = original.method();
+
         HashMap<String, Object> rootMap = new HashMap<>();
-        if (requestBody instanceof FormBody) {
-            for (int i = 0; i < ((FormBody) requestBody).size(); i++) {
-                rootMap.put(((FormBody) requestBody).encodedName(i), ((FormBody) requestBody).encodedValue(i));
+
+        if ("GET".equals(method)) {
+            HttpUrl mHttpUrl = original.url();
+            Set<String> paramNames = mHttpUrl.queryParameterNames();
+            for (String key : paramNames) {
+                rootMap.put(key, mHttpUrl.queryParameter(key));
+            }
+
+        } else if ("POST".equals(method)) {
+            RequestBody body = original.body();
+            if (body instanceof FormBody) {
+                for (int i = 0; i < ((FormBody) body).size(); i++) {
+                    rootMap.put(((FormBody) body).encodedName(i), ((FormBody) body).encodedValue(i));
+                }
+            } else {
+                Buffer buffer = new Buffer();
+                body.writeTo(buffer);
+                String oldJsonParams = buffer.readUtf8();
+                rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
             }
         }
 
-        List<Map.Entry<String, Object>> params = new ArrayList<>(rootMap.entrySet());//
-        Collections.sort(params, new Comparator<Map.Entry<String, Object>>() {
-            public int compare(Map.Entry<String, Object> o1, Map.Entry<String, Object> o2) {
-                if (o1.getKey() == null || o2.getKey() == null)
-                    return 0;
+        if (rootMap == null)
+            rootMap = new HashMap<>();
 
-                return o1.getKey().compareTo(o2.getKey());
-            }
+        List<Map.Entry<String, Object>> params = new ArrayList<>(rootMap.entrySet());//
+        Collections.sort(params, (o1, o2) -> {
+            if (o1.getKey() == null || o2.getKey() == null)
+                return 0;
+
+            return o1.getKey().compareTo(o2.getKey());
         });
 
         String secret = "";
@@ -115,6 +141,8 @@ public class CommonHeaderInterceptor implements Interceptor {
         if (secret.endsWith("&")) {
             secret = secret.substring(0, secret.length() - 1);
         }
+
+        LogUtil.e("zj","secret:"+secret);
 
         String key = "D8539AA4AE8C431CABE2E8D5CD3C4585";
 

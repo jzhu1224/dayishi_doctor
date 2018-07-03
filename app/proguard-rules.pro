@@ -223,7 +223,6 @@ public static java.lang.String TABLENAME;
   public *;
 }
 ### EventBus ##
--keepattributes *Annotation*
 -keepclassmembers class ** {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
@@ -276,7 +275,6 @@ public static java.lang.String TABLENAME;
 
 ##--------HUAWEI----------
 -ignorewarning
--keepattributes *Annotation*
 -keepattributes Exceptions
 -keepattributes InnerClasses
 -keepattributes Signature

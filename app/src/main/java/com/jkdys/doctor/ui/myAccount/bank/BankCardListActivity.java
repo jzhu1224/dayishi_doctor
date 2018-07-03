@@ -55,6 +55,7 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
 //        Intent intent = new Intent(getContext(), BindBankCardActivity.class);
 //        intent.putExtra(BindBankCardActivity.PARAM_BIZ_TYPE,2);
 //        startActivity(intent);
+        startActivity(new Intent(mActivity, BindBankCardActivity.class));
     }
 
     @OnClick(R.id.supportBank)

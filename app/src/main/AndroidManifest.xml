@@ -105,6 +105,7 @@
         <activity android:name=".ui.order.MyOrderActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.myAccount.bank.BankCardListActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.myAccount.bank.SupportBankListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.myAccount.bank.BindBankCardActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
