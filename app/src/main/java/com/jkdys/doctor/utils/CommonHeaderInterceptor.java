@@ -166,11 +166,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         requestBuilder.header("platform", platform);
         requestBuilder.header("timestamp", timestamp+"");
         requestBuilder.header("signature", signature);
-
         Request request = requestBuilder.build();
-
-
-
         return chain.proceed(request);
     }
 }

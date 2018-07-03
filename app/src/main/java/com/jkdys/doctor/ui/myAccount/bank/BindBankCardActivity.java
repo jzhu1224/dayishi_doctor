@@ -53,7 +53,7 @@ public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBank
 
     @OnClick(R.id.btn_next_step)
     void onNextStepClick() {
-
+        startActivity(new Intent(mActivity, BindCardVerifyCardInfoActivity.class));
     }
 
     @OnClick(R.id.tv_support_bank)
