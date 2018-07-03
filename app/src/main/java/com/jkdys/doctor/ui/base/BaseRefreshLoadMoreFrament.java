@@ -44,6 +44,9 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         LogUtil.e(this.getClass().getSimpleName(),"initViews");
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         if (savedInstanceState == null) {
             mDatas = new ArrayList<>();
         } else {
@@ -51,6 +54,7 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
         }
 
         adapter = createAdapter(mDatas);
+        recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (enableLoadMore()) {
@@ -62,8 +66,9 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
         qmuiEmptyView = new QMUIEmptyView(getActivity());
         adapter.setEmptyView(qmuiEmptyView);
 
-        recyclerView.setAdapter(adapter);
-
+        if (savedInstanceState != null) {
+            showContent();
+        }
     }
 
     @Override
