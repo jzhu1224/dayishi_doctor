@@ -33,20 +33,29 @@
                 android:layout_marginRight="16dp"
                 android:background="@drawable/corner_e6e6e6_white_stroke"
                 android:gravity="center"
+                android:padding="4dp"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/plus"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_F3F7FF">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_plus"/>
 
-                <TextView
-                    android:layout_marginTop="7dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="添加银行卡"
-                    android:textColor="@color/color_757575"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:layout_marginTop="7dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="添加银行卡"
+                        android:textColor="@color/color_6196FF"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -69,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="支持银行卡"
-                    android:textColor="#005ebd"
+                    android:textColor="@color/color_6196FF"
                     android:textSize="14sp" />
 
             </LinearLayout>

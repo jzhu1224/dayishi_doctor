@@ -48,7 +48,7 @@
     <Button
         android:id="@+id/btn_next_step"
         android:layout_marginTop="52dp"
-        style="@style/round_button_style"
+        style="@style/round_button_style_1"
         android:layout_marginLeft="23dp"
         android:enabled="false"
         android:text="下一步"
