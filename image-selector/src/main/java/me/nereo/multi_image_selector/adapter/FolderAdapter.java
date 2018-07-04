@@ -85,7 +85,7 @@ public class FolderAdapter extends BaseAdapter {
                         getTotalImageSize(), mContext.getResources().getString(R.string.photo_unit)));
                 if(mFolders.size()>0){
                     Folder f = mFolders.get(0);
-                    Picasso.with(mContext)
+                    Picasso.get()
                             .load(new File(f.cover.path))
                             .error(R.drawable.default_error)
                             .resizeDimen(R.dimen.folder_cover_size, R.dimen.folder_cover_size)
@@ -153,7 +153,7 @@ public class FolderAdapter extends BaseAdapter {
             }
             // 显示图片
             if (data.cover != null) {
-                Picasso.with(mContext)
+                Picasso.get()
                         .load(new File(data.cover.path))
                         .placeholder(R.drawable.default_error)
                         .resizeDimen(R.dimen.folder_cover_size, R.dimen.folder_cover_size)

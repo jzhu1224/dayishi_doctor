@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
+import com.jkdys.doctor.data.network.UploadImageUtil;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.di.ApplicationContext;
 import com.jkdys.doctor.di.module.ApiServiceModule;
@@ -33,4 +34,6 @@ public interface ApplicationComponent {
     LoginInfoUtil getLoginInfoUtil();
 
     YunModel getYunModel();
+
+    UploadImageUtil getUploadImageUtil();
 }

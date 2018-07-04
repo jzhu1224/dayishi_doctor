@@ -16,133 +16,120 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#bdbdbd" />
-
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/ll_bank_info"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:background="@color/color_white"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <TextView
-                android:layout_width="84dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="开户行"
-                android:textColor="@color/color_212121"
-                android:textSize="14sp" />
+                android:textColor="@color/color_0A1D3D"
+                android:textSize="14sp"
+                />
 
             <TextView
+                android:layout_gravity="end|center_vertical"
                 android:id="@+id/tv_bank_card_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_212121"
-                android:textSize="16sp"
+                android:textColor="@color/color_0A1D3D"
+                android:textSize="14sp"
                 tools:text="招商银行 信用卡" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#bdbdbd" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:text="银行预留信息"
-            android:textColor="@color/color_757575"
-            android:textSize="14sp" />
+            android:textColor="@color/color_ADB5C1"
+            android:textSize="12sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#bdbdbd" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_white"
-            android:orientation="vertical"
-            android:paddingLeft="16dp">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
+                android:background="@color/color_white"
                 android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
                 android:paddingRight="16dp">
 
                 <TextView
-                    android:layout_width="84dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="姓名"
-                    android:textColor="@color/color_212121"
+                    android:textColor="@color/color_0A1D3D"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:layout_gravity="center_vertical|end"
                     android:id="@+id/nameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_212121"
+                    android:textColor="@color/color_0A1D3D"
                     android:textSize="14sp"
                     tools:text="严欣" />
-            </LinearLayout>
+            </FrameLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#bdbdbd" />
 
-            <LinearLayout
+            <FrameLayout
+                android:background="@color/color_white"
+                android:layout_marginTop="0.5dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center_vertical"
                 android:paddingRight="16dp">
 
                 <TextView
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/identifyTypeTxt"
-                    android:layout_width="84dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_212121"
+                    android:textColor="@color/color_0A1D3D"
                     android:textSize="14sp"
                     android:text="身份证" />
 
                 <TextView
+                    android:layout_gravity="center_vertical|end"
                     android:id="@+id/identifyTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_212121"
+                    android:textColor="@color/color_0A1D3D"
                     android:textSize="14sp"
                     tools:text="321187876653727272" />
-            </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#bdbdbd" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:background="@color/color_white"
             android:gravity="center_vertical"
             android:paddingLeft="16dp">
 
             <TextView
-                android:layout_width="84dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="手机号"
-                android:textColor="@color/color_212121"
+                android:textColor="@color/color_0A1D3D"
                 android:textSize="14sp" />
 
             <com.jkdys.doctor.widget.PhoneEditTextView
@@ -154,10 +141,11 @@
                 android:hint="请输入银行预留手机号"
                 android:inputType="phone"
                 android:maxLength="13"
+                android:gravity="end|center_vertical"
                 android:singleLine="true"
-                android:textColor="@color/color_212121"
-                android:textColorHint="#bdbdbd"
-                android:textSize="14sp" />
+                android:textColor="@color/color_0A1D3D"
+                android:textSize="14sp"
+                android:textColorHint="@color/color_ADB5C1"/>
 
             <ImageView
                 android:id="@+id/phoneGuide"
@@ -190,7 +178,7 @@
             android:layout_marginLeft="7dp"
             android:gravity="center_horizontal"
             android:text="我已阅读并同意"
-            android:textColor="@color/color_757575"
+            android:textColor="@color/color_ADB5C1"
             android:textSize="14sp" />
 
         <TextView

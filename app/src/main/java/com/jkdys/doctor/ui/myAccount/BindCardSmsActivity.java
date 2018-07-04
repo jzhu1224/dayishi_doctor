@@ -11,10 +11,8 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BindCardSmsPresenter;
 import com.jkdys.doctor.ui.myAccount.bank.BindCardSmsView;
-import com.jkdys.doctor.widget.CountdownView;
-
+import com.jkdys.doctor.widget.CountdownView1;
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -30,7 +28,7 @@ public class BindCardSmsActivity extends MvpActivity<BindCardSmsView, BindCardSm
     @BindView(R.id.edt_verify_code)
     EditText edtVerifyCode;
     @BindView(R.id.codeBtn)
-    CountdownView countDownBtn;
+    CountdownView1 countDownBtn;
     @BindView(R.id.btn_ok)
     Button btnNextStep;
 

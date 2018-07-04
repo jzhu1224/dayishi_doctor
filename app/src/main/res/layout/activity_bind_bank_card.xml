@@ -69,8 +69,8 @@
     <Button
         android:layout_alignParentBottom="true"
         android:id="@+id/btn_next_step"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
         android:enabled="false"

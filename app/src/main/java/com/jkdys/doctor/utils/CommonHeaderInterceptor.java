@@ -114,7 +114,12 @@ public class CommonHeaderInterceptor implements Interceptor {
                 Buffer buffer = new Buffer();
                 body.writeTo(buffer);
                 String oldJsonParams = buffer.readUtf8();
-                rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
+                try {
+                    rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }
 

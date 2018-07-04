@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.di.component.ApplicationComponent;
 import com.jkdys.doctor.di.component.DaggerApplicationComponent;
 import com.jkdys.doctor.di.module.ApplicationModule;
@@ -36,6 +37,7 @@ public class MyApplication extends MultiDexApplication {
 
         AppLogger.initLogger();
         ChatHelper.getInstance().init(this);
+        ImageLoader.init(this);
     }
 
     public static MyApplication getInstance() {

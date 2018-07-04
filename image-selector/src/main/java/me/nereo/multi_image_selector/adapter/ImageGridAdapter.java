@@ -263,7 +263,7 @@ public class ImageGridAdapter extends BaseAdapter {
             File imageFile = new File(data.path);
             if (imageFile.exists()) {
                 // 显示图片
-                Picasso.with(mContext)
+                Picasso.get()
                         .load(imageFile)
                         .placeholder(R.drawable.default_error)
                         .config(Bitmap.Config.RGB_565)

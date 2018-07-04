@@ -12,6 +12,7 @@ import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.model.PatientGroup;
 import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.ProvinceData;
+import com.jkdys.doctor.data.model.UploadImageData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,8 +42,8 @@ public interface DaYiShiServiceApi {
      */
 
     @Multipart
-    @POST("/")
-    Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
+    @POST("/api/Doctor/Common/UploadPhotos")
+    Call<BaseResponse<UploadImageData>> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
 
     @POST("/api/Doctor/Access/LoginByCode")
     Call<BaseResponse<LoginResponse>> login(@Body HashMap<String,Object> map);
