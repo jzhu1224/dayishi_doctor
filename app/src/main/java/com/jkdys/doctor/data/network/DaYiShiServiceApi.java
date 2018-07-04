@@ -36,14 +36,13 @@ public interface DaYiShiServiceApi {
      *RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
      *MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
      *RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
-     * @param image
-     * @param name
+     * @param
      * @return
      */
 
     @Multipart
     @POST("/api/Doctor/Common/UploadPhotos")
-    Call<BaseResponse<UploadImageData>> postImage(@Part MultipartBody.Part image, @Part("name") RequestBody name);
+    Call<BaseResponse<UploadImageData>> postImage(@Part("imgtype") RequestBody type,@Part MultipartBody.Part file);
 
     @POST("/api/Doctor/Access/LoginByCode")
     Call<BaseResponse<LoginResponse>> login(@Body HashMap<String,Object> map);

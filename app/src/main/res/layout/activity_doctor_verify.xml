@@ -16,130 +16,142 @@
         android:textSize="12sp"
         />
 
-    <LinearLayout
-        android:id="@+id/takePicLL"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:id="@+id/takePic1"
-            android:layout_width="wrap_content"
-            android:layout_height="108dp"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/corner_e6e6e6_white_stroke">
-
-                <ImageView
-                    android:id="@+id/image1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/default_sgz"
-                    android:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/icon1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="23dp"
-                    android:src="@drawable/ic_add_photo"
-                    />
-
-                <TextView
-                    android:layout_below="@id/icon1"
-                    android:id="@+id/pic1descTxt"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="上传上岗证"
-                    android:textColor="#FF6196FF"
-                    android:textSize="10sp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"
-                    />
-
-
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/delete1"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:src="@drawable/delete_this"
-                android:visibility="invisible" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/takePic2"
-            android:layout_width="wrap_content"
-            android:layout_height="108dp"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
+        <LinearLayout
+            android:id="@+id/takePicLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/corner_e6e6e6_white_stroke">
+                android:id="@+id/takePic1"
+                android:layout_width="wrap_content"
+                android:layout_height="108dp"
+                android:layout_weight="1">
 
-
-                <ImageView
-                    android:id="@+id/image2"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/default_sgz"
-                    android:visibility="visible" />
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_e6e6e6_white_stroke">
+
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/default_sgz"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/icon1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="23dp"
+                        android:src="@drawable/ic_add_photo"
+                        />
+
+                    <TextView
+                        android:layout_below="@id/icon1"
+                        android:id="@+id/pic1descTxt"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上传上岗证"
+                        android:textColor="#FF6196FF"
+                        android:textSize="10sp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
+                        />
+
+
+                </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/icon2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="23dp"
-                    android:src="@drawable/ic_add_photo"/>
-
-                <TextView
-                    android:layout_below="@id/icon2"
-                    android:id="@+id/pic2descTxt"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="上传工号照片"
-                    android:textColor="#FF6196FF"
-                    android:textSize="10sp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="20dp"
-                    />
-
+                    android:id="@+id/delete1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="center"
+                    android:src="@drawable/delete_this"
+                    android:visibility="invisible" />
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/delete2"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:src="@drawable/delete_this"
-                android:visibility="invisible" />
+            <RelativeLayout
+                android:id="@+id/takePic2"
+                android:layout_width="wrap_content"
+                android:layout_height="108dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1">
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/corner_e6e6e6_white_stroke">
 
-    </LinearLayout>
 
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/default_sgz"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="23dp"
+                        android:src="@drawable/ic_add_photo"/>
+
+                    <TextView
+                        android:layout_below="@id/icon2"
+                        android:id="@+id/pic2descTxt"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上传工号照片"
+                        android:textColor="#FF6196FF"
+                        android:textSize="10sp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
+                        />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/delete2"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="center"
+                    android:src="@drawable/delete_this"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_submit"
+            android:enabled="false"
+            android:layout_margin="18dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提交资料"
+            style="@style/round_button_style_1"/>
+    </RelativeLayout>
 </LinearLayout>

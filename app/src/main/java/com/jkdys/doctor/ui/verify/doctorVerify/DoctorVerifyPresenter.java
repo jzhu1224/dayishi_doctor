@@ -25,7 +25,7 @@ public class DoctorVerifyPresenter extends MvpBasePresenter<DoctorVerifyView> {
 
         ifViewAttached(view -> view.showLoading(false));
 
-        uploadImageUtil.uploadImage(path, new UploadImageUtil.UploadImageListener() {
+        uploadImageUtil.uploadImage(2,path, new UploadImageUtil.UploadImageListener() {
             @Override
             public void onUploadStart() {
 
@@ -33,12 +33,18 @@ public class DoctorVerifyPresenter extends MvpBasePresenter<DoctorVerifyView> {
 
             @Override
             public void onUploadFail(String msg) {
-                ifViewAttached(view -> view.showError(msg));
+                ifViewAttached(view -> {
+                    view.showMessage(msg);
+                    view.showContent();
+                });
             }
 
             @Override
             public void onUploadSuccess(String url) {
-                ifViewAttached(view -> view.onUploadImageSuccess(url, requestCode));
+                ifViewAttached(view -> {
+                    view.onUploadImageSuccess(url, requestCode);
+                    view.showContent();
+                });
             }
         });
 

@@ -24,9 +24,22 @@ public class PicassoLoaderImpl implements ILoader {
     @Override
     public void load(final LoaderBuilder loaderBuilder, final ImageView imageView) {
         if (!TextUtils.isEmpty(loaderBuilder.getUrl())) {
-            Picasso.get().load(loaderBuilder.getUrl()).placeholder(loaderBuilder.getPlaceholder()).into(imageView);
+            if (loaderBuilder.getPlaceholder() >  0)
+                Picasso.get().load(loaderBuilder.getUrl()).placeholder(loaderBuilder.getPlaceholder()).into(imageView);
+            else
+                Picasso.get().load(loaderBuilder.getUrl()).into(imageView);
         } else if (loaderBuilder.getUri()!= null) {
-            Picasso.get().load(loaderBuilder.getUrl()).placeholder(loaderBuilder.getPlaceholder()).into(imageView);
+            if (loaderBuilder.getPlaceholder() > 0) {
+                Picasso.get().load(loaderBuilder.getUri()).placeholder(loaderBuilder.getPlaceholder()).into(imageView);
+            } else {
+                Picasso.get().load(loaderBuilder.getUri()).into(imageView);
+            }
+        } else if (loaderBuilder.getFile() != null && loaderBuilder.getFile().exists()) {
+            if (loaderBuilder.getPlaceholder() > 0) {
+                Picasso.get().load(loaderBuilder.getFile()).placeholder(loaderBuilder.getPlaceholder()).into(imageView);
+            } else {
+                Picasso.get().load(loaderBuilder.getFile()).into(imageView);
+            }
         }
     }
 

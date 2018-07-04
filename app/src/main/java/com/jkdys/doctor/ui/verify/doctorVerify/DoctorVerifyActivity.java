@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,6 +63,12 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
     ImageView deletebtn1;
     @BindView(R.id.delete2)
     ImageView deletebtn2;
+
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
+
+    private String sgzUrl;
+    private String ghUrl;
 
     @NonNull
     @Override
@@ -134,13 +142,41 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
 
     @Override
     public void onUploadImageSuccess(String url, int requestCode) {
-
         if (requestCode == REQUEST_IMAGE_1) {
             ImageLoader.with(getApplicationContext()).load(url).into(imageView1);
             pic1descTxt.setVisibility(View.INVISIBLE);
             icon1.setVisibility(View.INVISIBLE);
             deletebtn1.setVisibility(View.VISIBLE);
+            sgzUrl = url;
+        } else if (requestCode == REQUEST_IMAGE_2) {
+            ImageLoader.with(getApplicationContext()).load(url).into(imageView2);
+            pic2descTxt.setVisibility(View.INVISIBLE);
+            icon2.setVisibility(View.INVISIBLE);
+            deletebtn2.setVisibility(View.VISIBLE);
+            ghUrl = url;
         }
+        btnSubmit.setEnabled(!TextUtils.isEmpty(sgzUrl) && !TextUtils.isEmpty(ghUrl));
+    }
+
+    @OnClick(R.id.delete1)
+    void onDelete1Click() {
+        pic1descTxt.setVisibility(View.VISIBLE);
+        icon1.setVisibility(View.VISIBLE);
+        deletebtn1.setVisibility(View.INVISIBLE);
+        imageView1.setImageResource(R.drawable.default_sgz);
+    }
+
+    @OnClick(R.id.delete2)
+    void onDelete2Click() {
+        pic2descTxt.setVisibility(View.VISIBLE);
+        icon2.setVisibility(View.VISIBLE);
+        deletebtn2.setVisibility(View.INVISIBLE);
+        imageView2.setImageResource(R.drawable.default_sgz);
+    }
+
+    @OnClick(R.id.btn_submit)
+    void onBtnSubmitClick() {
+
     }
 
     @TargetApi(Build.VERSION_CODES.N)

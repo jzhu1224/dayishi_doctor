@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="55dp"
-    android:gravity="center_vertical"
+    android:background="@color/color_white"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
-    <ImageView
-        android:id="@+id/ivBankIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/solid_white_radius_360dp"
-        android:padding="6dp"
-        tools:src="@drawable/mycard_zhaoshang_bank_icon" />
-    <TextView
-        android:id="@+id/tv_bank_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="招商银行"
-        android:textColor="@color/color_0A1D3D"
-        android:textSize="14sp"
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivBankIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/solid_white_radius_360dp"
+            android:padding="6dp"
+            tools:src="@drawable/mycard_zhaoshang_bank_icon" />
+        <TextView
+            android:id="@+id/tv_bank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="招商银行"
+            android:textColor="@color/color_0A1D3D"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+    <View
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@color/color_ededf0"
         />
-</LinearLayout>
+</FrameLayout>

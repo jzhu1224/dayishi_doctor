@@ -3,6 +3,7 @@ package com.jkdys.doctor.data.network;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.annotation.IntRange;
 
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.UploadImageData;
@@ -34,19 +35,19 @@ public class UploadImageUtil {
         handler = new Handler();
     }
 
-    public void uploadImage(@NonNull String path, @NonNull UploadImageListener listener) {
-        uploadImage(new File(path),listener);
+    public void uploadImage(@IntRange(from = 1,to = 2) int type, @NonNull String path, @NonNull UploadImageListener listener) {
+        uploadImage(type, new File(path),listener);
     }
 
-    public void uploadImage(@NonNull File file,@NonNull UploadImageListener listener) {
+    public void uploadImage(@IntRange(from = 1,to = 2) int type,@NonNull File file, @NonNull UploadImageListener listener) {
         listener.onUploadStart();
         new Thread(() -> {
             try {
                 File newFile = new File(Objects.requireNonNull(compressAndSaveImg(file.getPath())));
                 RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), newFile);
-                MultipartBody.Part body = MultipartBody.Part.createFormData("upload", newFile.getName(), reqFile);
-                RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
-                api.postImage(body,name).enqueue(new Callback<BaseResponse<UploadImageData>>() {
+                MultipartBody.Part body = MultipartBody.Part.createFormData("imgfile", newFile.getName(), reqFile);
+                RequestBody requestBodyType = RequestBody.create(MediaType.parse("multipart/form-data"), type+"");
+                api.postImage(requestBodyType,body).enqueue(new Callback<BaseResponse<UploadImageData>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<UploadImageData>> call, Response<BaseResponse<UploadImageData>> response) {
                         BaseResponse<UploadImageData> baseResponse = response.body();
@@ -57,7 +58,7 @@ public class UploadImageUtil {
                             return;
                         }
 
-                        if (baseResponse.getCode() == 100) {
+                        if (baseResponse.getCode() == 1) {
                             handler.post(() -> listener.onUploadSuccess(baseResponse.getData().getPicurl()));
                         } else {
                             handler.post(() -> listener.onUploadFail(baseResponse.getMsg()));
