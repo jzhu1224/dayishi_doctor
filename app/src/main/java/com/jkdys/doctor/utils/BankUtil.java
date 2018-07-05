@@ -70,6 +70,8 @@ public class BankUtil {
             return R.drawable.mycard_gongshang_bank_icon;
         } else  if("7886E2DA-8847-4570-9390-DD1BA8739FD9".equalsIgnoreCase(bankId)) {
             return R.drawable.mycard_zhaoshang_bank_icon;
+        } else if("8334FEF5-69F8-4ED7-8F03-057B80CD6260".equalsIgnoreCase(bankId)) {
+            return R.drawable.mycard_zhongxin_bank;
         }
         return R.drawable.mycard_list_default_bankcard_icon;
     }
@@ -85,6 +87,8 @@ public class BankUtil {
             return R.color.colorBankGongShang;
         } else  if("7886E2DA-8847-4570-9390-DD1BA8739FD9".equalsIgnoreCase(bankId)) {
             return R.color.colorBankZhaoShang;
+        }  else if("8334FEF5-69F8-4ED7-8F03-057B80CD6260".equalsIgnoreCase(bankId)) {
+            return R.color.colorBankZhongXin;
         }
         return R.color.colorBankDefault;
     }

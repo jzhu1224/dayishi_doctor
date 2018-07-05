@@ -108,6 +108,7 @@
         <activity android:name=".ui.myAccount.bank.BindBankCardActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.myAccount.bank.BindCardVerifyCardInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.myAccount.BindCardSmsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.profile.PersonalProfileActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

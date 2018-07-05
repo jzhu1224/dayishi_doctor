@@ -75,10 +75,16 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
 
     @OnClick(R.id.item2)
     void onDepartmentClick() {
+
+        if (TextUtils.isEmpty(tvHospital.getText().toString())) {
+            ToastUtil.show(mActivity, "请先选择医院");
+            return;
+        }
+
         //选择科室
         Intent intent = new Intent(mActivity, SearchDepartmentActivity.class);
-        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_NAME,"上海市第九人民医院");
-        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_ID,"C88615E8-1BAF-455F-BD67-4085AAD39055");
+        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_NAME,tvHospital.getText().toString());
+        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_ID,doctorWorkInfo.getHospitalcode());
         startActivityForResult(intent,1);
     }
 

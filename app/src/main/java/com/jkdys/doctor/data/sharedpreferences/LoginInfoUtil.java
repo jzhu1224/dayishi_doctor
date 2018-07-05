@@ -50,4 +50,8 @@ public class LoginInfoUtil {
     public void saveLoginResponse(LoginResponse loginResponse) {
         SharedPreferencesUtils.put(context,"loginResponse",gson.toJson(loginResponse));
     }
+
+    public void clear() {
+        SharedPreferencesUtils.put(context,"loginResponse","");
+    }
 }

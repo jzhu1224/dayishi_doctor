@@ -281,6 +281,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
 
     private boolean needLogout(Intent intent) {
         if (intent.getBooleanExtra("TOKEN_EXPIRED",false)) {
+            loginInfoUtil.clear();
             if (logoutDialog == null) {
                 logoutDialog = new QMUIDialog.MessageDialogBuilder(mActivity)
                         .setMessage("登录过期，请重新登录")

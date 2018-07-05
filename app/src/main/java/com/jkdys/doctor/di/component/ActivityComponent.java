@@ -23,6 +23,7 @@ import com.jkdys.doctor.ui.order.CanceledOrderFragment;
 import com.jkdys.doctor.ui.order.CompletedOrderFragment;
 import com.jkdys.doctor.ui.order.InvalidedOrderFragment;
 import com.jkdys.doctor.ui.order.ProcessOrderFragment;
+import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
@@ -67,4 +68,5 @@ public interface ActivityComponent {
     void inject(BindBankCardActivity bindBankCardActivity);
     void inject(BindCardVerifyCardInfoActivity bindCardVerifyCardInfoActivity);
     void inject(BindCardSmsActivity  bindCardSmsActivity);
+    void inject(PersonalProfileActivity personalProfileActivity);
 }

@@ -13,21 +13,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.baidu.platform.comapi.map.E;
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.verify.JumpHelper;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,6 +67,9 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
     private String sgzUrl;
     private String ghUrl;
 
+    @Inject
+    JumpHelper jumpHelper;
+
     @NonNull
     @Override
     public DoctorVerifyPresenter createPresenter() {
@@ -87,7 +87,8 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
         Dexter.withActivity(mActivity)
                 .withPermissions(
                         Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ).withListener(new MultiplePermissionsListener() {
             @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
                 if (report.areAllPermissionsGranted()) {
@@ -136,7 +137,7 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
         super.onActivityResult(requestCode, resultCode, data);
         if (RESULT_OK == resultCode) {
             List<String> paths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            doctorVerifyPresenter.uploadImage(paths.get(0), requestCode);
+            doctorVerifyPresenter.uploadImage(requestCode ==REQUEST_IMAGE_1?3:4,paths.get(0), requestCode);
         }
     }
 
@@ -158,6 +159,11 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
         btnSubmit.setEnabled(!TextUtils.isEmpty(sgzUrl) && !TextUtils.isEmpty(ghUrl));
     }
 
+    @Override
+    public void onVerifySuccess(LoginResponse loginResponse) {
+        jumpHelper.jump(mActivity, loginResponse.getDoctorauthstatus().getRedirecttopage());
+    }
+
     @OnClick(R.id.delete1)
     void onDelete1Click() {
         pic1descTxt.setVisibility(View.VISIBLE);
@@ -176,7 +182,7 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
 
     @OnClick(R.id.btn_submit)
     void onBtnSubmitClick() {
-
+        doctorVerifyPresenter.verify(sgzUrl, ghUrl);
     }
 
     @TargetApi(Build.VERSION_CODES.N)

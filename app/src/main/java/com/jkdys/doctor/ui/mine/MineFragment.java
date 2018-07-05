@@ -13,12 +13,14 @@ import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.jkdys.doctor.ui.order.MyOrderActivity;
+import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
 import com.jkdys.doctor.ui.verify.doctorVerify.DoctorVerifyActivity;
 import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MineFragment extends MvpFragment<MineView,MinePresenter> implements MineView {
@@ -96,6 +98,18 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         return R.layout.fragment_mine;
     }
 
+    @OnClick(R.id.rl_mine_info)
+    void onMyInfoClick() {
+        startActivity(new Intent(getActivity(), PersonalProfileActivity.class));
+    }
+
+    @NonNull
+    @Override
+    public MinePresenter createPresenter() {
+        getActivityComponent().inject(this);
+        return consultPresenter;
+    }
+
     @Override
     public void showLoading(boolean pullToRefresh) {
 
@@ -107,19 +121,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
     }
 
     @Override
-    public void showMessage(String msg) {
-
-    }
-
-    @Override
     public void showError(String message) {
 
-    }
-
-    @NonNull
-    @Override
-    public MinePresenter createPresenter() {
-        getActivityComponent().inject(this);
-        return consultPresenter;
     }
 }

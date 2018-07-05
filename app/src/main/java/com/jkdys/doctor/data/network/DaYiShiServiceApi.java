@@ -30,16 +30,6 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/Access/SentVerificationCode")
     Call<BaseResponse<Object>> sentVerificationCode(@Body HashMap<String,Object> map);
 
-    /**
-     *
-     *File file = new File(filePath);
-     *RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-     *MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
-     *RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
-     * @param
-     * @return
-     */
-
     @Multipart
     @POST("/api/Doctor/Common/UploadPhotos")
     Call<BaseResponse<UploadImageData>> postImage(@Part("imgtype") RequestBody type,@Part MultipartBody.Part file);
@@ -86,5 +76,8 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/BaseData/GetSupportBankList")
     Call<BaseResponse<List<BankCardInfo>>> getSupportBankList();
+
+    @POST("/api/Doctor/Access/DoctorPapersCheck")
+    Call<BaseResponse<LoginResponse>> doctorPapersCheck(@Body HashMap<String, Object> params);
 
 }
