@@ -3,17 +3,21 @@ package com.jkdys.doctor.data.model;
 public class Doctor {
     private String did;
     private String name;
+    private String picheadurl;
     private String certificatetype;
     private String certificateno;
-    private Boolean verifystatus;
+    private boolean verifystatus;
     private String cellphoneno;
     private String birthdate;
     private String gender;
     private String areaid;
-    private Integer doctorNo;
-    private Integer telfee;
-    private Integer outpatientfee;
-    private Integer promotefee;
+    private int doctorNo;
+    private String hospital;
+    private String faculty;
+    private String title;
+    private int level;
+    private String status;
+    private String twodimensioncodeurl;
 
     public String getDid() {
         return did;
@@ -47,11 +51,11 @@ public class Doctor {
         this.certificateno = certificateno;
     }
 
-    public Boolean getVerifystatus() {
+    public boolean isVerifystatus() {
         return verifystatus;
     }
 
-    public void setVerifystatus(Boolean verifystatus) {
+    public void setVerifystatus(boolean verifystatus) {
         this.verifystatus = verifystatus;
     }
 
@@ -87,83 +91,43 @@ public class Doctor {
         this.areaid = areaid;
     }
 
-    public Integer getDoctorNo() {
+    public int getDoctorNo() {
         return doctorNo;
     }
 
-    public void setDoctorNo(Integer doctorNo) {
+    public void setDoctorNo(int doctorNo) {
         this.doctorNo = doctorNo;
     }
 
-    public Integer getTelfee() {
-        return telfee;
+    public String getHospital() {
+        return hospital;
     }
 
-    public void setTelfee(Integer telfee) {
-        this.telfee = telfee;
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
     }
 
-    public Integer getOutpatientfee() {
-        return outpatientfee;
+    public String getFaculty() {
+        return faculty;
     }
 
-    public void setOutpatientfee(Integer outpatientfee) {
-        this.outpatientfee = outpatientfee;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
 
-    public Integer getPromotefee() {
-        return promotefee;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPromotefee(Integer promotefee) {
-        this.promotefee = promotefee;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public Integer getUndrawnamount() {
-        return undrawnamount;
-    }
-
-    public void setUndrawnamount(Integer undrawnamount) {
-        this.undrawnamount = undrawnamount;
-    }
-
-    public Integer getTotalamount() {
-        return totalamount;
-    }
-
-    public void setTotalamount(Integer totalamount) {
-        this.totalamount = totalamount;
-    }
-
-    public Integer getTeltimes() {
-        return teltimes;
-    }
-
-    public void setTeltimes(Integer teltimes) {
-        this.teltimes = teltimes;
-    }
-
-    public Integer getPromotetimes() {
-        return promotetimes;
-    }
-
-    public void setPromotetimes(Integer promotetimes) {
-        this.promotetimes = promotetimes;
-    }
-
-    public Integer getTotaldiagnosistimes() {
-        return totaldiagnosistimes;
-    }
-
-    public void setTotaldiagnosistimes(Integer totaldiagnosistimes) {
-        this.totaldiagnosistimes = totaldiagnosistimes;
-    }
-
-    public Integer getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -175,12 +139,19 @@ public class Doctor {
         this.status = status;
     }
 
-    private Integer undrawnamount;
-    private Integer totalamount;
-    private Integer teltimes;
-    private Integer promotetimes;
-    private Integer totaldiagnosistimes;
-    private Integer level;
-    private String status;
+    public String getTwodimensioncodeurl() {
+        return twodimensioncodeurl;
+    }
 
+    public void setTwodimensioncodeurl(String twodimensioncodeurl) {
+        this.twodimensioncodeurl = twodimensioncodeurl;
+    }
+
+    public String getPicheadurl() {
+        return picheadurl;
+    }
+
+    public void setPicheadurl(String picheadurl) {
+        this.picheadurl = picheadurl;
+    }
 }

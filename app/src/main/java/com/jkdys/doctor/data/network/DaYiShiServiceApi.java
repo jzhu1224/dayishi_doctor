@@ -84,4 +84,8 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/Access/DoctorPapersCheck")
     Call<BaseResponse<LoginResponse>> doctorPapersCheck(@Body HashMap<String, Object> params);
 
+    //修改医生地区、医院、科室、职称
+    @POST("/api/Doctor/Hospital/ModifyDoctorWorkInfo")
+    Call<BaseResponse<Object>> modifyDoctorWorkInfo(@Body HashMap<String, Object> params);
+
 }

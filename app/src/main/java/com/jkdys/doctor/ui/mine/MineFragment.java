@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
@@ -41,13 +43,28 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
     LoginInfoUtil loginInfoUtil;
 
     @Override
+    protected void afterCreatePresenter() {
+        super.afterCreatePresenter();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Doctor doctor = loginInfoUtil.getLoginResponse().getDoctor();
+
+
+        ImageLoader.with(getContext())
+                .placeholder(R.drawable.img_doctor)
+                .load(doctor.getPicheadurl())
+                .into(profileImg);
+
+        tvName.setText(doctor.getName());
+        tvInfo.setText(doctor.getHospital()+"\n"+doctor.getFaculty()+ "  "+doctor.getTitle());
+    }
+
+    @Override
     protected void initViews(View view, Bundle saveInstanceState) {
         toolbar.setTitle(R.string.person_center);
-
-        profileImg.setImageResource(R.drawable.test_image);
-        tvName.setText("未实名认证");
-        tvInfo.setText("上海第九人民医院 \n儿科 主治医师");
-
         QMUICommonListItemView itemAccount = createItemView(R.drawable.ic_account,"我的账户");
         QMUICommonListItemView itemOrder = createItemView(R.drawable.ic_order,"我的订单");
         QMUICommonListItemView itemFee = createItemView(R.drawable.ic_fee,"就诊费用");

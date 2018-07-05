@@ -29,6 +29,9 @@ public abstract class MvpActivity<V extends MvpView, P extends MvpPresenter<V>>
         afterMvpDelegateCreateInvoked();
     }
 
+    /**
+     * 注入的类需要在这个方法之后调用
+     */
     protected void afterMvpDelegateCreateInvoked() {
 
     }

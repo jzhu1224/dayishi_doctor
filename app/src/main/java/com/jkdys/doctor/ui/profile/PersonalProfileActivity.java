@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -18,10 +19,13 @@ import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
 import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, PersonalProfilePresenter> implements PersonalProfileView{
 
@@ -63,14 +67,21 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
         super.afterBindView(savedInstanceState);
         toolbar.setTitle("个人信息");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
+    }
+
+    @Override
+    protected void afterMvpDelegateCreateInvoked() {
+        super.afterMvpDelegateCreateInvoked();
 
         Doctor doctor = loginInfoUtil.getLoginResponse().getDoctor();
 
+        ImageLoader.with(getApplicationContext()).placeholder(R.drawable.img_doctor).load(doctor.getPicheadurl()).into(imgAvatar);
+
         tvName.setText(doctor.getName());
         tvPhone.setText(doctor.getCellphoneno());
-
-
-        //tvDepartment.setText();
+        tvHospital.setText(doctor.getHospital());
+        tvDepartment.setText(doctor.getFaculty());
+        tvTitle.setText(doctor.getTitle());
 
     }
 
@@ -84,26 +95,24 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            SearchData searchData = (SearchData) data.getExtras().get(SearchPhysiciansTitleActivity.KEY_RETURN_DATA);
-            if (requestCode == 1) {
-                tvDepartment.setText(searchData.getText());
-                //doctorWorkInfo.setFacultycode(searchData.getId());
-            } else if (requestCode == 2) {
-                tvTitle.setText(searchData.getText());
-                //doctorWorkInfo.setTitlecode(searchData.getId());
-            } else if (requestCode == 3) {
-                tvHospital.setText(searchData.getText());
-                hospitalId = searchData.getId();
-                //doctorWorkInfo.setHospitalcode(searchData.getId());
+            switch (requestCode) {
+                case 1:
+                case 2:
+                case 3:
+                    SearchData searchData = (SearchData) data.getExtras().get(SearchPhysiciansTitleActivity.KEY_RETURN_DATA);
+                    personalProfilePresenter.modifyDoctorInfo(requestCode, searchData);
+                    break;
+                case 4:
+                    List<String> paths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                    personalProfilePresenter.uploadImage(paths.get(0));
+                    break;
             }
         }
-
-
     }
 
     @OnClick(R.id.fr_avatar)
     void onAvatarClick() {
-
+        multiImageSelector(4);
     }
 
     @OnClick(R.id.fr_hospital)
@@ -143,5 +152,41 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
     @OnClick(R.id.fr_personal_introduction)
     void onPersonalIntroductionClick() {
 
+    }
+
+    @Override
+    public void onModifySuccess(int requestCode, SearchData searchData) {
+        if (requestCode == 1) {
+            tvDepartment.setText(searchData.getText());
+            loginInfoUtil.saveFaculty(searchData.getText());
+        } else if (requestCode == 2) {
+            tvTitle.setText(searchData.getText());
+            loginInfoUtil.saveTitle(searchData.getText());
+        } else if (requestCode == 3) {
+            loginInfoUtil.saveHospital(searchData.getText());
+            tvHospital.setText(searchData.getText());
+            hospitalId = searchData.getId();
+        }
+    }
+
+    @Override
+    public void onModifyAvatarSuccess(String url) {
+        ImageLoader.with(getApplicationContext())
+                .placeholder(R.drawable.img_doctor)
+                .load(url)
+                .into(imgAvatar);
+    }
+
+    /**
+     * 图片选择器调用
+     */
+    public void multiImageSelector(int requestCode) {
+        Intent intent = new Intent(mActivity, MultiImageSelectorActivity.class);
+        // 是否显示调用相机拍照
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+        // 最大图片选择数量
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 1);
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
+        startActivityForResult(intent, requestCode);
     }
 }

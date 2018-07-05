@@ -40,6 +40,8 @@ public class PicassoLoaderImpl implements ILoader {
             } else {
                 Picasso.get().load(loaderBuilder.getFile()).into(imageView);
             }
+        } else if (loaderBuilder.getPlaceholder() > 0) {
+            imageView.setImageResource(loaderBuilder.getPlaceholder());
         }
     }
 

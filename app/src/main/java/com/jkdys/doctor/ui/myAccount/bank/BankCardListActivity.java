@@ -100,7 +100,7 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (qmuiBottomSheet.isShowing())
+        if (qmuiBottomSheet != null && qmuiBottomSheet.isShowing())
             qmuiBottomSheet.dismiss();
     }
 }
