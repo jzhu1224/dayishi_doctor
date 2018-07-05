@@ -52,8 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:rotation="180"
-                android:src="@drawable/left_back"/>
+                android:src="@drawable/ic_arrow_right"/>
         </FrameLayout>
         <View
             android:id="@+id/line"
@@ -94,8 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:rotation="180"
-                android:src="@drawable/left_back"/>
+                android:src="@drawable/ic_arrow_right"/>
         </FrameLayout>
         <View
             android:id="@+id/line2"
@@ -136,8 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:rotation="180"
-                android:src="@drawable/left_back"/>
+                android:src="@drawable/ic_arrow_right"/>
         </FrameLayout>
         <View
             android:id="@+id/line3"
