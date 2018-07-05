@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.AccountData;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BankCardListActivity;
@@ -39,7 +40,7 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     TextView tvAllWithdraw;
 
 
-    QMUICommonListItemView phoneFee,doorFee,tuiguangFee;
+    QMUICommonListItemView phoneFee,doorFee,tuiguangFee,bindCard;
 
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
 
-        QMUICommonListItemView bindCard = createItemView(R.drawable.ic_bank, "绑定银行卡", "未绑定", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
+        bindCard = createItemView(R.drawable.ic_bank, "绑定银行卡", "未绑定", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 
 
         QMUIGroupListView.newSection(mActivity) //绑定银行卡
@@ -117,15 +118,15 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     }
 
     @Override
-    public void onRequestSuccess(Doctor doctor) {
-        if (doctor == null)
+    public void onRequestSuccess(AccountData accountData) {
+        if (accountData == null)
             return;
-        tvTotalIncome.setText(doctor.getTelfee()+"");
-        tvAllWithdraw.setText(doctor.getUndrawnamount()+"");
-        phoneFee.setDetailText(doctor.getTelfee()+"");
-        doorFee.setDetailText(doctor.getOutpatientfee()+"");
-        tuiguangFee.setDetailText(doctor.getPromotefee()+"");
-
+        tvTotalIncome.setText(accountData.getTelfee()+"");
+        tvAllWithdraw.setText(accountData.getUndrawnamount()+"");
+        phoneFee.setDetailText(accountData.getTelfee()+"");
+        doorFee.setDetailText(accountData.getOutpatientfee()+"");
+        tuiguangFee.setDetailText(accountData.getPromotefee()+"");
+        bindCard.setDetailText(accountData.bindornot?"已绑定":"未绑定");
     }
 
     @OnClick(R.id.btn_withdraw)

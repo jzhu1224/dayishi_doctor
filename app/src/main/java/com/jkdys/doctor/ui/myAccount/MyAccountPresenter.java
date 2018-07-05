@@ -2,6 +2,7 @@ package com.jkdys.doctor.ui.myAccount;
 
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
+import com.jkdys.doctor.data.model.AccountData;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
@@ -20,9 +21,15 @@ public class MyAccountPresenter extends MvpBasePresenter<MyAccountView> {
 
     public void getDoctorInfo() {
         ifViewAttached(view -> view.showLoading(false));
-        api.getDoctorDetailInfo().enqueue(new BaseCallback<BaseResponse<Doctor>>(getView()) {
+//        api.getDoctorDetailInfo().enqueue(new BaseCallback<BaseResponse<Doctor>>(getView()) {
+//            @Override
+//            public void onBusinessSuccess(BaseResponse<Doctor> response) {
+//                ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+//            }
+//        });
+        api.getAccountData().enqueue(new BaseCallback<BaseResponse<AccountData>>(getView()) {
             @Override
-            public void onBusinessSuccess(BaseResponse<Doctor> response) {
+            public void onBusinessSuccess(BaseResponse<AccountData> response) {
                 ifViewAttached(view -> view.onRequestSuccess(response.getData()));
             }
         });

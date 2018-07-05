@@ -10,6 +10,8 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.widget.BankCardView;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -52,9 +54,6 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
 
     @OnClick(R.id.addBtn)
     public void clickAddbtn() {
-//        Intent intent = new Intent(getContext(), BindBankCardActivity.class);
-//        intent.putExtra(BindBankCardActivity.PARAM_BIZ_TYPE,2);
-//        startActivity(intent);
         startActivity(new Intent(mActivity, BindBankCardActivity.class));
     }
 
@@ -65,21 +64,43 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
 
     @Override
     public void onRequestSuccess(BankCardInfo bankCardInfo) {
-
-//        if (bankCardInfo == null) {
-//            bankCardInfo = new BankCardInfo();
-//            bankCardInfo.setBankid("7886E2DA-8847-4570-9390-DD1BA8739FD9");
-//            bankCardInfo.setBankname("招商银行");
-//            bankCardInfo.setBankaccount("6222*********4541");
-//        }
-
         if (bankCardInfo != null) {
             addBtn.setVisibility(View.GONE);
             BankCardView bankCardView = new BankCardView(mActivity);
             bankCardView.init(bankCardInfo.getBankid(), bankCardInfo.getBankname(), bankCardInfo.getBankaccount());
             bankLL.addView(bankCardView);
+
+            toolbar.addRightImageButton(R.drawable.ic_menu_back, R.id.id_right_btn).setOnClickListener(view -> showBottomSheet());
+
         } else {
             addBtn.setVisibility(View.VISIBLE);
         }
+    }
+
+    QMUIBottomSheet qmuiBottomSheet;
+
+    private void showBottomSheet() {
+        if (qmuiBottomSheet == null) {
+            QMUIBottomSheet.BottomListSheetBuilder builder = new QMUIBottomSheet.BottomListSheetBuilder(mActivity);
+            builder.addItem("解绑银行卡");
+            builder.addItem("取消");
+            builder.setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
+                if (tag.equals("解绑银行卡")) {
+
+                } else if (tag.equals("取消")) {
+                    dialog.dismiss();
+                }
+            });
+            qmuiBottomSheet = builder.build();
+        }
+        if (!qmuiBottomSheet.isShowing())
+            qmuiBottomSheet.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (qmuiBottomSheet.isShowing())
+            qmuiBottomSheet.dismiss();
     }
 }

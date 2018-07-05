@@ -1,8 +1,10 @@
 package com.jkdys.doctor.data.sharedpreferences;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.di.ApplicationContext;
 import javax.inject.Inject;
@@ -29,6 +31,10 @@ public class LoginInfoUtil {
 
     public LoginResponse getLoginResponse() {
         String sLoginResponse = (String) SharedPreferencesUtils.get(context,"loginResponse","");
+
+        if (TextUtils.isEmpty(sLoginResponse))
+            return null;
+
         return gson.fromJson(sLoginResponse,LoginResponse.class);
     }
 
@@ -53,5 +59,20 @@ public class LoginInfoUtil {
 
     public void clear() {
         SharedPreferencesUtils.put(context,"loginResponse","");
+        SharedPreferencesUtils.put(context, "bankCardInfo", "");
     }
+
+    public void saveBindBankCard(BankCardInfo bankCardInfo) {
+        if (bankCardInfo == null)
+            return;
+        SharedPreferencesUtils.put(context, "bankCardInfo", gson.toJson(bankCardInfo));
+    }
+
+    public BankCardInfo getBindBanCard() {
+        String sBankCardInfo = (String) SharedPreferencesUtils.get(context,"bankCardInfo","");
+        if (TextUtils.isEmpty(sBankCardInfo))
+            return null;
+        return gson.fromJson(sBankCardInfo,BankCardInfo.class);
+    }
+
 }
