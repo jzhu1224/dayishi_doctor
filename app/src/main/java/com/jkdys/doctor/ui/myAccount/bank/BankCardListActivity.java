@@ -70,7 +70,7 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
             bankCardView.init(bankCardInfo.getBankid(), bankCardInfo.getBankname(), bankCardInfo.getBankaccount());
             bankLL.addView(bankCardView);
 
-            toolbar.addRightImageButton(R.drawable.ic_menu_back, R.id.id_right_btn).setOnClickListener(view -> showBottomSheet());
+            toolbar.addRightImageButton(R.drawable.ic_more, R.id.id_right_btn).setOnClickListener(view -> showBottomSheet());
 
         } else {
             addBtn.setVisibility(View.VISIBLE);

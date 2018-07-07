@@ -19,6 +19,7 @@ import com.jkdys.doctor.ui.myAccount.bank.BindBankCardActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BindBankCardPresenter;
 import com.jkdys.doctor.ui.myAccount.bank.BindCardVerifyCardInfoActivity;
 import com.jkdys.doctor.ui.myAccount.bank.SupportBankListFragment;
+import com.jkdys.doctor.ui.myAccount.bank.withdraw.WithdrawActivity;
 import com.jkdys.doctor.ui.order.AllOrderFragment;
 import com.jkdys.doctor.ui.order.CanceledOrderFragment;
 import com.jkdys.doctor.ui.order.CompletedOrderFragment;
@@ -71,4 +72,5 @@ public interface ActivityComponent {
     void inject(BindCardSmsActivity  bindCardSmsActivity);
     void inject(PersonalProfileActivity personalProfileActivity);
     void inject(DoctorDetailActivity doctorDetailActivity);
+    void inject(WithdrawActivity withdrawActivity);
 }

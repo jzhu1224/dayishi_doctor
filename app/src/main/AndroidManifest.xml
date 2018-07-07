@@ -110,6 +110,7 @@
         <activity android:name=".ui.myAccount.BindCardSmsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.profile.PersonalProfileActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.chat.doctor.DoctorDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.myAccount.bank.withdraw.WithdrawActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

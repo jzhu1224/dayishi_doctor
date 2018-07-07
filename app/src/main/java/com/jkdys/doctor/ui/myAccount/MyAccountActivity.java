@@ -13,6 +13,7 @@ import com.jkdys.doctor.data.model.AccountData;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BankCardListActivity;
+import com.jkdys.doctor.ui.myAccount.bank.withdraw.WithdrawActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -131,6 +132,6 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
 
     @OnClick(R.id.btn_withdraw)
     void onWithdrawClicked() {
-
+        startActivity(new Intent(mActivity, WithdrawActivity.class));
     }
 }

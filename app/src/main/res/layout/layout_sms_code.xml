@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_marginTop="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="14dp"
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textColor="@color/color_A9A6B3"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认提现"
+            android:textColor="@color/color_0A1D3D"
+            android:textSize="16sp"
+            />
+    </FrameLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#FFF2F2F5"
+        />
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证码"
+            android:textColor="@color/color_0A1D3D"
+            android:textSize="14sp"
+            />
+        <EditText
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:layout_weight="1"
+            android:maxLength="6"
+            android:inputType="number"
+            android:id="@+id/edt_sms_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <com.jkdys.doctor.widget.CountdownView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/countdownView"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#FFF2F2F5"
+        />
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="20dp"
+        android:text="确认"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/round_button_style_1"/>
+</LinearLayout>
