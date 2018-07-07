@@ -12,6 +12,7 @@ import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.jkdys.doctor.ui.order.MyOrderActivity;
@@ -91,7 +92,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     ShareManager.get().share(getActivity(),new ShareInfoModel());
                 })
                 .addItemView(itemInvent, view1 -> {
-                    Intent intent = new Intent(getActivity(), DoctorVerifyActivity.class);
+                    Intent intent = new Intent(getActivity(), DoctorDetailActivity.class);
                     startActivity(intent);
                 })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)

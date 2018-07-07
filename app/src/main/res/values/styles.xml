@@ -101,4 +101,13 @@
         <item name="android:background">@drawable/bg_round_btn_1</item>
     </style>
 
+    <style name="round_button_style_2">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_round_btn_2</item>
+    </style>
+
 </resources>
