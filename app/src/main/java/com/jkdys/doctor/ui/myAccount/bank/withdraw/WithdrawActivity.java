@@ -44,7 +44,10 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
         toolbar.setTitle("提现");
-        toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
+        toolbar.addLeftBackImageButton().setOnClickListener(view -> {
+            finish();
+            ManyiUtils.closeKeyBoard(mActivity, edtWithdraw);
+        });
         ManyiUtils.showKeyBoard(mActivity, edtWithdraw);
     }
 

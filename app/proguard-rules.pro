@@ -280,3 +280,6 @@ public static java.lang.String TABLENAME;
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
 -keep class com.huawei.hms.**{*;}
+
+-keep class com.google.zxing.** { *;}
+-dontwarn com.google.zxing.**

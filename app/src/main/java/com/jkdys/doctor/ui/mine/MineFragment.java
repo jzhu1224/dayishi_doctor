@@ -14,6 +14,7 @@ import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
+import com.jkdys.doctor.ui.mine.qrcode.MyQRCodeFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.jkdys.doctor.ui.order.MyOrderActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
@@ -141,5 +142,15 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
     @Override
     public void showError(String message) {
 
+    }
+
+    @OnClick(R.id.img_qrcode)
+    void onQRCodeClick() {
+        MyQRCodeFragment myQRCodeFragment = new MyQRCodeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("QRCodeUrl", loginInfoUtil.getLoginResponse().getDoctor().getTwodimensioncodeurl());
+        bundle.putString("mAvatar", loginInfoUtil.getAvatar());
+        myQRCodeFragment.setArguments(bundle);
+        myQRCodeFragment.show(getChildFragmentManager(), "");
     }
 }
