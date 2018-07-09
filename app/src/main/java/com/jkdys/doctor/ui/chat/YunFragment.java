@@ -17,6 +17,8 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatConstant;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.ui.main.MainActivity;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -78,6 +80,10 @@ public class YunFragment extends MvpFragment<IYunView,YunPresenter> implements I
 
     public void initView() {
         toolbar.setTitle("消息");
+        toolbar.addRightImageButton(R.drawable.ic_add, R.id.id_right_btn).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        });
 
         conversationListView.setEmptyView(emptyView);
 //        View errorView = View.inflate(getActivity(), R.layout.em_chat_neterror_item, null);

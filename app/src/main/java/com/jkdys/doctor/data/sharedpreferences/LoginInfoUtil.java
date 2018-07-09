@@ -61,7 +61,7 @@ public class LoginInfoUtil {
 
     public void clear() {
         SharedPreferencesUtils.put(context,"loginResponse","");
-        SharedPreferencesUtils.put(context, "bankCardInfo", "");
+        clearBindBankCard();
     }
 
     public void saveBindBankCard(BankCardInfo bankCardInfo) {
@@ -88,6 +88,8 @@ public class LoginInfoUtil {
     }
 
     public Doctor getDoctor() {
+        if (getLoginResponse() == null)
+            return new Doctor();
         return getLoginResponse().getDoctor();
     }
 

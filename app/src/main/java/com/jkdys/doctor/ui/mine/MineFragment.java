@@ -20,6 +20,7 @@ import com.jkdys.doctor.ui.order.MyOrderActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
 import com.jkdys.doctor.ui.verify.doctorVerify.DoctorVerifyActivity;
 import com.jkdys.doctor.utils.ShareManager;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import javax.inject.Inject;
@@ -52,8 +53,9 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
     @Override
     public void onResume() {
         super.onResume();
-        Doctor doctor = loginInfoUtil.getLoginResponse().getDoctor();
 
+
+        Doctor doctor = loginInfoUtil.getDoctor();
 
         ImageLoader.with(getContext())
                 .placeholder(R.drawable.img_doctor)
@@ -70,8 +72,8 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         QMUICommonListItemView itemAccount = createItemView(R.drawable.ic_account,"我的账户");
         QMUICommonListItemView itemOrder = createItemView(R.drawable.ic_order,"我的订单");
         QMUICommonListItemView itemFee = createItemView(R.drawable.ic_fee,"就诊费用");
-        QMUICommonListItemView itemSetting = createItemView(R.drawable.ic_setting,"设置");
-        QMUICommonListItemView itemCustomerService = createItemView(R.drawable.ic_customer_service,"联系客服");
+        QMUICommonListItemView itemSetting = createItemView(R.drawable.ic_low,"法律声明");
+        QMUICommonListItemView itemCustomerService = createItemView(R.drawable.ic_customer_service,"联系客服", "400-111-400", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"邀请码",loginInfoUtil.getToken(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
 
         QMUIGroupListView.newSection(getContext())
@@ -152,5 +154,23 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         bundle.putString("mAvatar", loginInfoUtil.getAvatar());
         myQRCodeFragment.setArguments(bundle);
         myQRCodeFragment.show(getChildFragmentManager(), "");
+    }
+
+    @OnClick(R.id.btn_logout)
+    void onLogoutClick() {
+        new QMUIDialog.MessageDialogBuilder(getActivity())
+                .setMessage("确定退出？")
+                .setCancelable(false)
+                .setCanceledOnTouchOutside(false)
+                .addAction("取消", ((dialog, index) -> {
+                    dialog.dismiss();
+                }))
+                .addAction("确定", (dialog, index) -> {
+                    dialog.dismiss();
+                    loginInfoUtil.clear();
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    if (getActivity() != null)
+                        getActivity().finish();
+                }).show();
     }
 }
