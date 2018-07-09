@@ -3,6 +3,7 @@ package com.jkdys.doctor.data.network;
 import com.jkdys.doctor.data.model.AccountData;
 import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.BindBankCardData;
 import com.jkdys.doctor.data.model.CityData;
 import com.jkdys.doctor.data.model.DepartmentData;
 import com.jkdys.doctor.data.model.Doctor;
@@ -78,11 +79,20 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/BaseData/GetDoctorBankList") //获取绑定银行卡的信息
     Call<BaseResponse<BankCardInfo>> getDoctorBankList();
 
+    @POST("/api/Doctor/BaseData/GetBankNamebyAccount")
+    Call<BaseResponse<BindBankCardData>> getBankNameByAccount(@Body HashMap<String, Object> params);
+
     @POST("/api/Doctor/BaseData/GetSupportBankList")
     Call<BaseResponse<List<BankCardInfo>>> getSupportBankList();
 
     @POST("/api/Doctor/Access/DoctorPapersCheck")
     Call<BaseResponse<LoginResponse>> doctorPapersCheck(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/BaseData/DelDoctorBankInfo")
+    Call<BaseResponse<Object>> unbindBankCard();
+
+    @POST("/api/Doctor/BaseData/AddDoctorBankInfo")
+    Call<BaseResponse<Object>> bindBankCard(@Body HashMap<String, Object> params);
 
     //修改医生地区、医院、科室、职称
     @POST("/api/Doctor/Hospital/ModifyDoctorWorkInfo")

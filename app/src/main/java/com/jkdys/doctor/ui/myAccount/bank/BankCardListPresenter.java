@@ -3,9 +3,12 @@ package com.jkdys.doctor.ui.myAccount.bank;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.BindBankCardData;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -40,6 +43,17 @@ public class BankCardListPresenter extends MvpBasePresenter<BankCardListView> {
 
                 loginInfoUtil.saveBindBankCard(response.getData());
                 ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+            }
+        });
+    }
+
+    public void unBindCard() {
+        ifViewAttached(view -> view.showLoading(false));
+        api.unbindBankCard().enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<Object> response) {
+                loginInfoUtil.clearBindBankCard();
+                ifViewAttached(BankCardListView::onUnbindCardSuccess);
             }
         });
     }

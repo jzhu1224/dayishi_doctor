@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.main;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.event.LogoutEvent;
@@ -26,12 +28,19 @@ import com.jkdys.doctor.ui.verify.JumpHelper;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -70,6 +79,24 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
+
+        Dexter.withActivity(mActivity)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if (report.areAllPermissionsGranted()) {
+                } else {
+                    ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
+                }
+            }
+            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                // TODO: 2018/7/4  弹出对话框引导用户开启权限
+            }
+
+        }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
 
         getActivityComponent().inject(this);
 

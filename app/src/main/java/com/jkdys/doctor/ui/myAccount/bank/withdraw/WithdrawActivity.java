@@ -63,6 +63,11 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
         }
     }
 
+    @Override
+    public void onUnbindCardSuccess() {
+
+    }
+
     @OnClick(R.id.btn_withdraw)
     void onBtnWithdrawClick() {
         showSmsCodeDialog();

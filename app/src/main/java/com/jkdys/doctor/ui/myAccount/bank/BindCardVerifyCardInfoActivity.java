@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.BindBankCardData;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.BindCardSmsActivity;
 import com.jkdys.doctor.widget.PhoneEditTextView;
@@ -55,6 +56,11 @@ public class BindCardVerifyCardInfoActivity extends MvpActivity<BindCardVerifyCa
 
         toolbar.setTitle("绑定银行卡");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
+
+        BindBankCardData bindBankCardData = getIntent().getParcelableExtra("bindBankCardData");
+        tvBankCardInfo.setText(bindBankCardData.getBankname());
+        nameTxt.setText(bindBankCardData.getName());
+        identifyTxt.setText(bindBankCardData.getCertificateno());
     }
 
     @Override

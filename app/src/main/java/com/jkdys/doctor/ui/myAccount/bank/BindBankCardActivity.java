@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.BindBankCardData;
 import com.jkdys.doctor.ui.MvpActivity;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBankCardPresenter> {
+public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBankCardPresenter> implements BindBankCardView{
 
     @Inject
     BindBankCardPresenter bindBankCardPresenter;
@@ -53,7 +54,8 @@ public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBank
 
     @OnClick(R.id.btn_next_step)
     void onNextStepClick() {
-        startActivity(new Intent(mActivity, BindCardVerifyCardInfoActivity.class));
+        if (!TextUtils.isEmpty(edtBankCard.getText().toString()))
+            bindBankCardPresenter.getBankNameByAccount(edtBankCard.getText().toString());
     }
 
     @OnClick(R.id.tv_support_bank)
@@ -65,5 +67,12 @@ public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBank
     @Override
     protected int getLayout() {
         return R.layout.activity_bind_bank_card;
+    }
+
+    @Override
+    public void onRequestSuccess(BindBankCardData data) {
+       Intent intent = new Intent(mActivity, BindCardVerifyCardInfoActivity.class);
+       intent.putExtra("bindBankCardData", data);
+       startActivity(intent);
     }
 }

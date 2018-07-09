@@ -70,6 +70,10 @@ public class LoginInfoUtil {
         SharedPreferencesUtils.put(context, "bankCardInfo", gson.toJson(bankCardInfo));
     }
 
+    public void clearBindBankCard() {
+        SharedPreferencesUtils.put(context, "bankCardInfo", "");
+    }
+
     public BankCardInfo getBindBanCard() {
         String sBankCardInfo = (String) SharedPreferencesUtils.get(context,"bankCardInfo","");
         if (TextUtils.isEmpty(sBankCardInfo))

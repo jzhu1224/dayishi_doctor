@@ -13,4 +13,9 @@ public class BindCardVerifyCardInfoPresenter extends MvpBasePresenter<BindCardVe
     public BindCardVerifyCardInfoPresenter(DaYiShiServiceApi api) {
         this.api = api;
     }
+
+    public void bindBankCard() {
+
+    }
+
 }

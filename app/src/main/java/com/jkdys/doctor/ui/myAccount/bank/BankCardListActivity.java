@@ -77,6 +77,13 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
         }
     }
 
+    @Override
+    public void onUnbindCardSuccess() {
+        bankLL.removeAllViews();
+        addBtn.setVisibility(View.VISIBLE);
+        toolbar.removeAllRightViews();
+    }
+
     QMUIBottomSheet qmuiBottomSheet;
 
     private void showBottomSheet() {
@@ -85,10 +92,11 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
             builder.addItem("解绑银行卡");
             builder.addItem("取消");
             builder.setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
+                dialog.dismiss();
                 if (tag.equals("解绑银行卡")) {
-
+                    bankCardListPresenter.unBindCard();
                 } else if (tag.equals("取消")) {
-                    dialog.dismiss();
+
                 }
             });
             qmuiBottomSheet = builder.build();

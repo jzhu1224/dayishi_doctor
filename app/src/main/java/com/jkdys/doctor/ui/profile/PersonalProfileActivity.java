@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
@@ -18,11 +17,8 @@ import com.jkdys.doctor.ui.search.SearchData;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
 import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -82,7 +78,6 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
         tvHospital.setText(doctor.getHospital());
         tvDepartment.setText(doctor.getFaculty());
         tvTitle.setText(doctor.getTitle());
-
     }
 
     @Override
