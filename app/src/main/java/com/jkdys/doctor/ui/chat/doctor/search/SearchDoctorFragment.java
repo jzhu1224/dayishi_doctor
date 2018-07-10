@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.chat.doctor.search;
 
+
 import android.support.annotation.NonNull;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -21,16 +22,6 @@ public class SearchDoctorFragment extends BaseSearchRefreshLoadMoreFragment<Sear
     @Override
     protected void onLazyLoadOnce() {
 
-    }
-
-    @Override
-    protected boolean enableLoadMore() {
-        return false;
-    }
-
-    @Override
-    protected boolean enableRefresh() {
-        return false;
     }
 
     @NonNull

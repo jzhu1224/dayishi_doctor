@@ -4,9 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SearchDoctorData implements Parcelable {
+    private String did;
     private String name;
-    private String id;
-    private String info;
+    private String picheadurl;
+    private String hospitalname;
+    private String facultyname;
+    private String titlename;
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
 
     public String getName() {
         return name;
@@ -16,21 +27,38 @@ public class SearchDoctorData implements Parcelable {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getPicheadurl() {
+        return picheadurl;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPicheadurl(String picheadurl) {
+        this.picheadurl = picheadurl;
     }
 
-    public String getInfo() {
-        return info;
+    public String getHospitalname() {
+        return hospitalname;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setHospitalname(String hospitalname) {
+        this.hospitalname = hospitalname;
     }
+
+    public String getFacultyname() {
+        return facultyname;
+    }
+
+    public void setFacultyname(String facultyname) {
+        this.facultyname = facultyname;
+    }
+
+    public String getTitlename() {
+        return titlename;
+    }
+
+    public void setTitlename(String titlename) {
+        this.titlename = titlename;
+    }
+
 
     @Override
     public int describeContents() {
@@ -39,21 +67,27 @@ public class SearchDoctorData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.did);
         dest.writeString(this.name);
-        dest.writeString(this.id);
-        dest.writeString(this.info);
+        dest.writeString(this.picheadurl);
+        dest.writeString(this.hospitalname);
+        dest.writeString(this.facultyname);
+        dest.writeString(this.titlename);
     }
 
     public SearchDoctorData() {
     }
 
     protected SearchDoctorData(Parcel in) {
+        this.did = in.readString();
         this.name = in.readString();
-        this.id = in.readString();
-        this.info = in.readString();
+        this.picheadurl = in.readString();
+        this.hospitalname = in.readString();
+        this.facultyname = in.readString();
+        this.titlename = in.readString();
     }
 
-    public static final Parcelable.Creator<SearchDoctorData> CREATOR = new Parcelable.Creator<SearchDoctorData>() {
+    public static final Creator<SearchDoctorData> CREATOR = new Creator<SearchDoctorData>() {
         @Override
         public SearchDoctorData createFromParcel(Parcel source) {
             return new SearchDoctorData(source);

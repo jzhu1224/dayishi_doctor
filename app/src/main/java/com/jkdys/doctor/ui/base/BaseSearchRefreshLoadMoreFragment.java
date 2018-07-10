@@ -15,6 +15,8 @@ import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
@@ -74,5 +76,11 @@ public abstract class BaseSearchRefreshLoadMoreFragment<T extends Parcelable,
     void onBtnBackClick() {
         if (getActivity() != null)
             getActivity().finish();
+    }
+
+    @Override
+    public void setData(List<T> data) {
+        super.setData(data);
+        adapter.disableLoadMoreIfNotFullPage();
     }
 }

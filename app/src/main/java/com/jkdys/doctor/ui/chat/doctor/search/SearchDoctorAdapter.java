@@ -16,6 +16,6 @@ public class SearchDoctorAdapter extends BaseQuickAdapter<SearchDoctorData, Base
 
     @Override
     protected void convert(BaseViewHolder helper, SearchDoctorData item) {
-
+        helper.setText(R.id.tv_content, item.getName());
     }
 }

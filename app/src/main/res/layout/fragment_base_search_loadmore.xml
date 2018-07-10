@@ -71,5 +71,6 @@
         </LinearLayout>
     </FrameLayout>
 
-    <include layout="@layout/fragment_base_refresh_loadmore"/>
+    <include android:layout_marginTop="8dp" layout="@layout/fragment_base_refresh_loadmore"
+        android:layout_height="match_parent" android:layout_width="match_parent" />
 </LinearLayout>

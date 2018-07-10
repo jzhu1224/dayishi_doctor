@@ -14,6 +14,7 @@ import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.model.PatientGroup;
 import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.ProvinceData;
+import com.jkdys.doctor.data.model.SearchDoctorData;
 import com.jkdys.doctor.data.model.UploadImageData;
 
 import java.util.HashMap;
@@ -97,5 +98,8 @@ public interface DaYiShiServiceApi {
     //修改医生地区、医院、科室、职称
     @POST("/api/Doctor/Hospital/ModifyDoctorWorkInfo")
     Call<BaseResponse<Object>> modifyDoctorWorkInfo(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/GetDoctorListByDoctorSearch")
+    Call<BaseResponse<List<SearchDoctorData>>> searchDoctor(@Body HashMap<String, Object> params);
 
 }
