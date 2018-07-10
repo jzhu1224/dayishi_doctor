@@ -4,6 +4,7 @@ import com.jkdys.doctor.di.PerActivity;
 import com.jkdys.doctor.di.module.ActivityModule;
 import com.jkdys.doctor.ui.chat.YunFragment;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
+import com.jkdys.doctor.ui.chat.doctor.search.SearchDoctorFragment;
 import com.jkdys.doctor.ui.consult.ConsultFragment;
 import com.jkdys.doctor.ui.consult.DoorFragment;
 import com.jkdys.doctor.ui.consult.PhoneFragment;
@@ -73,4 +74,5 @@ public interface ActivityComponent {
     void inject(PersonalProfileActivity personalProfileActivity);
     void inject(DoctorDetailActivity doctorDetailActivity);
     void inject(WithdrawActivity withdrawActivity);
+    void inject(SearchDoctorFragment searchDoctorFragment);
 }

@@ -17,6 +17,7 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatConstant;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.ui.chat.doctor.search.SearchDoctorActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -81,7 +82,7 @@ public class YunFragment extends MvpFragment<IYunView,YunPresenter> implements I
     public void initView() {
         toolbar.setTitle("消息");
         toolbar.addRightImageButton(R.drawable.ic_add, R.id.id_right_btn).setOnClickListener(view -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), SearchDoctorActivity.class);
             startActivity(intent);
         });
 

@@ -43,7 +43,11 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        swipeRefreshLayout.setOnRefreshListener(this);
+
+        if (enableRefresh()) {
+            swipeRefreshLayout.setOnRefreshListener(this);
+        }
+
 
         if (savedInstanceState == null) {
             mDatas = new ArrayList<>();
@@ -75,6 +79,10 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
     }
 
     protected boolean enableLoadMore() {
+        return true;
+    }
+
+    protected boolean enableRefresh() {
         return true;
     }
 

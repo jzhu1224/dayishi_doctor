@@ -74,6 +74,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (logoutDialog!= null && logoutDialog.isShowing()) {
+            logoutDialog.dismiss();
+            logoutDialog = null;
+        }
     }
 
     @Override
@@ -330,4 +334,5 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         }
         return false;
     }
+
 }
