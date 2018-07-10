@@ -68,7 +68,6 @@ android {
 dependencies {
 
     implementation 'com.nex3z:flow-layout:1.2.2'
-    implementation 'com.google.zxing:core:3.3.0'
 
     implementation "com.squareup.picasso:picasso:${PICASSO_VERSION}"
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
@@ -114,6 +113,7 @@ dependencies {
     implementation project(':sharesdk')
     implementation project(':easeui')
     implementation project(':image-selector')
+    implementation project(':scan')
 }
 
 String getServerEnv() {

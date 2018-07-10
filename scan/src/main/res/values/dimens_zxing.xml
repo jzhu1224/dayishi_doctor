@@ -1,0 +1,11 @@
+<resources>
+
+    <dimen name="viewfinder_border">1dp</dimen>
+    <dimen name="viewfinder_corner_border">3dp</dimen>
+    <dimen name="viewfinder_corner_border_length">29dp</dimen>
+
+    <dimen name="camera_scan_width">218dp</dimen>
+    <dimen name="camera_scan_height">218dp</dimen>
+    <dimen name="camera_scan_marginTop">159dp</dimen>
+
+</resources>

@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.consult;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.BaseFragment;
+import com.jkdys.doctor.ui.scan.ScanActivity;
 import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import java.util.ArrayList;
@@ -45,6 +47,12 @@ public class ConsultFragment extends BaseFragment{
     protected void initViews(View view, Bundle saveInstanceState) {
         toolbar.setTitle(R.string.consult);
         toolbar.setBackgroundDividerEnabled(false);
+        toolbar.addLeftImageButton(R.drawable.ic_scan, R.id.qmui_topbar_item_left_back).setOnClickListener(
+                view0 -> {
+                    Intent intent = new Intent(getActivity(), ScanActivity.class);
+                    startActivity(intent);
+                }
+        );
         toolbar.addRightImageButton(R.drawable.ic_share,R.id.id_share).setOnClickListener(view1 -> {
             ShareManager.get().share(getActivity(),new ShareInfoModel());
         });
