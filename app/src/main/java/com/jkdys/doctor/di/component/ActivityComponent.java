@@ -8,6 +8,7 @@ import com.jkdys.doctor.ui.chat.doctor.search.SearchDoctorFragment;
 import com.jkdys.doctor.ui.consult.ConsultFragment;
 import com.jkdys.doctor.ui.consult.DoorFragment;
 import com.jkdys.doctor.ui.consult.PhoneFragment;
+import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.customer.CustomerFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.login.LoginSmsActivity;
@@ -75,4 +76,5 @@ public interface ActivityComponent {
     void inject(DoctorDetailActivity doctorDetailActivity);
     void inject(WithdrawActivity withdrawActivity);
     void inject(SearchDoctorFragment searchDoctorFragment);
+    void inject(DiagnosisOnPhoneActivity diagnosisOnPhoneActivity);
 }
