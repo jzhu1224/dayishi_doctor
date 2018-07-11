@@ -65,12 +65,18 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
             adapter.setEnableLoadMore(false);
         }
 
+        adapter.setOnItemClickListener(this::onItemClicked);
+
         qmuiEmptyView = new QMUIEmptyView(getActivity());
         adapter.setEmptyView(qmuiEmptyView);
 
         if (savedInstanceState != null) {
             showContent();
         }
+    }
+
+    protected void onItemClicked(BaseQuickAdapter adapter, View view, int position) {
+
     }
 
     @Override

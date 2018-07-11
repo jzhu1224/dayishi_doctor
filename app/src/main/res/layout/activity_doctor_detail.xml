@@ -67,17 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_margin="16dp"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_bg_good_at"
-                    android:text="小儿呼吸-哮喘"
-                    android:textColor="@color/color_ADB5C1"
-                    android:textSize="14sp"/>
+
             </com.nex3z.flowlayout.FlowLayout>
 
             <View
@@ -99,6 +89,7 @@
                 />
 
             <TextView
+                android:id="@+id/tv_desc"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,6 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:visibility="gone"
             android:id="@+id/btn_add"
             android:layout_margin="18dp"
             android:text="加为好友"
