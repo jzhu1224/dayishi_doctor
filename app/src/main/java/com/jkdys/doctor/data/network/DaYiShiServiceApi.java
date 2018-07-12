@@ -9,6 +9,7 @@ import com.jkdys.doctor.data.model.DepartmentData;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.model.DoctorDetailData;
 import com.jkdys.doctor.data.model.DoctorWorkInfo;
+import com.jkdys.doctor.data.model.Face2FaceOrderDetail;
 import com.jkdys.doctor.data.model.HospitalData;
 import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.data.model.OrderInfo;
@@ -109,5 +110,8 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/OrderInfo/GetPatientOrderInfoDetail")
     Call<BaseResponse<PhoneOrderDetail>> getOrderDetail(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/OrderInfo/GetPatientOrderInfoDetail")
+    Call<BaseResponse<Face2FaceOrderDetail>> getFace2FaceOrderDetail(@Body HashMap<String, Object> params);
 
 }

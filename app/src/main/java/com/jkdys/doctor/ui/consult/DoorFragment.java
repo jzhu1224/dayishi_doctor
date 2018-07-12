@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.consult;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -10,8 +11,12 @@ import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
 import com.jkdys.doctor.ui.consult.adapter.OrderAdapter;
+import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
+import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActivity;
+import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FacePresenter;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -31,6 +36,14 @@ public class DoorFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadM
     protected void afterCreatePresenter() {
         super.afterCreatePresenter();
         orderPresenter.setParams(0,2);
+    }
+
+    @Override
+    protected void onItemClicked(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClicked(adapter, view, position);
+        Intent intent = new Intent(getActivity(), DiagnosisFace2FaceActivity.class);
+        intent.putExtra("orderId", ((OrderInfo) Objects.requireNonNull(adapter.getItem(position))).getOrderid());
+        startActivity(intent);
     }
 
     @Override
