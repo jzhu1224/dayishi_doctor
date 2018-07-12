@@ -14,6 +14,7 @@ import com.jkdys.doctor.ui.consult.adapter.OrderAdapter;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -37,7 +38,9 @@ public class PhoneFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoad
     @Override
     protected void onItemClicked(BaseQuickAdapter adapter, View view, int position) {
         super.onItemClicked(adapter, view, position);
-        startActivity(new Intent(getActivity(), DiagnosisOnPhoneActivity.class));
+        Intent intent = new Intent(getActivity(), DiagnosisOnPhoneActivity.class);
+        intent.putExtra("orderId", ((OrderInfo) Objects.requireNonNull(adapter.getItem(position))).getOrderid());
+        startActivity(intent);
     }
 
     @Override

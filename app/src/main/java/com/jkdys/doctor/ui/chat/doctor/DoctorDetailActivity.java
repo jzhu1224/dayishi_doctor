@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -81,11 +82,13 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
         ImageLoader.with(mActivity).load(doctorDetailData.getDoctorpicheadurl()).placeholder(R.drawable.img_doctor).into(imgHeader);
         btnAdd.setVisibility(doctorDetailData.isIsfriend()? View.GONE:View.VISIBLE);
         String sGoodAt = doctorDetailData.getGoodat();
-        String[] goodAt = sGoodAt.split(",");
-        for (int i = 0; i < goodAt.length; i++) {
-            DoctorGoodAtTag goodAtTag = new DoctorGoodAtTag(mActivity);
-            goodAtTag.setText(goodAt[i]);
-            flowLayout.addView(goodAtTag);
+        if (!TextUtils.isEmpty(sGoodAt)) {
+            String[] goodAt = sGoodAt.split(",");
+            for (int i = 0; i < goodAt.length; i++) {
+                DoctorGoodAtTag goodAtTag = new DoctorGoodAtTag(mActivity);
+                goodAtTag.setText(goodAt[i]);
+                flowLayout.addView(goodAtTag);
+            }
         }
     }
 }

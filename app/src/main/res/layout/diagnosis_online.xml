@@ -33,7 +33,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="张亮"
+                        tools:text="张亮"
                         android:textColor="#FF0A1D3D"
                         android:textSize="16sp"
                         />
@@ -66,7 +66,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥200.0"
+                    tools:text="￥200.0"
                     android:textColor="#FF0A1D3D"
                     android:textSize="24sp"
                     />
@@ -88,7 +88,7 @@
                         android:id="@+id/tv_gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="女"
+                        tools:text="女"
                         android:textColor="@color/black_deep"
                         android:textSize="14sp"
                         />
@@ -105,7 +105,7 @@
                         android:id="@+id/tv_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="39"
+                        tools:text="39"
                         android:textColor="@color/black_deep"
                         android:textSize="14sp"
                         />
@@ -141,12 +141,13 @@
                 android:textSize="16sp"
                 />
             <TextView
+                android:id="@+id/tv_patient_detail"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本。"
+                tools:text="病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本信息病历文本。"
                 android:textColor="@color/color_ADB5C1"
                 android:textSize="14sp"
                 />
@@ -183,7 +184,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="提交时间 16-07-01 23:01"
+                    tools:text="提交时间 16-07-01 23:01"
                     android:textColor="#FFADB5C1"
                     android:textSize="12sp"
                     />

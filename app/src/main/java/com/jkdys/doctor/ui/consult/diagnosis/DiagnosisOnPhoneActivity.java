@@ -4,21 +4,27 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.model.PhoneOrderDetail;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 
-public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, DiagnosisOnPhonePresenter> {
+public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, DiagnosisOnPhonePresenter> implements DiagnosisOnPhoneView{
 
 
     @Inject
@@ -26,6 +32,29 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
     @BindView(R.id.nine_grid_img)
     NineGridImageView<String> nineGridImageView;
+
+    @BindView(R.id.img_avatar)
+    ImageView imgHeader;
+
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
+    @BindView(R.id.tv_gender)
+    TextView tvGender;
+    @BindView(R.id.tv_age)
+    TextView tvAge;
+
+    @BindView(R.id.tv_patient_detail)
+    TextView tvPatientDetai;
+
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+
+    @BindView(R.id.img_vip)
+    ImageView imgVip;
+
+
 
     @NonNull
     @Override
@@ -43,14 +72,12 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
         nineGridImageView.setAdapter(mAdapter);
 
-        List<String> imgs = new ArrayList<>();
-        imgs.add("http://seopic.699pic.com/photo/00026/7248.jpg_wh1200.jpg");
-        imgs.add("http://img.1ppt.com/uploads/allimg/1605/4_160521171105_1.jpg");
-        imgs.add("http://himg2.huanqiu.com/attachment2010/2017/1205/08/51/20171205085117810.jpg");
-        imgs.add("http://himg2.huanqiu.com/attachment2010/2012/1115/20121115025806447.jpg");
-        imgs.add("http://www.sinaimg.cn/dy/slidenews/5_img/2013_26/453_27781_114389.jpg");
+    }
 
-        nineGridImageView.setImagesData(imgs);
+    @Override
+    protected void afterMvpDelegateCreateInvoked() {
+        super.afterMvpDelegateCreateInvoked();
+        presenter.getOrderDetail(getIntent().getStringExtra("orderId"));
     }
 
     @Override
@@ -83,4 +110,33 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
             showBigPicture(photoList, index);
         }
     };
+
+    @Override
+    public void onRequestSuccess(PhoneOrderDetail phoneOrderDetail) {
+        ImageLoader.with(mActivity)
+                .load(phoneOrderDetail
+                        .getPicheadurl()).placeholder(R.drawable.img_doctor)
+                .into(imgHeader);
+
+        tvName.setText(phoneOrderDetail.getPatientname());
+        tvPrice.setText(String.valueOf(phoneOrderDetail.getAmount()));
+        tvGender.setText(phoneOrderDetail.getGender().equals("1")?"男":"女");
+        tvAge.setText(String.valueOf(phoneOrderDetail.getAge()));
+
+
+        if (!TextUtils.isEmpty(phoneOrderDetail.getMedicalimageurl())) {
+            String[] sImgs = phoneOrderDetail.getMedicalimageurl().split(",");
+            if (sImgs.length > 0) {
+                List<String> imgs = Arrays.asList(sImgs);
+                nineGridImageView.setImagesData(imgs);
+            }
+        }
+
+        tvTime.setText("提交时间    "+phoneOrderDetail.getOrderdate());
+
+        tvPatientDetai.setText(phoneOrderDetail.getMedicalrecord());
+
+        imgVip.setVisibility(phoneOrderDetail.getIsvip()? View.VISIBLE:View.GONE);
+
+    }
 }
