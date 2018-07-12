@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.di.component.ApplicationComponent;
@@ -38,6 +39,7 @@ public class MyApplication extends MultiDexApplication {
         AppLogger.initLogger();
         ChatHelper.getInstance().init(this);
         ImageLoader.init(this);
+        Fresco.initialize(this);
     }
 
     public static MyApplication getInstance() {
