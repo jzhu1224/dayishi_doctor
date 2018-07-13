@@ -114,4 +114,9 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/OrderInfo/GetPatientOrderInfoDetail")
     Call<BaseResponse<Face2FaceOrderDetail>> getFace2FaceOrderDetail(@Body HashMap<String, Object> params);
 
+    @POST("/api/Doctor/Doctor/ManageDoctorGoodAtDetailInfo")
+    Call<BaseResponse<Object>> updateDoctorProfile(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/GetDoctorGoodAtDetailInfo")
+    Call<BaseResponse<String>> getDoctorProfile(@Body HashMap<String,Object> params);
 }

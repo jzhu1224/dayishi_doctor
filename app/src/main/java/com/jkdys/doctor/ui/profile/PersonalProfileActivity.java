@@ -112,31 +112,31 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
 
     @OnClick(R.id.fr_hospital)
     void onHospitalClick() {
-        //选择医院
-        Intent intent = new Intent(mActivity, SelectAreaActivity.class);
-        startActivityForResult(intent,3);
+//        //选择医院
+//        Intent intent = new Intent(mActivity, SelectAreaActivity.class);
+//        startActivityForResult(intent,3);
     }
 
     @OnClick(R.id.fr_department)
     void onDepartmentClick() {
 
-        if (TextUtils.isEmpty(tvHospital.getText().toString())) {
-            ToastUtil.show(mActivity, "请先选择医院");
-            return;
-        }
-
-        //选择科室
-        Intent intent = new Intent(mActivity, SearchDepartmentActivity.class);
-        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_NAME,tvHospital.getText().toString());
-        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_ID,hospitalId);
-        startActivityForResult(intent,1);
+//        if (TextUtils.isEmpty(tvHospital.getText().toString())) {
+//            ToastUtil.show(mActivity, "请先选择医院");
+//            return;
+//        }
+//
+//        //选择科室
+//        Intent intent = new Intent(mActivity, SearchDepartmentActivity.class);
+//        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_NAME,tvHospital.getText().toString());
+//        intent.putExtra(SearchDepartmentActivity.KEY_HOSPITAL_ID,hospitalId);
+//        startActivityForResult(intent,1);
     }
 
     @OnClick(R.id.fr_title)
     void onTitleClick() {
-        //选择职称
-        Intent intent = new Intent(mActivity, SearchPhysiciansTitleActivity.class);
-        startActivityForResult(intent,2);
+//        //选择职称
+//        Intent intent = new Intent(mActivity, SearchPhysiciansTitleActivity.class);
+//        startActivityForResult(intent,2);
     }
 
     @OnClick(R.id.fr_good_at)
@@ -146,7 +146,8 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
 
     @OnClick(R.id.fr_personal_introduction)
     void onPersonalIntroductionClick() {
-
+        Intent intent = new Intent(mActivity, EditPersonalIntroduceActivity.class);
+        startActivity(intent);
     }
 
     @Override
