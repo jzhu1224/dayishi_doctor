@@ -1,1 +1,1 @@
-include ':app',':framework', ':easeui', ':zz-secondary-linkage', ":sharesdk", 'image-selector', ':scan', ':frescoimageviewer'
+include ':app',':framework', ':easeui', ':zz-secondary-linkage', ":sharesdk", 'image-selector', ':scan', ':frescoimageviewer', 'update-app'

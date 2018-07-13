@@ -66,6 +66,8 @@ android {
 
 
 dependencies {
+
+    implementation 'com.liulishuo.filedownloader:library:1.7.4'
     implementation 'top.zibin:Luban:1.1.7'
     implementation 'com.facebook.fresco:fresco:1.9.0'
     implementation 'com.jaeger.ninegridimageview:library:1.1.1'
@@ -116,6 +118,7 @@ dependencies {
     implementation project(':image-selector')
     implementation project(':scan')
     implementation project(':frescoimageviewer')
+    implementation project(':update-app')
 }
 
 String getServerEnv() {
