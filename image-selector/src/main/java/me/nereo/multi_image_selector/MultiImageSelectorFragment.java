@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.ListPopupWindow;
 import android.text.TextUtils;
@@ -390,7 +391,7 @@ public class MultiImageSelectorFragment extends Fragment {
                 e.printStackTrace();
             }
             if(mTmpFile != null && mTmpFile.exists()) {
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mTmpFile));
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getContext(),"com.jkdys.doctor.provider",mTmpFile));
                 startActivityForResult(cameraIntent, REQUEST_CAMERA);
             }else{
                 Toast.makeText(getActivity(), "图片错误", Toast.LENGTH_SHORT).show();

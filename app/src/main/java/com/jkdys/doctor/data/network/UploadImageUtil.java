@@ -5,11 +5,14 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.IntRange;
 
+import com.chairoad.framework.util.LogUtil;
+import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.UploadImageData;
 import com.jkdys.doctor.utils.ImageUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,6 +24,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import top.zibin.luban.Luban;
 
 @Singleton
 public class UploadImageUtil {
@@ -43,7 +47,13 @@ public class UploadImageUtil {
         listener.onUploadStart();
         new Thread(() -> {
             try {
-                File newFile = new File(Objects.requireNonNull(compressAndSaveImg(file.getPath())));
+                File newFile = compressAndSaveImg(file.getPath());
+
+                if (newFile == null || !newFile.exists()) {
+                    LogUtil.e("uploadImageUtil", "compress fail");
+                    return;
+                }
+
                 RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), newFile);
                 MultipartBody.Part body = MultipartBody.Part.createFormData("imgfile", newFile.getName(), reqFile);
                 RequestBody requestBodyType = RequestBody.create(MediaType.parse("multipart/form-data"), type+"");
@@ -78,18 +88,18 @@ public class UploadImageUtil {
 
     }
 
-    private String compressAndSaveImg(String path) {
-        //质量压缩保存图片
-        String savePath = ImageUtil.saveCompressBitmap(BitmapFactory.decodeFile(path), path);
-        final File newFile = new File(savePath);
-        if (newFile == null || !newFile.exists()) {
-            return null;
+    private File compressAndSaveImg(String path) {
+
+        File savePath = null;
+        try {
+            savePath = Luban.with(MyApplication.getInstance())
+                    .load(path)
+                    .ignoreBy(100)
+                    .get().get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        long length = ImageUtil.getBytesFromFile(newFile).length;
-        if (length == 0) {
-            return null;
-        }
         return savePath;
     }
 
