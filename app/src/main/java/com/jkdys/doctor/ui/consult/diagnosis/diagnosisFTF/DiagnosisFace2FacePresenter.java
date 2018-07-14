@@ -4,6 +4,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.Face2FaceOrderDetail;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
+import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 
@@ -28,6 +29,16 @@ public class DiagnosisFace2FacePresenter extends MvpBasePresenter<DiagnosisFace2
             @Override
             public void onBusinessSuccess(BaseResponse<Face2FaceOrderDetail> response) {
                 ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+            }
+        });
+    }
+
+    public void processOrder(ProcessFace2FaceOrder processFace2FaceOrder) {
+        ifViewAttached(view -> view.showLoading(false));
+        api.processFace2FaceOrder(processFace2FaceOrder).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<Object> response) {
+                ifViewAttached(DiagnosisFace2FaceView::onProcessSuccess);
             }
         });
     }

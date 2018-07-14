@@ -16,6 +16,7 @@ import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.model.PatientGroup;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
 import com.jkdys.doctor.data.model.Physicianstitle;
+import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.model.ProvinceData;
 import com.jkdys.doctor.data.model.SearchDoctorData;
 import com.jkdys.doctor.data.model.UploadImageData;
@@ -119,4 +120,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/GetDoctorGoodAtDetailInfo")
     Call<BaseResponse<String>> getDoctorProfile(@Body HashMap<String,Object> params);
+
+    @POST("/api/Doctor/OrderInfo/ManageDoctorRegOrder")
+    Call<BaseResponse<Object>> processFace2FaceOrder(@Body ProcessFace2FaceOrder processFace2FaceOrder);
 }

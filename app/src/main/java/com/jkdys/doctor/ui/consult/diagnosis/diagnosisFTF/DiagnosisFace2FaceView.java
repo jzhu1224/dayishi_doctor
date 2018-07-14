@@ -5,4 +5,5 @@ import com.jkdys.doctor.ui.BaseView;
 
 public interface DiagnosisFace2FaceView extends BaseView {
     void onRequestSuccess(Face2FaceOrderDetail face2FaceOrderDetail);
+    void onProcessSuccess();
 }
