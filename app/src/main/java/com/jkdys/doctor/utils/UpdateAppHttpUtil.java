@@ -2,35 +2,41 @@ package com.jkdys.doctor.utils;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
-import com.jkdys.doctor.data.network.UploadImageUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.vector.update_app.HttpManager;
-
+import com.vector.update_app.UpdateAppBean;
 import java.io.File;
 import java.util.Map;
+import javax.inject.Inject;
 
 public class UpdateAppHttpUtil implements HttpManager {
 
     DaYiShiServiceApi api;
-
-    public UpdateAppHttpUtil() {
+    Gson gson;
+    @Inject
+    public UpdateAppHttpUtil(DaYiShiServiceApi api, Gson gson) {
+        this.api = api;
+        this.gson = gson;
     }
 
     @Override
     public void asyncGet(@NonNull String url, @NonNull Map<String, String> params, @NonNull Callback callBack) {
-        callBack.onResponse("{\n" +
-                "  \"update\": \"Yes\",\n" +
-                "  \"new_version\": \"0.8.4\",\n" +
-                "  \"apk_file_url\": \"https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/apk/sample-debug.apk\",\n" +
-                "  \"update_log\": \"1，添加删除信用卡接口。\\r\\n2，添加vip认证。\\r\\n3，区分自定义消费，一个小时不限制。\\r\\n4，添加放弃任务接口，小时内不生成。\\r\\n5，消费任务手动生成。\",\n" +
-                "  \"target_size\": \"5M\",\n" +
-                "  \"new_md5\":\"b97bea014531123f94c3ba7b7afbaad2\",\n" +
-                "  \"constraint\": false\n" +
-                "}");
+
+        UpdateAppBean updateAppBean = new UpdateAppBean();
+        updateAppBean.setUpdate("Yes");
+        updateAppBean.setApkFileUrl("https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/apk/sample-debug.apk");
+        updateAppBean.setNewVersion("0.8.4");
+        updateAppBean.setUpdateLog("1，添加删除信用卡接口。\r\n2，添加vip认证。\r\n3，区分自定义消费，一个小时不限制。\r\n4，添加放弃任务接口，小时内不生成。\r\n5，消费任务手动生成。");
+        updateAppBean.setTargetSize("5M");
+        updateAppBean.setNewMd5("b97bea014531123f94c3ba7b7afbaad2");
+        updateAppBean.setConstraint(false);
+        String result = gson.toJson(updateAppBean);
+        callBack.onResponse(result);
     }
 
     @Override
@@ -51,7 +57,7 @@ public class UpdateAppHttpUtil implements HttpManager {
 
                     @Override
                     protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
-
+                        callback.onProgress((float) soFarBytes/ (float) totalBytes, totalBytes);
                     }
 
                     @Override

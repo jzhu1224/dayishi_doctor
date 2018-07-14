@@ -64,6 +64,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Inject
     JumpHelper jumpHelper;
 
+    @Inject
+    UpdateAppHttpUtil updateAppHttpUtil;
+
     private int selectIndex;
     private Fragment mCurrentFragment,consultFragment,yunFragment,customerFragment,mineFragment;
     FragmentManager fragmentManager;
@@ -124,6 +127,11 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         if (!needLogout(getIntent())) {
             jump();
         }
+    }
+
+    @Override
+    protected void afterMvpDelegateCreateInvoked() {
+        super.afterMvpDelegateCreateInvoked();
         checkUpdate();
     }
 
@@ -135,7 +143,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 //更新地址
                 .setUpdateUrl("https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json.txt")
                 //实现httpManager接口的对象
-                .setHttpManager(new UpdateAppHttpUtil())
+                .setHttpManager(updateAppHttpUtil)
+                .setThemeColor(getResources().getColor(R.color.color_6196FF))
                 .build()
                 .update();
     }
