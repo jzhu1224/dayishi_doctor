@@ -28,6 +28,7 @@ import com.jkdys.doctor.ui.order.CanceledOrderFragment;
 import com.jkdys.doctor.ui.order.CompletedOrderFragment;
 import com.jkdys.doctor.ui.order.InvalidedOrderFragment;
 import com.jkdys.doctor.ui.order.ProcessOrderFragment;
+import com.jkdys.doctor.ui.profile.EditGoodAtTagActivity;
 import com.jkdys.doctor.ui.profile.EditPersonalIntroduceActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
@@ -81,4 +82,5 @@ public interface ActivityComponent {
     void inject(DiagnosisOnPhoneActivity diagnosisOnPhoneActivity);
     void inject(DiagnosisFace2FaceActivity diagnosisFace2FaceActivity);
     void inject(EditPersonalIntroduceActivity editPersonalIntroduceActivity);
+    void inject(EditGoodAtTagActivity editGoodAtTagActivity);
 }

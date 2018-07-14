@@ -22,8 +22,8 @@ public class DoctorGoodAtTag extends AppCompatTextView {
     public DoctorGoodAtTag(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        int DP2 = ViewUtil.dipToPx(getContext(), 2);
-        int DP4 = ViewUtil.dipToPx(getContext(), 4);
+        int DP2 = ViewUtil.dipToPx(getContext(), 4);
+        int DP4 = ViewUtil.dipToPx(getContext(), 8);
 
         setPadding(DP4,DP2,DP4, DP2);
         setBackgroundResource(R.drawable.shape_bg_good_at);

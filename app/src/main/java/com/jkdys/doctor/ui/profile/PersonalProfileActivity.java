@@ -141,7 +141,8 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
 
     @OnClick(R.id.fr_good_at)
     void onGoodAtClick() {
-
+        Intent intent = new Intent(mActivity, EditGoodAtTagActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.fr_personal_introduction)
