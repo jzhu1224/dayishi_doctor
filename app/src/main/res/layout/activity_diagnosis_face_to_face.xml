@@ -174,10 +174,11 @@
                 android:textSize="16sp"
                 />
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/color_white"
+                android:gravity="center_vertical"
                 >
                 <TextView
                     android:layout_marginStart="16dp"
@@ -190,7 +191,8 @@
                     />
                 <EditText
                     android:id="@+id/edt_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     tools:text="上海市黄浦区北京东路130号"
                     android:hint="请输入就诊地点"
@@ -198,7 +200,9 @@
                     android:textSize="14sp"
                     android:background="@null"
                     android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="16dp"
+                    android:enabled="false"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="end"
                     />
                 <ImageView
                     android:visibility="invisible"
@@ -206,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
                     android:layout_marginEnd="16dp"/>
-            </FrameLayout>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_time"
                 android:layout_marginTop="8dp"
@@ -244,6 +248,7 @@
             </LinearLayout>
 
             <FrameLayout
+                android:visibility="gone"
                 android:id="@+id/rl_record"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"

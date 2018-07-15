@@ -49,6 +49,8 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
     TextView tvAge;
     @BindView(R.id.edt_address)
     EditText edtAddress;
+    @BindView(R.id.ll_time)
+    View vTime;
     @BindView(R.id.tv_process_time)
     TextView tvProcessTime;
     @BindView(R.id.rl_record)
@@ -82,6 +84,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
         super.afterBindView(savedInstanceState);
         toolbar.setTitle("门诊订单详情");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
+        vTime.setEnabled(false);
     }
 
     @Override
@@ -152,19 +155,44 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             //待处理的时候可以编辑
             btnAccept.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
-            tvState.setText("待处理");
+            btnDelay.setVisibility(View.GONE);
+            edtAddress.setEnabled(true);
+            vTime.setEnabled(true);
         } else if (face2FaceOrderDetail.getRegstatus().equals("1")) {
             if (face2FaceOrderDetail.getCandelay() != null && face2FaceOrderDetail.getCandelay()) {
+                //可以延期
                 btnDelay.setVisibility(View.VISIBLE);
+                btnAccept.setVisibility(View.GONE);
+                btnCancel.setVisibility(View.GONE);
+            } else {
+                btnCancel.setVisibility(View.VISIBLE);
+                btnAccept.setVisibility(View.GONE);
+                btnDelay.setVisibility(View.GONE);
             }
-            btnCancel.setVisibility(View.VISIBLE);
-            tvState.setText("处理中");
+            edtAddress.setEnabled(false);
+            vTime.setEnabled(false);
+
         } else if (face2FaceOrderDetail.getRegstatus().equals("2")) {
             //已完成
-            tvState.setText("已完成");
+            btnDelay.setVisibility(View.GONE);
+            btnAccept.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+            edtAddress.setEnabled(false);
+            vTime.setEnabled(false);
         } else if (face2FaceOrderDetail.getRegstatus().equals("3")) {
             //已取消
-            tvState.setText("已取消");
+            btnDelay.setVisibility(View.GONE);
+            btnAccept.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+            edtAddress.setEnabled(false);
+            vTime.setEnabled(false);
+        }
+
+        if (face2FaceOrderDetail.getDelayrecord() != null &&
+                face2FaceOrderDetail.getDelayrecord().size() > 0) {
+            rlRecord.setVisibility(View.VISIBLE);
+        } else {
+            rlRecord.setVisibility(View.GONE);
         }
     }
 
@@ -203,6 +231,10 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
 
     @OnClick(R.id.btn_cancel)
     void onBtnCancelClick() {
-
+        //取消订单
+        ProcessFace2FaceOrder processFace2FaceOrder = new ProcessFace2FaceOrder();
+        processFace2FaceOrder.setOrderid(orderId);
+        processFace2FaceOrder.setHandletype("4");
+        presenter.processOrder(processFace2FaceOrder);
     }
 }

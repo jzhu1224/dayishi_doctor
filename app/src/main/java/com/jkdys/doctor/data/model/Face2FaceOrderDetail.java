@@ -1,5 +1,7 @@
 package com.jkdys.doctor.data.model;
 
+import java.util.List;
+
 public class Face2FaceOrderDetail {
 
     private String doctorpicheadurl;
@@ -25,6 +27,7 @@ public class Face2FaceOrderDetail {
     private String regplace;
     private String regtime;
     private String regstatus;
+    private List<DelayRecord> delayrecord;
 
     public String getDoctorpicheadurl() {
         return doctorpicheadurl;
@@ -208,5 +211,44 @@ public class Face2FaceOrderDetail {
 
     public void setRegstatus(String regstatus) {
         this.regstatus = regstatus;
+    }
+
+    public List<DelayRecord> getDelayrecord() {
+        return delayrecord;
+    }
+
+    public void setDelayrecord(List<DelayRecord> delayrecord) {
+        this.delayrecord = delayrecord;
+    }
+
+    public static class DelayRecord {
+
+        private String regplace;
+        private String regtime;
+        private String modifytime;
+
+        public String getRegplace() {
+            return regplace;
+        }
+
+        public void setRegplace(String regplace) {
+            this.regplace = regplace;
+        }
+
+        public String getRegtime() {
+            return regtime;
+        }
+
+        public void setRegtime(String regtime) {
+            this.regtime = regtime;
+        }
+
+        public String getModifytime() {
+            return modifytime;
+        }
+
+        public void setModifytime(String modifytime) {
+            this.modifytime = modifytime;
+        }
     }
 }
