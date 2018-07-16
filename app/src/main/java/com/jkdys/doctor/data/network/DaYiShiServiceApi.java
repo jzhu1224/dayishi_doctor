@@ -20,6 +20,7 @@ import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.model.ProvinceData;
 import com.jkdys.doctor.data.model.SearchDoctorData;
 import com.jkdys.doctor.data.model.UploadImageData;
+import com.jkdys.doctor.data.model.VerifyBankCardData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -123,4 +124,10 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/OrderInfo/ManageDoctorRegOrder")
     Call<BaseResponse<Object>> processFace2FaceOrder(@Body ProcessFace2FaceOrder processFace2FaceOrder);
+
+    @POST("/api/Doctor/BaseData/CheckDoctorBankInfo")
+    Call<BaseResponse<VerifyBankCardData>> verifyBankCardInfo(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/BaseData/AddDoctorBankInfo")
+    Call<BaseResponse<Object>> bindingBankCard(@Body HashMap<String, Object> params);
 }

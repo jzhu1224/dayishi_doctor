@@ -8,8 +8,10 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.BindBankCardData;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -19,6 +21,7 @@ import com.jkdys.doctor.widget.PhoneEditTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
@@ -61,6 +64,7 @@ public class BindCardVerifyCardInfoActivity extends MvpActivity<BindCardVerifyCa
         tvBankCardInfo.setText(bindBankCardData.getBankname());
         nameTxt.setText(bindBankCardData.getName());
         identifyTxt.setText(bindBankCardData.getCertificateno());
+
     }
 
     @Override
@@ -70,7 +74,17 @@ public class BindCardVerifyCardInfoActivity extends MvpActivity<BindCardVerifyCa
 
     @OnClick(R.id.btn_next_step)
     void onNextStepClick() {
-        startActivity(new Intent(mActivity, BindCardSmsActivity.class));
+        if (TextUtils.isEmpty(edtPhone.getTextString())) {
+            ToastUtil.show(mActivity, "请输入手机号");
+            return;
+        }
+
+        if (!agreementCheck.isChecked()) {
+            ToastUtil.show(mActivity, "请同意用户协议");
+            return;
+        }
+
+        presenter.bindBankCard(edtPhone.getTextString());
     }
 
     @OnTextChanged(value = R.id.edt_phone,
@@ -82,5 +96,24 @@ public class BindCardVerifyCardInfoActivity extends MvpActivity<BindCardVerifyCa
     @OnClick(R.id.phoneGuide)
     void oncodeGuideClick() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
+
+    @Override
+    public void onBindSuccess(String bindingCode) {
+
+        Intent intent = new Intent(mActivity, BindCardSmsActivity.class);
+        intent.putExtra("bindingCode", bindingCode);
+        intent.putExtra("mobile", edtPhone.getTextString());
+
+        startActivityForResult(intent,1);
     }
 }

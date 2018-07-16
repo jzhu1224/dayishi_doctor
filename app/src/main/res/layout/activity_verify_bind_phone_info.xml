@@ -83,7 +83,6 @@
     <Button
         android:id="@+id/btn_ok"
         style="@style/round_button_style_1"
-        android:enabled="false"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="18dp"

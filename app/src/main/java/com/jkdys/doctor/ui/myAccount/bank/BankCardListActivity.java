@@ -54,7 +54,8 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
 
     @OnClick(R.id.addBtn)
     public void clickAddbtn() {
-        startActivity(new Intent(mActivity, BindBankCardActivity.class));
+        Intent intent = new Intent(mActivity, BindBankCardActivity.class);
+        startActivityForResult(intent,3);
     }
 
     @OnClick(R.id.supportBank)
@@ -110,5 +111,13 @@ public class BankCardListActivity extends MvpActivity<BankCardListView, BankCard
         super.onDestroy();
         if (qmuiBottomSheet != null && qmuiBottomSheet.isShowing())
             qmuiBottomSheet.dismiss();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 3) {
+            bankCardListPresenter.getBankCardInfo();
+        }
     }
 }

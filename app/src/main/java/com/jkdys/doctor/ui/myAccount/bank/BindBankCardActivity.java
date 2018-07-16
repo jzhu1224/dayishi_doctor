@@ -63,6 +63,14 @@ public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBank
         startActivity(new Intent(mActivity, SupportBankListActivity.class));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 2) {
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 
     @Override
     protected int getLayout() {
@@ -73,6 +81,6 @@ public class BindBankCardActivity extends MvpActivity<BindBankCardView, BindBank
     public void onRequestSuccess(BindBankCardData data) {
        Intent intent = new Intent(mActivity, BindCardVerifyCardInfoActivity.class);
        intent.putExtra("bindBankCardData", data);
-       startActivity(intent);
+       startActivityForResult(intent,2);
     }
 }
