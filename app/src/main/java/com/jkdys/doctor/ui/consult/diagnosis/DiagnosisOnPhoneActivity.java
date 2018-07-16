@@ -9,18 +9,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.common.img.views.ImageOverlayView;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 
@@ -86,9 +90,18 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
     }
 
     private void showBigPicture(List<String> imgs,int position) {
-        new ImageViewer.Builder<>(this, imgs)
-                .setStartPosition(position)
-                .show();
+
+        ImageViewer.Builder builder = new ImageViewer.Builder<>(this, imgs)
+                .setStartPosition(position);
+
+        ImageOverlayView overlayView = new ImageOverlayView(this);
+        builder.setOverlayView(overlayView);
+        builder.setImageChangeListener(position1 -> {
+            if (imgs.size() > 1) {
+                overlayView.setDescription(String.format(Locale.CHINESE,"%s/%d",String.valueOf(position1+1),imgs.size()));
+            }
+        });
+        builder.show();
     }
 
     private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {

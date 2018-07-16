@@ -16,8 +16,6 @@ public class ImageOverlayView extends RelativeLayout {
 
     private TextView tvDescription;
 
-    private String sharingText;
-
     public ImageOverlayView(Context context) {
         super(context);
         init();
@@ -37,26 +35,8 @@ public class ImageOverlayView extends RelativeLayout {
         tvDescription.setText(description);
     }
 
-    public void setShareText(String text) {
-        this.sharingText = text;
-    }
-
-    private void sendShareIntent() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, sharingText);
-        sendIntent.setType("text/plain");
-        getContext().startActivity(sendIntent);
-    }
-
     private void init() {
         View view = inflate(getContext(), R.layout.view_image_overlay, this);
         tvDescription = (TextView) view.findViewById(R.id.tvDescription);
-        view.findViewById(R.id.btnShare).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendShareIntent();
-            }
-        });
     }
 }

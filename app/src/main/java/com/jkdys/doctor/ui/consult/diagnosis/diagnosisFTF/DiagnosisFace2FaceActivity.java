@@ -3,6 +3,7 @@ package com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.jkdys.doctor.ui.MvpActivity;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,6 +62,9 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
 
     @BindView(R.id.btn_accept)
     Button btnAccept;
+
+    @BindView(R.id.btn_complete)
+    Button btnComplete;
 
     @BindView(R.id.btn_delay)
     Button btnDelay;
@@ -131,6 +136,23 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
 
     }
 
+    @OnClick(R.id.btn_complete)
+    void onCompleteClick() {
+        //完成订单
+        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(mActivity);
+        builder.setTitle("请输入就诊码以完成订单").setPlaceholder("就诊码").setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("取消", (dialog, index) -> dialog.dismiss())
+                .addAction("确定", (dialog, index) -> {
+                    dialog.dismiss();
+                    String code = builder.getEditText().getText().toString();
+                    ProcessFace2FaceOrder processFace2FaceOrder = new ProcessFace2FaceOrder();
+                    processFace2FaceOrder.setOrderid(orderId);
+                    processFace2FaceOrder.setHandletype("2");
+                    processFace2FaceOrder.setMedicalcode(code);
+                    presenter.processOrder(processFace2FaceOrder);
+                }).show();
+    }
+
     @Override
     public void onRequestSuccess(Face2FaceOrderDetail face2FaceOrderDetail) {
 
@@ -156,6 +178,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             btnAccept.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
             btnDelay.setVisibility(View.GONE);
+            btnComplete.setVisibility(View.GONE);
             edtAddress.setEnabled(true);
             vTime.setEnabled(true);
         } else if (face2FaceOrderDetail.getRegstatus().equals("1")) {
@@ -169,6 +192,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
                 btnAccept.setVisibility(View.GONE);
                 btnDelay.setVisibility(View.GONE);
             }
+            btnComplete.setVisibility(View.VISIBLE);
             edtAddress.setEnabled(false);
             vTime.setEnabled(false);
 
