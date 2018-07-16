@@ -13,6 +13,7 @@ import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.profile.changeMobile.ChangeMobileActivity;
 import com.jkdys.doctor.ui.search.SearchData;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
@@ -137,6 +138,11 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
 //        //选择职称
 //        Intent intent = new Intent(mActivity, SearchPhysiciansTitleActivity.class);
 //        startActivityForResult(intent,2);
+    }
+
+    @OnClick(R.id.fr_phone)
+    void onChangeMobileClick() {
+        startActivity(new Intent(mActivity, ChangeMobileActivity.class));
     }
 
     @OnClick(R.id.fr_good_at)

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.jkdys.doctor.widget.MyToolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/change_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/color_0A1D3D"
+        android:layout_marginTop="38dp"
+        android:text="新号码将作为您以后登录号码"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/top_edit_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/change_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.jkdys.doctor.widget.PhoneEditTextView
+                android:id="@+id/phoneTxt"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:hint="新手机号码"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColor="@color/color_212121"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/clearBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:src="@drawable/ic_close"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <com.jkdys.doctor.widget.CountdownView
+                android:id="@+id/codeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:paddingBottom="0dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="0dp" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/color_ededf0"/>
+
+        <EditText
+            android:id="@+id/codeTxt"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/transparent"
+            android:hint="验证码"
+            android:inputType="number"
+            android:maxLength="4"
+            android:textColor="@color/color_212121"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/commitBtn"
+        style="@style/round_button_style_1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:enabled="false"
+        android:text="完成"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/top_edit_view" />
+
+</android.support.constraint.ConstraintLayout>

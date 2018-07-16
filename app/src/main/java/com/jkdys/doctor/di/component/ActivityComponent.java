@@ -31,6 +31,7 @@ import com.jkdys.doctor.ui.order.ProcessOrderFragment;
 import com.jkdys.doctor.ui.profile.EditGoodAtTagActivity;
 import com.jkdys.doctor.ui.profile.EditPersonalIntroduceActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
+import com.jkdys.doctor.ui.profile.changeMobile.ChangeMobileActivity;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
@@ -83,4 +84,5 @@ public interface ActivityComponent {
     void inject(DiagnosisFace2FaceActivity diagnosisFace2FaceActivity);
     void inject(EditPersonalIntroduceActivity editPersonalIntroduceActivity);
     void inject(EditGoodAtTagActivity editGoodAtTagActivity);
+    void inject(ChangeMobileActivity changeMobileActivity);
 }

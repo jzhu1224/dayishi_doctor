@@ -129,6 +129,7 @@
         <activity android:name=".ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.profile.EditPersonalIntroduceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.profile.EditGoodAtTagActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.profile.changeMobile.ChangeMobileActivity" android:screenOrientation="portrait" />
     </application>
 
 </manifest>
