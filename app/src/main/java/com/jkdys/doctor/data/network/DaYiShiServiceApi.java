@@ -130,4 +130,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/BaseData/AddDoctorBankInfo")
     Call<BaseResponse<Object>> bindingBankCard(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/AddDoctorFriends")
+    Call<BaseResponse<Object>> addFriends(@Body HashMap<String, Object> params);
 }

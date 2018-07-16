@@ -30,4 +30,16 @@ public class DoctorDetailPresenter extends MvpBasePresenter<DoctorDetailView> {
             }
         });
     }
+
+    public void addFriend(String doctorId) {
+        ifViewAttached(view -> view.showLoading(false));
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("doctorid", doctorId);
+        api.addFriends(params).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<Object> response) {
+                ifViewAttached(view -> view.onAddFriendSuccess());
+            }
+        });
+    }
 }

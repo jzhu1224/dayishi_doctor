@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.AccountData;
 import com.jkdys.doctor.data.model.Doctor;
@@ -40,6 +41,8 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     @BindView(R.id.tv_allow_withdraw)
     TextView tvAllWithdraw;
 
+
+    AccountData accountData;
 
     QMUICommonListItemView phoneFee,doorFee,tuiguangFee,bindCard;
 
@@ -92,17 +95,17 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         QMUIStatusBarHelper.setStatusBarDarkMode(mActivity);
     }
 
-    @Override
-    protected void afterMvpDelegateCreateInvoked() {
-        super.afterMvpDelegateCreateInvoked();
-        myAccountPresenter.getDoctorInfo();
-    }
-
     @NonNull
     @Override
     public MyAccountPresenter createPresenter() {
         getActivityComponent().inject(this);
         return myAccountPresenter;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getDoctorInfo();
     }
 
     @Override
@@ -122,16 +125,26 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     public void onRequestSuccess(AccountData accountData) {
         if (accountData == null)
             return;
+        this.accountData = accountData;
         tvTotalIncome.setText(accountData.getTelfee()+"");
         tvAllWithdraw.setText(accountData.getUndrawnamount()+"");
         phoneFee.setDetailText(accountData.getTelfee()+"");
         doorFee.setDetailText(accountData.getOutpatientfee()+"");
         tuiguangFee.setDetailText(accountData.getPromotefee()+"");
-        bindCard.setDetailText(accountData.bindornot?"已绑定":"未绑定");
+        bindCard.setDetailText(accountData.isBindornot()?"已绑定":"未绑定");
     }
 
     @OnClick(R.id.btn_withdraw)
     void onWithdrawClicked() {
-        startActivity(new Intent(mActivity, WithdrawActivity.class));
+
+        if (!accountData.isBindornot()) {
+            ToastUtil.show(mActivity, "请先绑定银行卡");
+            startActivity(new Intent(mActivity, BankCardListActivity.class));
+            return;
+        }
+
+        Intent intent = new Intent(mActivity, WithdrawActivity.class);
+        intent.putExtra("money", accountData.getUndrawnamount());
+        startActivity(intent);
     }
 }

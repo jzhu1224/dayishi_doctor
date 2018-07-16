@@ -5,4 +5,5 @@ import com.jkdys.doctor.ui.BaseView;
 
 public interface DoctorDetailView extends BaseView {
     void onRequestSuccess(DoctorDetailData doctorDetailData);
+    void onAddFriendSuccess();
 }

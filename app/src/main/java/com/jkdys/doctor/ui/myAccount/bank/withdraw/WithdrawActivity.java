@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -25,6 +27,11 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
 
     @BindView(R.id.edt_withdraw)
     EditText edtWithdraw;
+
+    @BindView(R.id.tv_total_money)
+    TextView tvTotalMoney;
+
+    float money = 0.0f;
 
     @NonNull
     @Override
@@ -49,6 +56,8 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
             ManyiUtils.closeKeyBoard(mActivity, edtWithdraw);
         });
         ManyiUtils.showKeyBoard(mActivity, edtWithdraw);
+
+        tvTotalMoney.setText(String.valueOf(money));
     }
 
     @Override
@@ -79,6 +88,11 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
             SMSCodeDialogFragment smsCodeDialogFragment = new SMSCodeDialogFragment();
             smsCodeDialogFragment.show(getSupportFragmentManager(),"tag");
         },200);
+    }
+
+    @OnClick(R.id.tv_withdraw_all)
+    void onWithdrawClick() {
+        edtWithdraw.setText(String.valueOf(money));
     }
 
     @Override

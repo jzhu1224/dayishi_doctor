@@ -22,6 +22,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDetailPresenter> implements DoctorDetailView {
 
@@ -44,6 +45,8 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     Button btnAdd;
 
 
+    String doctorId;
+
     @NonNull
     @Override
     public DoctorDetailPresenter createPresenter() {
@@ -54,7 +57,7 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     @Override
     protected void onStart() {
         super.onStart();
-        String doctorId = getIntent().getStringExtra("doctorId");
+        doctorId = getIntent().getStringExtra("doctorId");
         doctorDetailPresenter.getDoctorDetail(doctorId);
     }
 
@@ -90,5 +93,15 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
                 flowLayout.addView(goodAtTag);
             }
         }
+    }
+
+    @Override
+    public void onAddFriendSuccess() {
+        btnAdd.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.btn_add)
+    void onBtnAddClick() {
+        presenter.addFriend(doctorId);
     }
 }

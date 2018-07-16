@@ -1,50 +1,50 @@
 package com.jkdys.doctor.data.model;
 
 public class AccountData {
-    public int telfee;
-    public int outpatientfee;
-    public int promotefee;
-    public int undrawnamount;
-    public int totalamount;
-    public boolean bindornot;
+    private float telfee;
+    private float outpatientfee;
+    private float promotefee;
+    private float undrawnamount;
+    private float totalamount;
+    private boolean bindornot;
 
-    public int getTelfee() {
+    public float getTelfee() {
         return telfee;
     }
 
-    public void setTelfee(int telfee) {
+    public void setTelfee(float telfee) {
         this.telfee = telfee;
     }
 
-    public int getOutpatientfee() {
+    public float getOutpatientfee() {
         return outpatientfee;
     }
 
-    public void setOutpatientfee(int outpatientfee) {
+    public void setOutpatientfee(float outpatientfee) {
         this.outpatientfee = outpatientfee;
     }
 
-    public int getPromotefee() {
+    public float getPromotefee() {
         return promotefee;
     }
 
-    public void setPromotefee(int promotefee) {
+    public void setPromotefee(float promotefee) {
         this.promotefee = promotefee;
     }
 
-    public int getUndrawnamount() {
+    public float getUndrawnamount() {
         return undrawnamount;
     }
 
-    public void setUndrawnamount(int undrawnamount) {
+    public void setUndrawnamount(float undrawnamount) {
         this.undrawnamount = undrawnamount;
     }
 
-    public int getTotalamount() {
+    public float getTotalamount() {
         return totalamount;
     }
 
-    public void setTotalamount(int totalamount) {
+    public void setTotalamount(float totalamount) {
         this.totalamount = totalamount;
     }
 
