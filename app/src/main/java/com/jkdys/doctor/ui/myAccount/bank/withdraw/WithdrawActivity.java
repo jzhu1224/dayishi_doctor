@@ -3,6 +3,8 @@ package com.jkdys.doctor.ui.myAccount.bank.withdraw;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.widget.BankCardView;
 import com.jkdys.doctor.utils.AndroidBug5497Workaround;
 import com.jkdys.doctor.utils.ManyiUtils;
+import com.jkdys.doctor.utils.SoftKeyBoardListener;
 
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -30,6 +33,9 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
 
     @BindView(R.id.tv_total_money)
     TextView tvTotalMoney;
+
+    @BindView(R.id.btn_withdraw)
+    Button btnWithdraw;
 
     float money = 0.0f;
 
@@ -58,6 +64,19 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
         ManyiUtils.showKeyBoard(mActivity, edtWithdraw);
 
         tvTotalMoney.setText(String.valueOf(money));
+
+        SoftKeyBoardListener.setListener(this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+            @Override
+            public void keyBoardShow(int height) {
+                btnWithdraw.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void keyBoardHide(int height) {
+                btnWithdraw.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override

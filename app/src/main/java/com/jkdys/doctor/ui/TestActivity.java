@@ -15,10 +15,6 @@ public class TestActivity extends BaseAppCompatActivity {
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
-        toolbar.setTitle("测试");
-        toolbar.addLeftBackImageButton().setOnClickListener(view -> {
-            finish();
-        });
 
         startActivity(new Intent(mActivity, MainActivity.class));
         finish();

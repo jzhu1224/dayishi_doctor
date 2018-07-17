@@ -94,7 +94,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.TestActivity">
+        <activity android:name=".ui.TestActivity" android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -130,6 +130,7 @@
         <activity android:name=".ui.profile.EditPersonalIntroduceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.profile.EditGoodAtTagActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.profile.changeMobile.ChangeMobileActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.myAccount.bank.withdraw.WithdrawResultActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

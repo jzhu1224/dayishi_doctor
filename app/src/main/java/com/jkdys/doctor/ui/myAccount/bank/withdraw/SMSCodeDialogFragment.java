@@ -91,5 +91,4 @@ public class SMSCodeDialogFragment extends DialogFragment {
     void onSMSCodeChanged(Editable editable) {
         btnConfirm.setEnabled(editable.toString().length() == 6);
     }
-
 }
