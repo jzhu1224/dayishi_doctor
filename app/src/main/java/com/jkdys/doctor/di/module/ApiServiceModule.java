@@ -53,7 +53,6 @@ public class ApiServiceModule {
                 Logger.t(TAG).d("HttpLog:" + message);
             }
         });
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         return logging;
     }

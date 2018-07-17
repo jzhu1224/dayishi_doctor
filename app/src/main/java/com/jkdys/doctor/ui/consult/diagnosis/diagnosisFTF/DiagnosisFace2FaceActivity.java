@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -72,10 +73,15 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
     @BindView(R.id.btn_cancel)
     Button btnCancel;
 
+    @BindView(R.id.btn_confirm_delay)
+    Button btnConfirmDelay;
+
     Face2FaceOrderDetail face2FaceOrderDetail;
 
     String orderId;
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    boolean delayMode = false;
 
     @NonNull
     @Override
@@ -87,9 +93,11 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
-        toolbar.setTitle("门诊订单详情");
+
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
         vTime.setEnabled(false);
+        delayMode = getIntent().getBooleanExtra("delayMode", false);
+        toolbar.setTitle(delayMode?"延期门诊订单":"门诊订单详情");
     }
 
     @Override
@@ -173,6 +181,21 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
         // "status": "0",//0，待处理、1，已完成、2，已取消'
         // "regstatus": "0"//门诊订单状态。0待处理、1处理中、2已完成、3已取消
 
+
+        if (delayMode) {
+            btnAccept.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+            btnDelay.setVisibility(View.GONE);
+            btnComplete.setVisibility(View.GONE);
+            btnConfirmDelay.setVisibility(View.VISIBLE);
+
+            edtAddress.setEnabled(true);
+            vTime.setEnabled(true);
+            tvProcessTime.setText("");
+
+            return;
+        }
+
         if (face2FaceOrderDetail.getRegstatus().equals("0")) {
             //待处理的时候可以编辑
             btnAccept.setVisibility(View.VISIBLE);
@@ -221,8 +244,13 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
     }
 
     @Override
-    public void onProcessSuccess() {
-        presenter.getFace2FaceOrderDetail(orderId);
+    public void onProcessSuccess(String type) {
+        if (type.equals("3")) {
+            setResult(RESULT_OK);
+            finish();
+        } else {
+            presenter.getFace2FaceOrderDetail(orderId);
+        }
     }
 
     @OnClick(R.id.btn_accept)
@@ -251,6 +279,20 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
         //延期订单
         toolbar.setTitle("延期门诊订单");
 
+        Intent intent = new Intent(mActivity, DiagnosisFace2FaceActivity.class);
+        intent.putExtra("orderId", orderId);
+        intent.putExtra("delayMode", true);
+        startActivityForResult(intent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1) {
+            presenter.getFace2FaceOrderDetail(orderId);
+            toolbar.setTitle(delayMode?"延期门诊订单":"门诊订单详情");
+        }
     }
 
     @OnClick(R.id.btn_cancel)
@@ -259,6 +301,28 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
         ProcessFace2FaceOrder processFace2FaceOrder = new ProcessFace2FaceOrder();
         processFace2FaceOrder.setOrderid(orderId);
         processFace2FaceOrder.setHandletype("4");
+        presenter.processOrder(processFace2FaceOrder);
+    }
+
+    @OnClick(R.id.btn_confirm_delay)
+    void onConfirmDelayClick() {
+        //延期订单
+
+        if (TextUtils.isEmpty(edtAddress.getText().toString())) {
+            ToastUtil.show(mActivity, "就诊地点不能为空");
+            return;
+        }
+
+        if (TextUtils.isEmpty(tvProcessTime.getText().toString())) {
+            ToastUtil.show(mActivity, "就诊时间不能为空");
+            return;
+        }
+
+        ProcessFace2FaceOrder processFace2FaceOrder = new ProcessFace2FaceOrder();
+        processFace2FaceOrder.setOrderid(orderId);
+        processFace2FaceOrder.setRegplace(edtAddress.getText().toString());
+        processFace2FaceOrder.setRegtime(tvProcessTime.getText().toString());
+        processFace2FaceOrder.setHandletype("3");
         presenter.processOrder(processFace2FaceOrder);
     }
 }

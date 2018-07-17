@@ -89,25 +89,28 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
 
-        Dexter.withActivity(mActivity)
-                .withPermissions(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ).withListener(new MultiplePermissionsListener() {
-            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
-                if (report.areAllPermissionsGranted()) {
-                } else {
-                    ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
-                }
-            }
-            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                // TODO: 2018/7/4  弹出对话框引导用户开启权限
-            }
-
-        }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
 
         getActivityComponent().inject(this);
+
+        if (loginInfoUtil.getLoginResponse() != null) {
+            Dexter.withActivity(mActivity)
+                    .withPermissions(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ).withListener(new MultiplePermissionsListener() {
+                @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                    if (report.areAllPermissionsGranted()) {
+                    } else {
+                        ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
+                    }
+                }
+                @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                    // TODO: 2018/7/4  弹出对话框引导用户开启权限
+                }
+
+            }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
+        }
 
         fragmentManager = getSupportFragmentManager();
 

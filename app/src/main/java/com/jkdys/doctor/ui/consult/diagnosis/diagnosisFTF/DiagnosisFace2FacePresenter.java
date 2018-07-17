@@ -38,7 +38,7 @@ public class DiagnosisFace2FacePresenter extends MvpBasePresenter<DiagnosisFace2
         api.processFace2FaceOrder(processFace2FaceOrder).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
             @Override
             public void onBusinessSuccess(BaseResponse<Object> response) {
-                ifViewAttached(DiagnosisFace2FaceView::onProcessSuccess);
+                ifViewAttached(view -> view.onProcessSuccess(processFace2FaceOrder.getHandletype()));
             }
         });
     }

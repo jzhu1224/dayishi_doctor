@@ -320,5 +320,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+        <Button
+            android:visibility="gone"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:id="@+id/btn_confirm_delay"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/round_button_style_1"
+            android:layout_height="wrap_content"
+            android:text="确定延期"/>
     </LinearLayout>
 </LinearLayout>
