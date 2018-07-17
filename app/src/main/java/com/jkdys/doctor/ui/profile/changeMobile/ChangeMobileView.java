@@ -4,4 +4,5 @@ import com.jkdys.doctor.ui.BaseView;
 
 public interface ChangeMobileView extends BaseView {
     void onChangeMobileSuccess();
+    void onRequestCodeSuccess();
 }

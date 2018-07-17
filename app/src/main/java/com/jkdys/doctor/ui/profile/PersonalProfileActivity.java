@@ -102,6 +102,9 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
                     List<String> paths = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                     personalProfilePresenter.uploadImage(paths.get(0));
                     break;
+                case 5:
+                    tvPhone.setText(loginInfoUtil.getDoctor().getCellphoneno());
+                    break;
             }
         }
     }
@@ -142,7 +145,7 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
 
     @OnClick(R.id.fr_phone)
     void onChangeMobileClick() {
-        startActivity(new Intent(mActivity, ChangeMobileActivity.class));
+        startActivityForResult(new Intent(mActivity, ChangeMobileActivity.class), 5);
     }
 
     @OnClick(R.id.fr_good_at)

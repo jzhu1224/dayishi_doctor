@@ -53,6 +53,14 @@ public class LoginInfoUtil {
         }
     }
 
+    public void updateMobile(String mobile) {
+        LoginResponse loginResponse = getLoginResponse();
+        if (loginResponse != null) {
+            loginResponse.getDoctor().setCellphoneno(mobile);
+            saveLoginResponse(loginResponse);
+        }
+    }
+
 
 
     public void saveLoginResponse(LoginResponse loginResponse) {

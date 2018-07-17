@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.profile.changeMobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.jkdys.doctor.widget.CountdownView;
 import com.jkdys.doctor.widget.PhoneEditTextView;
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class ChangeMobileActivity extends MvpActivity<ChangeMobileView, ChangeMobilePresenter> implements ChangeMobileView{
@@ -62,6 +64,7 @@ public class ChangeMobileActivity extends MvpActivity<ChangeMobileView, ChangeMo
             @Override
             public void start() {
                 //请求验证码
+                presenter.getCode(phoneTxt.getTextString());
             }
 
             @Override
@@ -118,6 +121,22 @@ public class ChangeMobileActivity extends MvpActivity<ChangeMobileView, ChangeMo
 
     @Override
     public void onChangeMobileSuccess() {
+        setResult(RESULT_OK);
         finish();
+    }
+
+    @Override
+    public void onRequestCodeSuccess() {
+
+    }
+
+    @OnClick(R.id.clearBtn)
+    void onClearBtnClick() {
+        phoneTxt.setText("");
+    }
+
+    @OnClick(R.id.commitBtn)
+    void onCommitBtnClick() {
+        presenter.changeMobile(phoneTxt.getTextString(), codeTxt.getText().toString());
     }
 }

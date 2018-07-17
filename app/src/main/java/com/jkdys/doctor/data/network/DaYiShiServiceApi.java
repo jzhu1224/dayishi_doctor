@@ -133,4 +133,6 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/AddDoctorFriends")
     Call<BaseResponse<Object>> addFriends(@Body HashMap<String, Object> params);
+    @POST("/api/Doctor/Doctor/ModifyDoctorCellPhone")
+    Call<BaseResponse<Object>> changeMobile(@Body HashMap<String, Object> params);
 }
