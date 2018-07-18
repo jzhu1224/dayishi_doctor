@@ -2,6 +2,7 @@ package com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.InputType;
@@ -18,12 +19,14 @@ import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Face2FaceOrderDetail;
 import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.consult.diagnosis.DelayRecordActivity;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -141,7 +144,9 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
 
     @OnClick(R.id.rl_record)
     void onRecordClick() {
-
+        Intent intent = new Intent(mActivity, DelayRecordActivity.class);
+        intent.putParcelableArrayListExtra("delayRecordList", (ArrayList<? extends Parcelable>) face2FaceOrderDetail.getDelayrecord());
+        startActivity(intent);
     }
 
     @OnClick(R.id.btn_complete)

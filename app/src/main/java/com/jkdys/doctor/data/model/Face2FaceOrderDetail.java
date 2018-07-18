@@ -1,5 +1,8 @@
 package com.jkdys.doctor.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 public class Face2FaceOrderDetail {
@@ -221,7 +224,7 @@ public class Face2FaceOrderDetail {
         this.delayrecord = delayrecord;
     }
 
-    public static class DelayRecord {
+    public static class DelayRecord implements Parcelable {
 
         private String regplace;
         private String regtime;
@@ -250,5 +253,39 @@ public class Face2FaceOrderDetail {
         public void setModifytime(String modifytime) {
             this.modifytime = modifytime;
         }
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.regplace);
+            dest.writeString(this.regtime);
+            dest.writeString(this.modifytime);
+        }
+
+        public DelayRecord() {
+        }
+
+        protected DelayRecord(Parcel in) {
+            this.regplace = in.readString();
+            this.regtime = in.readString();
+            this.modifytime = in.readString();
+        }
+
+        public static final Parcelable.Creator<DelayRecord> CREATOR = new Parcelable.Creator<DelayRecord>() {
+            @Override
+            public DelayRecord createFromParcel(Parcel source) {
+                return new DelayRecord(source);
+            }
+
+            @Override
+            public DelayRecord[] newArray(int size) {
+                return new DelayRecord[size];
+            }
+        };
     }
 }
