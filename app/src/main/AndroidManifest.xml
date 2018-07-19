@@ -132,6 +132,7 @@
         <activity android:name=".ui.profile.changeMobile.ChangeMobileActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.myAccount.bank.withdraw.WithdrawResultActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.consult.diagnosis.DelayRecordActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.myAccount.bank.tradeRecord.TradeRecordActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

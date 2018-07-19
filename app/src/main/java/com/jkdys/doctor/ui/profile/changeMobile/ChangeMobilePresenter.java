@@ -30,7 +30,7 @@ public class ChangeMobilePresenter extends MvpBasePresenter<ChangeMobileView> {
         params.put("code", 2);
 
         ifViewAttached(view -> view.showLoading(false));
-        api.sentVerificationCode(params).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
+        api.sendCommonVerificationCode(params).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
             @Override
             public void onBusinessSuccess(BaseResponse<Object> response) {
                 ifViewAttached(ChangeMobileView::onRequestCodeSuccess);

@@ -158,4 +158,10 @@ public abstract class BaseFragment extends Fragment {
         ToastUtil.show(getActivity(),message);
     }
 
+    public void showDialog(String msg) {
+        if (activity instanceof BaseAppCompatActivity) {
+            ((BaseAppCompatActivity) activity).showDialog(msg);
+        }
+    }
+
 }

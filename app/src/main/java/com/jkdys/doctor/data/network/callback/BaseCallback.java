@@ -52,7 +52,7 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
             activity.startActivity(intent);
 
         } else if (baseResponse.isShowdialog()) {
-            view.showError(baseResponse.getMsg());
+            view.showDialog(baseResponse.getMsg());
         } else if (baseResponse.isShowmessage()) {
             view.showMessage(baseResponse.getMsg());
         }
@@ -63,7 +63,7 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
         if (!isViewAttached())
             return;
         view.showContent();
-        view.showMessage(t.getMessage());
+        view.showError(t.getMessage());
     }
 
     public abstract void onBusinessSuccess(T response);

@@ -23,6 +23,7 @@ import com.jkdys.doctor.ui.myAccount.bank.BindBankCardActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BindBankCardPresenter;
 import com.jkdys.doctor.ui.myAccount.bank.BindCardVerifyCardInfoActivity;
 import com.jkdys.doctor.ui.myAccount.bank.SupportBankListFragment;
+import com.jkdys.doctor.ui.myAccount.bank.tradeRecord.TradeRecordFragment;
 import com.jkdys.doctor.ui.myAccount.bank.withdraw.WithdrawActivity;
 import com.jkdys.doctor.ui.order.AllOrderFragment;
 import com.jkdys.doctor.ui.order.CanceledOrderFragment;
@@ -87,4 +88,5 @@ public interface ActivityComponent {
     void inject(EditGoodAtTagActivity editGoodAtTagActivity);
     void inject(ChangeMobileActivity changeMobileActivity);
     void inject(DelayRecordFragment delayRecordFragment);
+    void inject(TradeRecordFragment tradeRecordFragment);
 }

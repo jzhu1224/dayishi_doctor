@@ -162,7 +162,7 @@ public abstract class BaseRefreshLoadMoreFrament<T extends Parcelable,V extends 
     @Override
     public void showError(String message) {
         swipeRefreshLayout.setRefreshing(false);
-        showMessage(message);
+        //showMessage(message);
         qmuiEmptyView.setTitleText("加载时发生错误");
         qmuiEmptyView.setDetailText(message);
         qmuiEmptyView.setButton("重新加载", view -> loadData(true,true));

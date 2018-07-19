@@ -15,4 +15,6 @@ public interface BaseView extends MvpView {
     void showMessage(String msg);
 
     void showError(String message);
+
+    void showDialog(String msg);
 }

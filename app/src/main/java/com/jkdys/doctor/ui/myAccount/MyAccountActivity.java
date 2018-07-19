@@ -14,6 +14,7 @@ import com.jkdys.doctor.data.model.AccountData;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BankCardListActivity;
+import com.jkdys.doctor.ui.myAccount.bank.tradeRecord.TradeRecordActivity;
 import com.jkdys.doctor.ui.myAccount.bank.withdraw.WithdrawActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -84,7 +85,9 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         QMUICommonListItemView tradeRecord = createItemView(R.drawable.ic_trade_record, "交易记录", "", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
 
         QMUIGroupListView.newSection(mActivity) //交易记录
-                .addItemView(tradeRecord, view -> {})
+                .addItemView(tradeRecord, view -> {
+                    startActivity(new Intent(mActivity, TradeRecordActivity.class));
+                })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
     }

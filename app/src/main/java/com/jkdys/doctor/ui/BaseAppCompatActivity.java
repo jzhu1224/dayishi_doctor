@@ -174,6 +174,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     Dialog dialog,dialog2;
 
     public void showError(String msg) {
+        showMessage(msg);
+    }
+
+    public void showDialog(String msg) {
         QMUIDialog.MessageDialogBuilder builder = new QMUIDialog.MessageDialogBuilder(mActivity);
         dialog2 = builder.setTitle("提示")
                 .setMessage(msg)
