@@ -13,6 +13,7 @@ import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -54,7 +55,7 @@ public class TradeRecordFragment extends BaseRefreshLoadMoreFrament<TradeRecord,
 
         @Override
         protected void convert(BaseViewHolder helper, TradeRecord item) {
-            helper.setText(R.id.tv_status, item.getStatusname());
+            helper.setText(R.id.tv_status, String.format(Locale.CHINESE,"【%s】",item.getStatusname()));
             helper.setText(R.id.tv_time, item.getDate());
             helper.setText(R.id.tv_trade_money, item.getShowmoney());
             // TODO: 2018/7/19 状态颜色需要根据不同状态调整
