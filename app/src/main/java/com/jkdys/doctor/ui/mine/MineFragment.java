@@ -14,6 +14,7 @@ import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
+import com.jkdys.doctor.ui.fee.SettingFeesActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.mine.qrcode.MyQRCodeFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
@@ -86,9 +87,9 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     Intent intent = new Intent(getActivity(), MyOrderActivity.class);
                     startActivity(intent);
                 })
-                .addItemView(itemFee, view1 -> {
-
-                })
+                .addItemView(itemFee, view1 ->
+                    startActivity(new Intent(getActivity(), SettingFeesActivity.class))
+                )
                 .addItemView(itemSetting, view1 -> {
 
                 })
