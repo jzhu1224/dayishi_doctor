@@ -37,7 +37,7 @@ public class EditGoodAtTagActivity extends MvpActivity<EditProfileView, EditProf
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
 
         rightBtn = toolbar.addRightTextButton("编辑",R.id.id_right_btn);
-        rightBtn.setTextColor(getResources().getColor(R.color.color_0A1D3D));
+        rightBtn.setTextColor(getResources().getColor(R.color.color_6196FF));
         rightBtn.setOnClickListener(view -> {
             rightBtn.setText("保存");
             rightBtn.setOnClickListener(view1 -> presenter.updateProfile(1, doctorGoodAtLayout.getData()));

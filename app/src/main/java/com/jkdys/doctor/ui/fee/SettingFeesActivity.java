@@ -46,7 +46,7 @@ public class SettingFeesActivity extends BaseAppCompatActivity {
                             .show()
                 )
                 .addItemView(itemOrder, view1 -> {
-                    Intent intent = new Intent(mActivity, MyOrderActivity.class);
+                    Intent intent = new Intent(mActivity, Face2FaceDiagnosisFeeActivity.class);
                     startActivity(intent);
                 })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)

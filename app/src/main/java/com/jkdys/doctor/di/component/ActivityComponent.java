@@ -12,6 +12,7 @@ import com.jkdys.doctor.ui.consult.diagnosis.DelayRecordFragment;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActivity;
 import com.jkdys.doctor.ui.customer.CustomerFragment;
+import com.jkdys.doctor.ui.fee.Face2FaceDiagnosisFeeActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.login.LoginSmsActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
@@ -89,4 +90,5 @@ public interface ActivityComponent {
     void inject(ChangeMobileActivity changeMobileActivity);
     void inject(DelayRecordFragment delayRecordFragment);
     void inject(TradeRecordFragment tradeRecordFragment);
+    void inject(Face2FaceDiagnosisFeeActivity face2FaceDiagnosisFeeActivity);
 }
