@@ -37,6 +37,7 @@ public class SettingFeesActivity extends BaseAppCompatActivity {
                     new QMUIDialog.MenuDialogBuilder(mActivity)
                             .addItem("普通就诊", (dialogInterface, i) -> {
                                 dialogInterface.dismiss();
+                                startActivity(new Intent(mActivity, PhoneDiagnosisFeeActivity.class));
                             })
                             .addItem("特需就诊", (dialogInterface, i) -> {
                                 dialogInterface.dismiss();
