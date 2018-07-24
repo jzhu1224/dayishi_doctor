@@ -1,10 +1,8 @@
 package com.jkdys.doctor.ui.fee;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
 import com.jkdys.doctor.ui.order.MyOrderActivity;
