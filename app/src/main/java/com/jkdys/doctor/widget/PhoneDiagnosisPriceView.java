@@ -20,7 +20,7 @@ import butterknife.OnClick;
 public class PhoneDiagnosisPriceView extends FrameLayout {
 
     @BindView(R.id.img_close)
-    ImageView imgClose;
+    FrameLayout imgClose;
     @BindView(R.id.tv_price)
     TextView tvPrice;
 
