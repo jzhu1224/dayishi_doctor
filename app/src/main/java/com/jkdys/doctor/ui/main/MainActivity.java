@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +17,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatHelper;
-import com.jkdys.doctor.core.event.LogoutEvent;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -25,8 +26,6 @@ import com.jkdys.doctor.ui.customer.CustomerFragment;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.mine.MineFragment;
 import com.jkdys.doctor.ui.verify.JumpHelper;
-import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
-import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
 import com.jkdys.doctor.utils.FragmentUtils;
 import com.jkdys.doctor.utils.UpdateAppHttpUtil;
 import com.karumi.dexter.Dexter;
@@ -35,10 +34,8 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.vector.update_app.UpdateAppManager;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -88,10 +85,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
-
-
         getActivityComponent().inject(this);
-
         if (loginInfoUtil.getLoginResponse() != null) {
             Dexter.withActivity(mActivity)
                     .withPermissions(
@@ -101,12 +95,28 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                     ).withListener(new MultiplePermissionsListener() {
                 @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
                     if (report.areAllPermissionsGranted()) {
+                        checkUpdate();
                     } else {
                         ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
                     }
                 }
                 @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                     // TODO: 2018/7/4  弹出对话框引导用户开启权限
+                    ToastUtil.show(mActivity,"弹出对话框引导用户开启权限");
+
+                    new QMUIDialog.MessageDialogBuilder(mActivity)
+                            .setMessage("检测到没有运行APP需要的必要权限，请到权限管理页面授予相应权限，否则APP无法正常使用")
+                            .addAction("取消", (dialog, index) -> {
+                                dialog.dismiss();
+                                finish();
+                            })
+                            .addAction("确定", (dialog, index) -> {
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                intent.setData(uri);
+                                startActivity(intent);
+                            }).show();
                 }
 
             }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
@@ -135,7 +145,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void afterMvpDelegateCreateInvoked() {
         super.afterMvpDelegateCreateInvoked();
-        checkUpdate();
     }
 
     private void checkUpdate() {

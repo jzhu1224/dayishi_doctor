@@ -1,10 +1,10 @@
 package com.jkdys.doctor.ui.profile;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.chairoad.framework.util.ToastUtil;
@@ -15,9 +15,13 @@ import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.profile.changeMobile.ChangeMobileActivity;
 import com.jkdys.doctor.ui.search.SearchData;
-import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
-import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -187,12 +191,32 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
      * 图片选择器调用
      */
     public void multiImageSelector(int requestCode) {
-        Intent intent = new Intent(mActivity, MultiImageSelectorActivity.class);
-        // 是否显示调用相机拍照
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        // 最大图片选择数量
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 1);
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
-        startActivityForResult(intent, requestCode);
+
+        Dexter.withActivity(mActivity)
+                .withPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if (report.areAllPermissionsGranted()) {
+                    Intent intent = new Intent(mActivity, MultiImageSelectorActivity.class);
+                    // 是否显示调用相机拍照
+                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+                    // 最大图片选择数量
+                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 1);
+                    intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_SINGLE);
+                    startActivityForResult(intent, requestCode);
+                } else {
+                    ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
+                }
+            }
+            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                // TODO: 2018/7/4  弹出对话框引导用户开启权限
+                ToastUtil.show(mActivity,"弹出对话框引导用户开启权限");
+            }
+
+        }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
+
     }
 }
