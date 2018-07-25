@@ -10,6 +10,8 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.utils.ManyiUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 
@@ -91,7 +93,8 @@ public class Face2FaceDiagnosisFeeActivity extends MvpActivity<Face2FaceDiagnosi
     }
 
     @Override
-    public void onRequestPriceSuccess(String price) {
-        edtPrice.setText(price);
+    public void onRequestPriceSuccess(List<String> price) {
+        if (price.size()>0)
+            edtPrice.setText(price.get(0));
     }
 }

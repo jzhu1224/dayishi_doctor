@@ -1,13 +1,15 @@
 package com.jkdys.doctor.data.model;
 
-public class DiagnosisFeeData {
-    private String price;
+import java.util.List;
 
-    public String getPrice() {
+public class DiagnosisFeeData {
+    private List<String> price;
+
+    public List<String> getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(List<String> price) {
         this.price = price;
     }
 }

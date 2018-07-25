@@ -14,6 +14,7 @@ import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActi
 import com.jkdys.doctor.ui.customer.CustomerFragment;
 import com.jkdys.doctor.ui.fee.Face2FaceDiagnosisFeeActivity;
 import com.jkdys.doctor.ui.fee.PhoneDiagnosisFeeActivity;
+import com.jkdys.doctor.ui.fee.PhoneVipDiagnosisFeeActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.login.LoginSmsActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
@@ -93,4 +94,5 @@ public interface ActivityComponent {
     void inject(TradeRecordFragment tradeRecordFragment);
     void inject(Face2FaceDiagnosisFeeActivity face2FaceDiagnosisFeeActivity);
     void inject(PhoneDiagnosisFeeActivity phoneDiagnosisFeeActivity);
+    void inject(PhoneVipDiagnosisFeeActivity phoneVipDiagnosisFeeActivity);
 }

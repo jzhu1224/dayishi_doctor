@@ -41,6 +41,7 @@ public class SettingFeesActivity extends BaseAppCompatActivity {
                             })
                             .addItem("特需就诊", (dialogInterface, i) -> {
                                 dialogInterface.dismiss();
+                                startActivity(new Intent(mActivity, PhoneVipDiagnosisFeeActivity.class));
                             })
                             .show()
                 )

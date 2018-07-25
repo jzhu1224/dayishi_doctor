@@ -66,6 +66,8 @@
     <color name="color_495363">#495363</color>
     <color name="color_EFF1F0">#EFF1F0</color>
     <color name="color_7D8A9E">#7D8A9E</color>
+    <color name="black">#000000</color>
+
 
     <!--银行卡详情背景色-->
     <color name="colorBankDefault">#CC5D6BD4</color>
