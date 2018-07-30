@@ -66,7 +66,6 @@ android {
 
 
 dependencies {
-    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     implementation 'com.liulishuo.filedownloader:library:1.7.4'
     implementation 'top.zibin:Luban:1.1.7'
     implementation 'com.facebook.fresco:fresco:1.9.0'
@@ -119,6 +118,7 @@ dependencies {
     implementation project(':scan')
     implementation project(':frescoimageviewer')
     implementation project(':update-app')
+    implementation project(':TimePickerDialog')
 }
 
 String getServerEnv() {

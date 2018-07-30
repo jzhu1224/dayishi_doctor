@@ -1,1 +1,1 @@
-include ':app',':framework', ':easeui', ':zz-secondary-linkage', ":sharesdk", 'image-selector', ':scan', ':frescoimageviewer', 'update-app'
+include ':app',':framework', ':easeui', ':zz-secondary-linkage', ":sharesdk", 'image-selector', ':scan', ':frescoimageviewer', 'update-app', ':TimePickerDialog'
