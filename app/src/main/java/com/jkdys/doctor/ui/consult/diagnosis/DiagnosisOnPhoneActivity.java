@@ -22,7 +22,6 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.PhoneNumberDetail;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
-import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.common.img.views.ImageOverlayView;
 import com.karumi.dexter.Dexter;
@@ -32,15 +31,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -176,36 +171,55 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
     @Override
     public void onRequestVirtualNumberSuccess(PhoneNumberDetail phoneNumberDetail) {
+        QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(mActivity);
+
+        builder.setLayout(R.layout.layout_dail_dialog);
+
+        builder.addAction("取消", (dialog, index) -> {
+            dialog.dismiss();
+            presenter.cancelCall();
+        });
+
+        QMUIDialog qmuiDialog = builder.addAction("确认并呼叫",((dialog, index) -> {
+            dialog.dismiss();
+            call(phoneNumberDetail.getCellphone());
+        })).create();
+
+        ((TextView) qmuiDialog.findViewById(R.id.tv_phone)).setText(phoneNumberDetail.getDoctorcellphone());
+
+        qmuiDialog.show();
+    }
+
+    @Override
+    public void onCancelCallSuccess() {
 
     }
 
 
     @OnClick(R.id.btn_complete)
     void onBtnCompleteClick() {
-        //presenter.processOrder(getIntent().getStringExtra("orderId"));
-        QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(mActivity);
-        builder.setLayout(R.layout.layout_dail_dialog);
-        builder.addAction("取消", (dialog, index) -> {
-            dialog.dismiss();
-        });
-        builder.addAction("确认并呼叫",((dialog, index) -> {
-            dialog.dismiss();
-            call("18616929102");
-        })).show();
+        presenter.processOrder(getIntent().getStringExtra("orderId"));
     }
 
     private void call(String phoneNumber) {
+
+
         Dexter.withActivity(mActivity)
                 .withPermission(Manifest.permission.CALL_PHONE)
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        SystemUtil.callPhone(mActivity,phoneNumber);
+                        SystemUtil.call(mActivity,phoneNumber);
                     }
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
                         ToastUtil.show(mActivity, "拨打电话权限被拒绝");
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -226,5 +240,11 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
                                 }).show();
                     }
                 }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.cancelCall();
     }
 }

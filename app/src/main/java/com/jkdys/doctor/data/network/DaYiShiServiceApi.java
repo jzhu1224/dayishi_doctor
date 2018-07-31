@@ -155,4 +155,7 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/OrderInfo/ManageDoctorTelOrder")
     Call<BaseResponse<PhoneNumberDetail>> dail(@Body HashMap<String, Object> params);
 
+    @POST("/api/Doctor/OrderInfo/UnbindDoctorCellphone")
+    Call<BaseResponse<Object>> cancelCall();
+
 }

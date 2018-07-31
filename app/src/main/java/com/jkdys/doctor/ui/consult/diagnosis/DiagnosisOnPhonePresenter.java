@@ -37,10 +37,21 @@ public class DiagnosisOnPhonePresenter extends MvpBasePresenter<DiagnosisOnPhone
         ifViewAttached(view -> view.showLoading(false));
         HashMap<String, Object> params = new HashMap<>();
         params.put("orderid", orderId);
+        ifViewAttached(view -> view.showLoading(false));
         api.dail(params).enqueue(new BaseCallback<BaseResponse<PhoneNumberDetail>>(getView()) {
             @Override
             public void onBusinessSuccess(BaseResponse<PhoneNumberDetail> response) {
                 ifViewAttached(view -> view.onRequestVirtualNumberSuccess(response.getData()));
+            }
+        });
+    }
+
+    public void cancelCall() {
+        ifViewAttached(view -> view.showLoading(false));
+        api.cancelCall().enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<Object> response) {
+                ifViewAttached(DiagnosisOnPhoneView::onCancelCallSuccess);
             }
         });
     }

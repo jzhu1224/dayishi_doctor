@@ -7,4 +7,5 @@ import com.jkdys.doctor.ui.BaseView;
 public interface DiagnosisOnPhoneView extends BaseView {
     void onRequestSuccess(PhoneOrderDetail phoneOrderDetail);
     void onRequestVirtualNumberSuccess(PhoneNumberDetail phoneNumberDetail);
+    void onCancelCallSuccess();
 }

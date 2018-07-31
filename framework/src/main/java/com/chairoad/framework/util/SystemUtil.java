@@ -60,7 +60,7 @@ public class SystemUtil {
     }
 
     /**
-     * 调用拨号功能
+     * 拨打电话
      * @param phone 电话号码
      */
     @SuppressLint("MissingPermission")
