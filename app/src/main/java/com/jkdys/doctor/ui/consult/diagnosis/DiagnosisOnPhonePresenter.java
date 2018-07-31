@@ -3,7 +3,9 @@ package com.jkdys.doctor.ui.consult.diagnosis;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.DoctorDetailData;
+import com.jkdys.doctor.data.model.PhoneNumberDetail;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
+import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 
@@ -27,6 +29,18 @@ public class DiagnosisOnPhonePresenter extends MvpBasePresenter<DiagnosisOnPhone
             @Override
             public void onBusinessSuccess(BaseResponse<PhoneOrderDetail> response) {
                 ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+            }
+        });
+    }
+
+    public void processOrder(String orderId) {
+        ifViewAttached(view -> view.showLoading(false));
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("orderid", orderId);
+        api.dail(params).enqueue(new BaseCallback<BaseResponse<PhoneNumberDetail>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<PhoneNumberDetail> response) {
+                ifViewAttached(view -> view.onRequestVirtualNumberSuccess(response.getData()));
             }
         });
     }

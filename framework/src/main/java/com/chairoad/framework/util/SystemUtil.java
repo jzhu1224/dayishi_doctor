@@ -1,5 +1,6 @@
 package com.chairoad.framework.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -57,6 +58,17 @@ public class SystemUtil {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+
+    /**
+     * 调用拨号功能
+     * @param phone 电话号码
+     */
+    @SuppressLint("MissingPermission")
+    public static void call(Activity context, String phone) {
+        Intent intent=new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+phone));
+        context.startActivity(intent);
+    }
+
 
     public static String getMobileFormat(String mobile) {
         if(TextUtils.isEmpty(mobile)) {

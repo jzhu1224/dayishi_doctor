@@ -1,7 +1,11 @@
 package com.jkdys.doctor.ui.consult.diagnosis;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -9,14 +13,26 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.SystemUtil;
+import com.chairoad.framework.util.ToastUtil;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.model.PhoneNumberDetail;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
+import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.common.img.views.ImageOverlayView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
@@ -27,6 +43,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, DiagnosisOnPhonePresenter> implements DiagnosisOnPhoneView{
 
@@ -58,6 +75,7 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
     @BindView(R.id.img_vip)
     ImageView imgVip;
 
+    PhoneOrderDetail phoneOrderDetail;
 
 
     @NonNull
@@ -126,6 +144,9 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
     @Override
     public void onRequestSuccess(PhoneOrderDetail phoneOrderDetail) {
+
+        this.phoneOrderDetail = phoneOrderDetail;
+
         ImageLoader.with(mActivity)
                 .load(phoneOrderDetail
                         .getPicheadurl()).placeholder(R.drawable.img_doctor)
@@ -151,5 +172,59 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
         imgVip.setVisibility(phoneOrderDetail.getIsvip()? View.VISIBLE:View.GONE);
 
+    }
+
+    @Override
+    public void onRequestVirtualNumberSuccess(PhoneNumberDetail phoneNumberDetail) {
+
+    }
+
+
+    @OnClick(R.id.btn_complete)
+    void onBtnCompleteClick() {
+        //presenter.processOrder(getIntent().getStringExtra("orderId"));
+        QMUIDialog.CustomDialogBuilder builder = new QMUIDialog.CustomDialogBuilder(mActivity);
+        builder.setLayout(R.layout.layout_dail_dialog);
+        builder.addAction("取消", (dialog, index) -> {
+            dialog.dismiss();
+        });
+        builder.addAction("确认并呼叫",((dialog, index) -> {
+            dialog.dismiss();
+            call("18616929102");
+        })).show();
+    }
+
+    private void call(String phoneNumber) {
+        Dexter.withActivity(mActivity)
+                .withPermission(Manifest.permission.CALL_PHONE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        SystemUtil.callPhone(mActivity,phoneNumber);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        ToastUtil.show(mActivity, "拨打电话权限被拒绝");
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        new QMUIDialog.MessageDialogBuilder(mActivity)
+                                .setMessage("检测到没有运行APP需要的必要权限，请到权限管理页面授予相应权限，否则APP无法正常使用")
+                                .addAction("取消", (dialog, index) -> {
+                                    dialog.dismiss();
+                                    finish();
+                                })
+                                .addAction("确定", (dialog, index) -> {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent();
+                                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                    intent.setData(uri);
+                                    startActivity(intent);
+                                }).show();
+                    }
+                }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
     }
 }

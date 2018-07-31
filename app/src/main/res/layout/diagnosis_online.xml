@@ -201,6 +201,7 @@
                     />
             </LinearLayout>
             <Button
+                android:id="@+id/btn_complete"
                 android:text="已完成"
                 style="@style/round_button_style_1"
                 android:layout_margin="16dp"

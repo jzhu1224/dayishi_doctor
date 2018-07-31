@@ -3,12 +3,13 @@ package com.jkdys.doctor.data.model;
 public class PhoneOrderDetail {
 
     private String doctorpicheadurl;
+    private String doctorname;
     private String hospitalname;
     private String facultyname;
     private String titlename;
     private String paytype;
     private String paytypename;
-    private Integer amount;
+    private Double amount;
     private String orderdate;
     private String status;
     private Boolean isself;
@@ -23,6 +24,7 @@ public class PhoneOrderDetail {
     private Boolean isvip;
     private String medicalrecord;
     private String medicalimageurl;
+    private String medicalimageurlmini;
 
     public String getDoctorpicheadurl() {
         return doctorpicheadurl;
@@ -72,11 +74,11 @@ public class PhoneOrderDetail {
         this.paytypename = paytypename;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -190,5 +192,21 @@ public class PhoneOrderDetail {
 
     public void setMedicalimageurl(String medicalimageurl) {
         this.medicalimageurl = medicalimageurl;
+    }
+
+    public String getDoctorname() {
+        return doctorname;
+    }
+
+    public void setDoctorname(String doctorname) {
+        this.doctorname = doctorname;
+    }
+
+    public String getMedicalimageurlmini() {
+        return medicalimageurlmini;
+    }
+
+    public void setMedicalimageurlmini(String medicalimageurlmini) {
+        this.medicalimageurlmini = medicalimageurlmini;
     }
 }

@@ -31,6 +31,8 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <uses-permission android:name="com.chairoad.maker.permission.MIPUSH_RECEIVE" />
     <permission
         android:name="com.jkdys.doctor.permission.MIPUSH_RECEIVE"
