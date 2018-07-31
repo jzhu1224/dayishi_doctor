@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.chairoad.framework.util.SystemUtil;
 import com.chairoad.framework.util.ToastUtil;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.jkdys.doctor.R;
