@@ -150,6 +150,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     private void checkUpdate() {
         new UpdateAppManager
                 .Builder()
+                .setPost(true)
                 //当前Activity
                 .setActivity(this)
                 //更新地址

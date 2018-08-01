@@ -21,6 +21,10 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
         this.view = view;
     }
 
+    public BaseCallback() {
+
+    }
+
     private boolean isViewAttached() {
         return view != null;
     }
@@ -28,13 +32,14 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
         BaseResponse baseResponse = response.body();
-        if (!isViewAttached() || baseResponse == null)
+        if (baseResponse == null)
             return;
-        view.showContent();
+        if (isViewAttached())
+            view.showContent();
 
         if (baseResponse.getCode() == 1) {
             onBusinessSuccess(response.body());
-        } else if (baseResponse.getCode() == 100) {
+        } else if (baseResponse.getCode() == 100 && isViewAttached()) {
 
             Activity activity = null;
             //token失效
@@ -51,9 +56,9 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
             intent.putExtra("TOKEN_EXPIRED",true);
             activity.startActivity(intent);
 
-        } else if (baseResponse.isShowdialog()) {
+        } else if (baseResponse.isShowdialog() && isViewAttached()) {
             view.showDialog(baseResponse.getMsg());
-        } else if (baseResponse.isShowmessage()) {
+        } else if (baseResponse.isShowmessage() && isViewAttached()) {
             view.showMessage(baseResponse.getMsg());
         }
     }

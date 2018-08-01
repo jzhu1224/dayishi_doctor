@@ -1,6 +1,7 @@
 package com.jkdys.doctor.data.network;
 
 import com.jkdys.doctor.data.model.AccountData;
+import com.jkdys.doctor.data.model.AppUpgradeBean;
 import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.BindBankCardData;
@@ -157,5 +158,8 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/OrderInfo/UnbindDoctorCellphone")
     Call<BaseResponse<Object>> cancelCall();
+
+    @POST("/api/Doctor/Common/UpgradeCheck")
+    Call<BaseResponse<AppUpgradeBean>> checkUpdate();
 
 }

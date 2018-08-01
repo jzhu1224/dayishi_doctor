@@ -4,15 +4,21 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.jkdys.doctor.MyApplication;
+import com.jkdys.doctor.data.model.AppUpgradeBean;
+import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
+import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.vector.update_app.HttpManager;
 import com.vector.update_app.UpdateAppBean;
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import javax.inject.Inject;
+
+import retrofit2.Response;
 
 public class UpdateAppHttpUtil implements HttpManager {
 
@@ -27,21 +33,26 @@ public class UpdateAppHttpUtil implements HttpManager {
     @Override
     public void asyncGet(@NonNull String url, @NonNull Map<String, String> params, @NonNull Callback callBack) {
 
-        UpdateAppBean updateAppBean = new UpdateAppBean();
-        updateAppBean.setUpdate("Yes");
-        updateAppBean.setApkFileUrl("https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/apk/sample-debug.apk");
-        updateAppBean.setNewVersion("0.8.4");
-        updateAppBean.setUpdateLog("1，添加删除信用卡接口。\r\n2，添加vip认证。\r\n3，区分自定义消费，一个小时不限制。\r\n4，添加放弃任务接口，小时内不生成。\r\n5，消费任务手动生成。");
-        updateAppBean.setTargetSize("5M");
-        updateAppBean.setNewMd5("b97bea014531123f94c3ba7b7afbaad2");
-        updateAppBean.setConstraint(false);
-        String result = gson.toJson(updateAppBean);
-        callBack.onResponse(result);
     }
 
     @Override
     public void asyncPost(@NonNull String url, @NonNull Map<String, String> params, @NonNull Callback callBack) {
-
+        api.checkUpdate().enqueue(new BaseCallback<BaseResponse<AppUpgradeBean>>() {
+            @Override
+            public void onBusinessSuccess(BaseResponse<AppUpgradeBean> response) {
+                AppUpgradeBean appUpgradeBean = response.getData();
+                UpdateAppBean updateAppBean = new UpdateAppBean();
+                updateAppBean.setUpdate(appUpgradeBean.isUpgrade()?"Yes":"No");
+                updateAppBean.setApkFileUrl(appUpgradeBean.getDownloadurl());
+                updateAppBean.setNewVersion(appUpgradeBean.getVersion());
+                updateAppBean.setUpdateLog(appUpgradeBean.getTitle()+"\n"+appUpgradeBean.getContent());
+                updateAppBean.setTargetSize("");
+                //updateAppBean.setNewMd5("b97bea014531123f94c3ba7b7afbaad2");
+                updateAppBean.setConstraint(appUpgradeBean.isForcedupgrade());
+                String result = gson.toJson(updateAppBean);
+                callBack.onResponse(result);
+            }
+        });
     }
 
     @Override
