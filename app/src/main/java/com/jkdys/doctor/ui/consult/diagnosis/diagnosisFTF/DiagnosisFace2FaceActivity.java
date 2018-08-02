@@ -140,7 +140,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
                 .setCancelTextColor(getResources().getColor(R.color.color_757575))
                 .setSureTextColor(getResources().getColor(R.color.color_003d87))
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.color_212121))
-                .setType(Type.YEAR_MONTH_DAY)
+                .setType(Type.ALL)
                 .setWheelItemTextNormalColor(getResources().getColor(R.color.color_a5a5a5))
                 .setWheelItemTextSize(16)
                 .build().show(getSupportFragmentManager(),"timePicker");

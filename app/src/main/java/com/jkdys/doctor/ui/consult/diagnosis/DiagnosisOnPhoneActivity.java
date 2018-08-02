@@ -139,8 +139,11 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
     @Override
     public void onRequestSuccess(PhoneOrderDetail phoneOrderDetail) {
 
+        if (phoneOrderDetail == null)
+            return;
         this.phoneOrderDetail = phoneOrderDetail;
 
+        if (!TextUtils.isEmpty(phoneOrderDetail.getPicheadurl()))
         ImageLoader.with(mActivity)
                 .load(phoneOrderDetail
                         .getPicheadurl()).placeholder(R.drawable.img_doctor)
