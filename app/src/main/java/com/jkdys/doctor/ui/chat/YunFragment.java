@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -81,7 +82,14 @@ public class YunFragment extends MvpFragment<IYunView,YunPresenter> implements I
 
     public void initView() {
         toolbar.setTitle("消息");
-        toolbar.addRightImageButton(R.drawable.ic_add, R.id.id_right_btn).setOnClickListener(view -> {
+        View rightView = LayoutInflater.from(getContext()).inflate(R.layout.layout_yun_right_view, null);
+        toolbar.addRightView(rightView,R.id.right_layout);
+        rightView.findViewById(R.id.btn_friends).setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), MyFriendsActivity.class);
+            startActivity(intent);
+        });
+
+        rightView.findViewById(R.id.btn_add_friends).setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), SearchDoctorActivity.class);
             startActivity(intent);
         });

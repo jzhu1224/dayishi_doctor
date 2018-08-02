@@ -138,6 +138,7 @@
         <activity android:name=".ui.fee.Face2FaceDiagnosisFeeActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.fee.PhoneDiagnosisFeeActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.fee.PhoneVipDiagnosisFeeActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.chat.MyFriendsActivity" />
     </application>
 
 </manifest>

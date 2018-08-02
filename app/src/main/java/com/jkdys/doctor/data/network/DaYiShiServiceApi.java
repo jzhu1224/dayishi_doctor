@@ -14,6 +14,7 @@ import com.jkdys.doctor.data.model.DoctorWorkInfo;
 import com.jkdys.doctor.data.model.Face2FaceOrderDetail;
 import com.jkdys.doctor.data.model.HospitalData;
 import com.jkdys.doctor.data.model.LoginResponse;
+import com.jkdys.doctor.data.model.MyFriendData;
 import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.model.PatientGroup;
 import com.jkdys.doctor.data.model.PhoneNumberDetail;
@@ -161,5 +162,8 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Common/UpgradeCheck")
     Call<BaseResponse<AppUpgradeBean>> checkUpdate();
+
+    @POST("/api/Doctor/Doctor/GetDoctorMyFriends")
+    Call<BaseResponse<List<MyFriendData>>> myFriends(@Body HashMap<String, Object> params);
 
 }

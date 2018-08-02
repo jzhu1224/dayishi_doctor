@@ -2,6 +2,7 @@ package com.jkdys.doctor.di.component;
 
 import com.jkdys.doctor.di.PerActivity;
 import com.jkdys.doctor.di.module.ActivityModule;
+import com.jkdys.doctor.ui.chat.MyFriendsFragment;
 import com.jkdys.doctor.ui.chat.YunFragment;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.chat.doctor.search.SearchDoctorFragment;
@@ -95,4 +96,5 @@ public interface ActivityComponent {
     void inject(Face2FaceDiagnosisFeeActivity face2FaceDiagnosisFeeActivity);
     void inject(PhoneDiagnosisFeeActivity phoneDiagnosisFeeActivity);
     void inject(PhoneVipDiagnosisFeeActivity phoneVipDiagnosisFeeActivity);
+    void inject(MyFriendsFragment myFriendsFragment);
 }
