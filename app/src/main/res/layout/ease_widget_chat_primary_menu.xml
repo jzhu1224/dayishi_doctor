@@ -118,12 +118,13 @@
         <Button
             android:id="@+id/btn_send"
             android:gravity="center"
-            android:layout_width="24dip"
-            android:layout_height="24dp"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="10dp"
             android:text="发送"
-            android:textSize="20sp"
+            android:background="@drawable/shape_send_bg"
+            android:textColor="@color/color_white"
             android:visibility="gone" />
     </LinearLayout>
     <View
