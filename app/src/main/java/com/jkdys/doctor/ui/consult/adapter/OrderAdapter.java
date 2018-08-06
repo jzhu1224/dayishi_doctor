@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.ui.BaseView;
 
@@ -37,5 +38,11 @@ public class OrderAdapter extends BaseQuickAdapter<OrderInfo,BaseViewHolder>{
         }
         helper.setVisible(R.id.img_phone, item.getOrdertype().equals("1"));
         helper.setVisible(R.id.tv_price, item.getOrdertype().equals("1"));
+
+        ImageLoader.with(helper.itemView.getContext())
+                .placeholder(R.drawable.img_doctor)
+                .load(item.getPicheadurl())
+                .into(helper.getView(R.id.img_avatar));
+
     }
 }
