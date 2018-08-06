@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.SystemUtil;
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
@@ -94,7 +95,8 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
 
                 })
                 .addItemView(itemCustomerService, view1 -> {
-                    ShareManager.get().share(getActivity(),new ShareInfoModel());
+                    //ShareManager.get().share(getActivity(),new ShareInfoModel());
+                    SystemUtil.call(getActivity(), "400111400");
                 })
                 .addItemView(itemInvent, view1 -> {
                     Intent intent = new Intent(getActivity(), DiagnosisOnPhoneActivity.class);
