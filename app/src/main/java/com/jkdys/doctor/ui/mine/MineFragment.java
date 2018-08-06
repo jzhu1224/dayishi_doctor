@@ -13,6 +13,7 @@ import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.ui.base.BaseWebActivity;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.fee.SettingFeesActivity;
@@ -92,7 +93,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     startActivity(new Intent(getActivity(), SettingFeesActivity.class))
                 )
                 .addItemView(itemSetting, view1 -> {
-
+                    BaseWebActivity.openInWeb(getActivity(), "http://m.jd.com");
                 })
                 .addItemView(itemCustomerService, view1 -> {
                     //ShareManager.get().share(getActivity(),new ShareInfoModel());
