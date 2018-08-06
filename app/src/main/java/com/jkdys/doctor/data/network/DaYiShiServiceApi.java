@@ -23,6 +23,7 @@ import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.model.ProvinceData;
 import com.jkdys.doctor.data.model.SearchDoctorData;
+import com.jkdys.doctor.data.model.TradeDetailData;
 import com.jkdys.doctor.data.model.TradeRecord;
 import com.jkdys.doctor.data.model.UploadImageData;
 import com.jkdys.doctor.data.model.VerifyBankCardData;
@@ -166,4 +167,6 @@ public interface DaYiShiServiceApi {
     @POST("/api/Doctor/Doctor/GetDoctorMyFriends")
     Call<BaseResponse<List<MyFriendData>>> myFriends(@Body HashMap<String, Object> params);
 
+    @POST("/api/Doctor/Doctor/GetDoctorTradeRecordDetail")
+    Call<BaseResponse<TradeDetailData>> getTradeRecordDetail(@Body HashMap<String, Object> params);
 }

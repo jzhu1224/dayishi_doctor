@@ -12,6 +12,7 @@ public class TradeRecord implements Parcelable {
     //            "status": "1", //状态。0是待处理，1是处理中，2是已完成，3是失败
     //            "statusname": "处理中" //状态
 
+    private String rid;
     private String type;
     private String typename;
     private String money;
@@ -76,6 +77,10 @@ public class TradeRecord implements Parcelable {
         this.statusname = statusname;
     }
 
+    public String getRid() {
+        return rid;
+    }
+
 
     @Override
     public int describeContents() {
@@ -84,6 +89,7 @@ public class TradeRecord implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.rid);
         dest.writeString(this.type);
         dest.writeString(this.typename);
         dest.writeString(this.money);
@@ -97,6 +103,7 @@ public class TradeRecord implements Parcelable {
     }
 
     protected TradeRecord(Parcel in) {
+        this.rid = in.readString();
         this.type = in.readString();
         this.typename = in.readString();
         this.money = in.readString();
@@ -106,7 +113,7 @@ public class TradeRecord implements Parcelable {
         this.statusname = in.readString();
     }
 
-    public static final Parcelable.Creator<TradeRecord> CREATOR = new Parcelable.Creator<TradeRecord>() {
+    public static final Creator<TradeRecord> CREATOR = new Creator<TradeRecord>() {
         @Override
         public TradeRecord createFromParcel(Parcel source) {
             return new TradeRecord(source);

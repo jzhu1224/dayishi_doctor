@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.myAccount.bank.tradeRecord;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.TradeRecord;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
+import com.jkdys.doctor.ui.myAccount.bank.tradeDetail.TradeDetailActivity;
 
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +42,15 @@ public class TradeRecordFragment extends BaseRefreshLoadMoreFrament<TradeRecord,
         super.initViews(view, savedInstanceState);
         toolbar.setTitle("交易记录");
         toolbar.addLeftBackImageButton().setOnClickListener(view1 -> Objects.requireNonNull(getActivity()).finish());
+    }
+
+    @Override
+    protected void onItemClicked(BaseQuickAdapter adapter, View view, int position) {
+        super.onItemClicked(adapter, view, position);
+        Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
+        intent.putExtra("rId", ((TradeRecord) Objects.requireNonNull(adapter.getItem(position))).getRid());
+        intent.putExtra("type",((TradeRecord) Objects.requireNonNull(adapter.getItem(position))).getType());
+        startActivity(intent);
     }
 
     protected int getLayoutId() {
