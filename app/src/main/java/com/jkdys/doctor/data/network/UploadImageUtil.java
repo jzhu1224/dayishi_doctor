@@ -1,22 +1,15 @@
 package com.jkdys.doctor.data.network;
 
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.IntRange;
-
 import com.chairoad.framework.util.LogUtil;
 import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.UploadImageData;
-import com.jkdys.doctor.utils.ImageUtil;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import io.reactivex.annotations.NonNull;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

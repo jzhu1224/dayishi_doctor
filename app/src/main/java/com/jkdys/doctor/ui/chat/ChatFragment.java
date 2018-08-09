@@ -101,6 +101,24 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     protected void initView() {
         myExtendMenuItemClickListener = new MyItemClickListener();
         super.initView();
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.RECORD_AUDIO)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        ToastUtil.show(getActivity(),"录音权限被拒绝");
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        ToastUtil.show(getActivity(),"访问相机或者读取媒体权限被拒绝,请到设置页允许相关权限，以保证程序正常运行");
+                    }
+                }).withErrorListener(error -> ToastUtil.show(getActivity(), error.name())).check();
     }
 
     @Override
