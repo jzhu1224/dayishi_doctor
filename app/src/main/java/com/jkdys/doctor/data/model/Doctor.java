@@ -18,6 +18,7 @@ public class Doctor {
     private int level;
     private String status;
     private String twodimensioncodeurl;
+    private String hxid;
 
     public String getDid() {
         return did;
@@ -153,5 +154,13 @@ public class Doctor {
 
     public void setPicheadurl(String picheadurl) {
         this.picheadurl = picheadurl;
+    }
+
+    public String getHxid() {
+        return hxid;
+    }
+
+    public void setHxid(String hxid) {
+        this.hxid = hxid;
     }
 }

@@ -13,11 +13,18 @@ import android.widget.TextView;
 
 import com.chairoad.framework.util.LogUtil;
 import com.google.zxing.client.android.ViewfinderView;
+import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.network.DaYiShiServiceApi;
+import com.jkdys.doctor.di.component.ActivityComponent;
+import com.jkdys.doctor.di.component.DaggerActivityComponent;
+import com.jkdys.doctor.di.module.ActivityModule;
 import com.qmuiteam.qmui.util.QMUIDeviceHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.scan.framework.ui.BaseScanActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +46,20 @@ public class ScanActivity extends BaseScanActivity {
     @BindView(R.id.viewfinder_view)
     ViewfinderView viewfinderView;
 
+    @Inject
+    DaYiShiServiceApi api;
 
     @Override
     public void setContentView(int layoutResID) {
         initStatusBar(getResources().getColor(android.R.color.black));
         QMUIStatusBarHelper.setStatusBarDarkMode(ScanActivity.this);
         super.setContentView(layoutResID);
+
+        ActivityComponent mActivityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .applicationComponent(((MyApplication)getApplication()).getApplicationComponent())
+                .build();
+        mActivityComponent.inject(this);
     }
 
     @Override

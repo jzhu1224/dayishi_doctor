@@ -39,6 +39,7 @@ import com.jkdys.doctor.ui.profile.EditGoodAtTagActivity;
 import com.jkdys.doctor.ui.profile.EditPersonalIntroduceActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
 import com.jkdys.doctor.ui.profile.changeMobile.ChangeMobileActivity;
+import com.jkdys.doctor.ui.scan.ScanActivity;
 import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
@@ -99,4 +100,5 @@ public interface ActivityComponent {
     void inject(PhoneVipDiagnosisFeeActivity phoneVipDiagnosisFeeActivity);
     void inject(MyFriendsFragment myFriendsFragment);
     void inject(TradeDetailActivity tradeDetailActivity);
+    void inject(ScanActivity scanActivity);
 }

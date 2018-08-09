@@ -78,7 +78,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         QMUICommonListItemView itemFee = createItemView(R.drawable.ic_fee,"就诊费用");
         QMUICommonListItemView itemSetting = createItemView(R.drawable.ic_low,"法律声明");
         QMUICommonListItemView itemCustomerService = createItemView(R.drawable.ic_customer_service,"联系客服", "400-111-400", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-        QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"邀请码",loginInfoUtil.getToken(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"邀请码",loginInfoUtil.getInventCode(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
 
         QMUIGroupListView.newSection(getContext())
                 .addItemView(itemAccount, view1 -> {

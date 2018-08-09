@@ -147,4 +147,8 @@ public class LoginInfoUtil {
         doctor.setPicheadurl(avatar);
         saveDoctor(doctor);
     }
+
+    public String getInventCode() {
+        return "xxxx";
+    }
 }

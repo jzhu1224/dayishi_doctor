@@ -46,7 +46,7 @@ public abstract class BaseFragment extends Fragment {
         super.onAttach(context);
         activity = getActivity();
         mActivityComponent = DaggerActivityComponent.builder()
-                .activityModule(new ActivityModule((AppCompatActivity) activity))
+                .activityModule(new ActivityModule( activity))
                 .applicationComponent(((MyApplication)getActivity().getApplication()).getApplicationComponent())
                 .build();
     }

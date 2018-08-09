@@ -1,5 +1,6 @@
 package com.jkdys.doctor.di.module;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.arch.lifecycle.Lifecycle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,24 +15,24 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-    private AppCompatActivity mAppCompatActivity;
+    private Activity mAppCompatActivity;
 
-    public ActivityModule(AppCompatActivity mAppCompatActivity) {
+    public ActivityModule(Activity mAppCompatActivity) {
         this.mAppCompatActivity = mAppCompatActivity;
     }
 
     @Provides
-    AppCompatActivity provideActivity() {
+    Activity provideActivity() {
         return mAppCompatActivity;
     }
 
     @Provides
-    FragmentManager provideSupportFragmentManager(AppCompatActivity mAppCompatActivity) {
+    FragmentManager provideSupportFragmentManager(Activity mAppCompatActivity) {
         return mAppCompatActivity.getFragmentManager();
     }
 
     @Provides
-    LifecycleProvider<Lifecycle.Event> providerLifecycleProvider(AppCompatActivity mAppCompatActivity) {
-        return AndroidLifecycle.createLifecycleProvider(mAppCompatActivity);
+    LifecycleProvider<Lifecycle.Event> providerLifecycleProvider(Activity mAppCompatActivity) {
+        return AndroidLifecycle.createLifecycleProvider((AppCompatActivity)mAppCompatActivity);
     }
 }
