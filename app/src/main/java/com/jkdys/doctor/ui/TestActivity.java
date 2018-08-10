@@ -15,7 +15,6 @@ public class TestActivity extends BaseAppCompatActivity {
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
-
         startActivity(new Intent(mActivity, MainActivity.class));
         finish();
     }

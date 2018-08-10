@@ -73,6 +73,12 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     }
 
     @Override
+    protected void initStatusBar(int color) {
+        super.initStatusBar(color);
+        QMUIStatusBarHelper.setStatusBarDarkMode(this);
+    }
+
+    @Override
     protected int getLayout() {
         return R.layout.activity_doctor_detail;
     }

@@ -3,15 +3,15 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
 
     <!-- The background color, preferably the same as your normal theme -->
-    <item android:drawable="@android:color/white"/>
+    <item android:drawable="@drawable/splash"/>
 
-    <!-- Your product logo - 144dp color version of your app icon -->
-    <item>
+    <!-- Your product logo - 144dp color versionsplash.png of your app icon -->
+    <!--<item>-->
 
-        <bitmap
-            android:src="@drawable/ic_launcher"
-            android:gravity="center"/>
+        <!--<bitmap-->
+            <!--android:src="@drawable/ic_launcher"-->
+            <!--android:gravity="center"/>-->
 
-    </item>
+    <!--</item>-->
 
 </layer-list>

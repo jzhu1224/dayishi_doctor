@@ -7,7 +7,7 @@
         android:id="@+id/btn_friends"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_plus"
+        android:src="@drawable/ic_friends"
         android:background="@null"/>
 
     <ImageButton

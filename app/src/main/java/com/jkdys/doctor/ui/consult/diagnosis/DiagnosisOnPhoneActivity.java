@@ -19,6 +19,7 @@ import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.model.DiagnosisImage;
 import com.jkdys.doctor.data.model.PhoneNumberDetail;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -46,7 +47,7 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
     DiagnosisOnPhonePresenter presenter;
 
     @BindView(R.id.nine_grid_img)
-    NineGridImageView<String> nineGridImageView;
+    NineGridImageView<DiagnosisImage> nineGridImageView;
 
     @BindView(R.id.img_avatar)
     ImageView imgHeader;
@@ -101,10 +102,11 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
         return R.layout.diagnosis_online;
     }
 
-    private void showBigPicture(List<String> imgs,int position) {
+    private void showBigPicture(List<DiagnosisImage> imgs,int position) {
 
         ImageViewer.Builder builder = new ImageViewer.Builder<>(this, imgs)
-                .setStartPosition(position);
+                .setStartPosition(position)
+                .setFormatter((ImageViewer.Formatter<DiagnosisImage>) diagnosisImage -> diagnosisImage.getMedicalimageurl());
 
         ImageOverlayView overlayView = new ImageOverlayView(this);
         builder.setOverlayView(overlayView);
@@ -116,10 +118,10 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
         builder.show();
     }
 
-    private NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {
+    private NineGridImageViewAdapter<DiagnosisImage> mAdapter = new NineGridImageViewAdapter<DiagnosisImage>() {
         @Override
-        protected void onDisplayImage(Context context, ImageView imageView, String photo) {
-            Picasso.get().load(photo)
+        protected void onDisplayImage(Context context, ImageView imageView, DiagnosisImage photo) {
+            Picasso.get().load(photo.getMedicalimageurlmini())
                     .centerCrop()
                     .resizeDimen(R.dimen.diagnosis_photo_size,R.dimen.diagnosis_photo_size)
                     .into(imageView);
@@ -131,7 +133,7 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
         }
 
         @Override
-        protected void onItemImageClick(Context context, ImageView imageView, int index, List<String> photoList) {
+        protected void onItemImageClick(Context context, ImageView imageView, int index, List<DiagnosisImage> photoList) {
             showBigPicture(photoList, index);
         }
     };
@@ -155,13 +157,7 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
         tvAge.setText(String.valueOf(phoneOrderDetail.getAge()));
 
 
-        if (!TextUtils.isEmpty(phoneOrderDetail.getMedicalimageurl())) {
-            String[] sImgs = phoneOrderDetail.getMedicalimageurl().split(",");
-            if (sImgs.length > 0) {
-                List<String> imgs = Arrays.asList(sImgs);
-                nineGridImageView.setImagesData(imgs);
-            }
-        }
+        nineGridImageView.setImagesData(phoneOrderDetail.getImages());
 
         tvTime.setText("提交时间    "+phoneOrderDetail.getOrderdate());
 

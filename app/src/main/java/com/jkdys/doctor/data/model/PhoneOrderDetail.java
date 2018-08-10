@@ -1,5 +1,7 @@
 package com.jkdys.doctor.data.model;
 
+import java.util.List;
+
 public class PhoneOrderDetail {
 
     private String doctorpicheadurl;
@@ -23,8 +25,8 @@ public class PhoneOrderDetail {
     private String age;
     private Boolean isvip;
     private String medicalrecord;
-    private String medicalimageurl;
-    private String medicalimageurlmini;
+
+    private List<DiagnosisImage> images;
 
     public String getDoctorpicheadurl() {
         return doctorpicheadurl;
@@ -186,13 +188,6 @@ public class PhoneOrderDetail {
         this.medicalrecord = medicalrecord;
     }
 
-    public String getMedicalimageurl() {
-        return medicalimageurl;
-    }
-
-    public void setMedicalimageurl(String medicalimageurl) {
-        this.medicalimageurl = medicalimageurl;
-    }
 
     public String getDoctorname() {
         return doctorname;
@@ -202,11 +197,11 @@ public class PhoneOrderDetail {
         this.doctorname = doctorname;
     }
 
-    public String getMedicalimageurlmini() {
-        return medicalimageurlmini;
+    public List<DiagnosisImage> getImages() {
+        return images;
     }
 
-    public void setMedicalimageurlmini(String medicalimageurlmini) {
-        this.medicalimageurlmini = medicalimageurlmini;
+    public void setImages(List<DiagnosisImage> images) {
+        this.images = images;
     }
 }

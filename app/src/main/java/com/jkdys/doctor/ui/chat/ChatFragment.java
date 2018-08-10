@@ -82,8 +82,8 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     private static final int MESSAGE_TYPE_SENT_PATIENT_CARD = 1;
     private static final int MESSAGE_TYPE_RECV_PATIENT_CARD = 2;
 
-    protected int[] itemStrings = { R.string.attach_picture, R.string.attach_take_pic, R.string.attach_location };
-    protected int[] itemIconFonts = {R.drawable.img_doctor,R.drawable.img_doctor,R.drawable.img_doctor, R.drawable.img_doctor};
+    protected int[] itemStrings = { R.string.attach_picture, R.string.attach_take_pic};
+    protected int[] itemIconFonts = {R.drawable.chat_image,R.drawable.chat_take_photo,R.drawable.chat_patient_card, R.drawable.img_doctor};
     protected int[] itemIds = { ITEM_PICTURE, ITEM_TAKE_PICTURE, ITEM_LOCATION, ITEM_PATIENT};
 
     private MyEaseChatExtendMenu.EaseChatExtendMenuItemClickListener myExtendMenuItemClickListener;
