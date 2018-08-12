@@ -11,13 +11,9 @@ import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
 import com.jkdys.doctor.ui.consult.OrderPresenter;
-import com.jkdys.doctor.ui.consult.adapter.OrderAdapter;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActivity;
-
 import java.util.List;
-import java.util.Objects;
-
 import javax.inject.Inject;
 
 public class AllOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadMoreView<OrderInfo>,OrderPresenter> {
@@ -39,7 +35,7 @@ public class AllOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseL
 
     @Override
     protected BaseQuickAdapter<OrderInfo,BaseViewHolder> createAdapter(List<OrderInfo> mDatas) {
-        return new OrderAdapter(mDatas);
+        return new MyOrderAdapter(mDatas);
     }
 
     @Override

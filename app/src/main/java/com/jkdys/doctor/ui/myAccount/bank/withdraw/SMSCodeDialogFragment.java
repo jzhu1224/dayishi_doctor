@@ -87,15 +87,13 @@ public class SMSCodeDialogFragment extends DialogFragment {
 
     @OnClick(R.id.btn_confirm)
     void onBtnConfirmClick() {
-        EventBus.getDefault().post(new WithdrawEvent());
+        EventBus.getDefault().post(new WithdrawEvent(edtSMSCode.getText().toString()));
         ManyiUtils.closeKeyBoard(getContext(), edtSMSCode);
         dismissAllowingStateLoss();
-        if (getActivity() != null)
-            getActivity().finish();
     }
 
     @OnTextChanged(value = R.id.edt_sms_code, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void onSMSCodeChanged(Editable editable) {
-        btnConfirm.setEnabled(editable.toString().length() == 6);
+        btnConfirm.setEnabled(editable.toString().length() > 0);
     }
 }

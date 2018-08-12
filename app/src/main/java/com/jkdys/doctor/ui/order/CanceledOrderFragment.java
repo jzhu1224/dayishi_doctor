@@ -56,6 +56,6 @@ public class CanceledOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,
 
     @Override
     protected BaseQuickAdapter<OrderInfo,BaseViewHolder> createAdapter(List<OrderInfo> mDatas) {
-        return new OrderAdapter(mDatas);
+        return new MyOrderAdapter(mDatas);
     }
 }

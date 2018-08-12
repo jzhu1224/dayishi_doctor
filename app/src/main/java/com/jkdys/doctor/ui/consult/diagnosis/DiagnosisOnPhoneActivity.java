@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,6 +73,9 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
     @BindView(R.id.img_vip)
     ImageView imgVip;
+
+    @BindView(R.id.btn_complete)
+    Button btnComplete;
 
     PhoneOrderDetail phoneOrderDetail;
 
@@ -161,10 +165,13 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
 
         if (phoneOrderDetail.getStatus().equals("0")) {
             tvState.setText("待处理");
+            btnComplete.setVisibility(View.VISIBLE);
         } else if (phoneOrderDetail.getStatus().equals("1")) {
             tvState.setText("已完成");
+            btnComplete.setVisibility(View.VISIBLE);
         } else if (phoneOrderDetail.getStatus().equals("2")) {
             tvState.setText("已取消");
+            btnComplete.setVisibility(View.GONE);
         }
 
 

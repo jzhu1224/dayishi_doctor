@@ -57,6 +57,6 @@ public class ProcessOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,B
 
     @Override
     protected BaseQuickAdapter<OrderInfo,BaseViewHolder> createAdapter(List<OrderInfo> mDatas) {
-        return new OrderAdapter(mDatas);
+        return new MyOrderAdapter(mDatas);
     }
 }

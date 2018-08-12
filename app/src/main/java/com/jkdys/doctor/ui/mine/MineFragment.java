@@ -1,5 +1,8 @@
 package com.jkdys.doctor.ui.mine;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chairoad.framework.util.SystemUtil;
+import com.chairoad.framework.util.ToastUtil;
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
@@ -27,6 +31,9 @@ import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+
+import java.util.Objects;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -78,7 +85,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         QMUICommonListItemView itemFee = createItemView(R.drawable.ic_fee,"就诊费用");
         QMUICommonListItemView itemSetting = createItemView(R.drawable.ic_low,"法律声明");
         QMUICommonListItemView itemCustomerService = createItemView(R.drawable.ic_customer_service,"联系客服", "400-111-400", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-        QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"邀请码",loginInfoUtil.getInventCode(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"我的邀请码",loginInfoUtil.getInventCode(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
 
         QMUIGroupListView.newSection(getContext())
                 .addItemView(itemAccount, view1 -> {
@@ -100,7 +107,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     SystemUtil.call(getActivity(), "400111400");
                 })
                 .addItemView(itemInvent, view1 -> {
-                    // TODO: 2018/8/12 复制邀请码
+                    copy(loginInfoUtil.getInventCode(), Objects.requireNonNull(getContext()));
                 })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
@@ -176,5 +183,14 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     if (getActivity() != null)
                         getActivity().finish();
                 }).show();
+    }
+
+
+    public void copy(String content, Context context) {// 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData mClipData = ClipData.newPlainText("Label", content);
+        assert cmb != null;
+        cmb.setPrimaryClip(mClipData);
+        ToastUtil.show(context, "已复制到剪贴板");
     }
 }

@@ -149,6 +149,20 @@ public class LoginInfoUtil {
     }
 
     public String getInventCode() {
-        return "xxxx";
+        if (getDoctor() == null)
+            return "";
+        return getDoctor().getDoctorNo();
+    }
+
+    public String getHxId() {
+        if (getDoctor() == null)
+            return "";
+        return getDoctor().getHxid();
+    }
+
+    public String getHxPwd() {
+        if (getDoctor() == null)
+            return "";
+        return getDoctor().getHxpwd();
     }
 }

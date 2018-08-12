@@ -138,7 +138,7 @@ String getServerEnv() {
 String easemobKey() {
     def productFlavorName = getServerEnv();
     if (productFlavorName.equals("test"))
-        return 'jensenzhu#jkdystest'
+        return '1143180716228585#jkdys'
     else if (productFlavorName.equals("beta"))
         return 'jensenzhu#jkdystest'
     else if (productFlavorName.equals("prod"))

@@ -11,7 +11,7 @@ public class Doctor {
     private String birthdate;
     private String gender;
     private String areaid;
-    private int doctorNo;
+    private String doctorNo;
     private String hospital;
     private String faculty;
     private String title;
@@ -19,6 +19,8 @@ public class Doctor {
     private String status;
     private String twodimensioncodeurl;
     private String hxid;
+    private String hxpwd;
+;
 
     public String getDid() {
         return did;
@@ -92,11 +94,11 @@ public class Doctor {
         this.areaid = areaid;
     }
 
-    public int getDoctorNo() {
+    public String getDoctorNo() {
         return doctorNo;
     }
 
-    public void setDoctorNo(int doctorNo) {
+    public void setDoctorNo(String doctorNo) {
         this.doctorNo = doctorNo;
     }
 
@@ -162,5 +164,13 @@ public class Doctor {
 
     public void setHxid(String hxid) {
         this.hxid = hxid;
+    }
+
+    public String getHxpwd() {
+        return hxpwd;
+    }
+
+    public void setHxpwd(String hxpwd) {
+        this.hxpwd = hxpwd;
     }
 }
