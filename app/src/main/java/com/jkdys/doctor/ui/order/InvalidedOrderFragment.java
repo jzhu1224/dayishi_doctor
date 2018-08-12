@@ -28,7 +28,7 @@ public class InvalidedOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setParams(0,1);
+        orderPresenter.setParams("0","1");
     }
 
     @Override

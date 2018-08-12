@@ -15,8 +15,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.event.RequestSmsCodeEvent;
+import com.jkdys.doctor.event.WithdrawEvent;
 import com.jkdys.doctor.utils.ManyiUtils;
 import com.jkdys.doctor.widget.CountdownView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +50,7 @@ public class SMSCodeDialogFragment extends DialogFragment {
         super.onStart();
         btnConfirm.setEnabled(false);
         countdownView.start();
+        countdownView.setOnClickListener(view -> EventBus.getDefault().post(new RequestSmsCodeEvent()));
         Window win = getDialog().getWindow();
         // 一定要设置Background，如果不设置，window属性设置无效
         win.setBackgroundDrawable( new ColorDrawable(getResources().getColor(R.color.color_transparent)));
@@ -81,6 +87,7 @@ public class SMSCodeDialogFragment extends DialogFragment {
 
     @OnClick(R.id.btn_confirm)
     void onBtnConfirmClick() {
+        EventBus.getDefault().post(new WithdrawEvent());
         ManyiUtils.closeKeyBoard(getContext(), edtSMSCode);
         dismissAllowingStateLoss();
         if (getActivity() != null)

@@ -16,6 +16,10 @@ import com.jkdys.doctor.utils.AndroidBug5497Workaround;
 import com.jkdys.doctor.utils.ManyiUtils;
 import com.jkdys.doctor.utils.SoftKeyBoardListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,7 +41,7 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
     @BindView(R.id.btn_withdraw)
     Button btnWithdraw;
 
-    float money = 0.0f;
+    String money = "";
 
     @NonNull
     @Override
@@ -56,6 +60,7 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
+        EventBus.getDefault().register(this);
         toolbar.setTitle("提现");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> {
             finish();
@@ -63,7 +68,9 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
         });
         ManyiUtils.showKeyBoard(mActivity, edtWithdraw);
 
-        tvTotalMoney.setText(String.valueOf(money));
+        money = getIntent().getStringExtra("money");
+
+        tvTotalMoney.setText(money);
 
         SoftKeyBoardListener.setListener(this, new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
             @Override
@@ -118,5 +125,21 @@ public class WithdrawActivity extends MvpActivity<WithdrawView, WithdrawPresente
     protected void onDestroy() {
         super.onDestroy();
         ManyiUtils.closeKeyBoard(mActivity, edtWithdraw);
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    void onRequestSmsCodeEvent() {
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    void onWithdrawClickEvent() {
+
+    }
+
+    @Override
+    public void onWithdrawSuccess() {
+        //提现成功
     }
 }

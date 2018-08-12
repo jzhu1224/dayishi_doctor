@@ -67,6 +67,8 @@ android {
 
 dependencies {
 
+    implementation 'com.alibaba:fastjson:1.1.70.android'
+
     implementation 'com.just.agentweb:agentweb:4.0.2' // (必选)
 
     implementation 'com.liulishuo.filedownloader:library:1.7.4'

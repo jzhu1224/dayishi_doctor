@@ -6,6 +6,9 @@ import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
+
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
 public class WithdrawPresenter extends MvpBasePresenter<WithdrawView> {
@@ -39,6 +42,19 @@ public class WithdrawPresenter extends MvpBasePresenter<WithdrawView> {
 
                 loginInfoUtil.saveBindBankCard(response.getData());
                 ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+            }
+        });
+    }
+
+    public void withdraw(String money, String code) {
+        ifViewAttached(view -> view.showLoading(false));
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("money", money);
+        params.put("verificationCode", code);
+        api.withdraw(params).enqueue(new BaseCallback<BaseResponse<Object>>() {
+            @Override
+            public void onBusinessSuccess(BaseResponse<Object> response) {
+                ifViewAttached(WithdrawView::onWithdrawSuccess);
             }
         });
     }

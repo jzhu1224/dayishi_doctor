@@ -2,6 +2,7 @@ package com.jkdys.doctor.utils;
 
 import android.support.annotation.NonNull;
 
+import com.alibaba.fastjson.JSON;
 import com.chairoad.framework.encrypt.MD5Util;
 import com.chairoad.framework.util.LogUtil;
 import com.google.gson.Gson;
@@ -70,12 +71,9 @@ public class CommonHeaderInterceptor implements Interceptor {
 
     private LoginInfoUtil loginInfoUtil;
 
-    private Gson gson;
-
     @Inject
-    public CommonHeaderInterceptor(LoginInfoUtil loginInfoUtil, Gson gson) {
+    public CommonHeaderInterceptor(LoginInfoUtil loginInfoUtil) {
         this.loginInfoUtil = loginInfoUtil;
-        this.gson = gson;
     }
 
     @Override
@@ -115,7 +113,7 @@ public class CommonHeaderInterceptor implements Interceptor {
                 body.writeTo(buffer);
                 String oldJsonParams = buffer.readUtf8();
                 try {
-                    rootMap = gson.fromJson(oldJsonParams, HashMap.class); // 原始参数
+                    rootMap = JSON.parseObject(oldJsonParams, HashMap.class); // 原始参数
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -135,6 +133,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         });
 
         String secret = "";
+
         for (Map.Entry<String, Object> param : params) {
             String key = param.getKey();
             if("processRequestError".equals(key)) {
@@ -159,10 +158,7 @@ public class CommonHeaderInterceptor implements Interceptor {
         long timestamp = System.currentTimeMillis();
 
 
-        String signature = MD5Util.getMD5String((key + appversion + packageId).toUpperCase() +
-                MD5Util.getMD5String(platform + secret).toUpperCase() + timestamp);
-
-        signature = MD5Util.getMD5String(signature).toUpperCase();
+        String signature = MD5Util.getMD5String(MD5Util.getMD5String(MD5Util.getMD5String(key + appversion + packageId).toUpperCase() + platform + secret).toUpperCase() + timestamp).toUpperCase();
 
 
         requestBuilder.header("token", loginInfoUtil.getToken());

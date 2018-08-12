@@ -169,4 +169,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/GetDoctorTradeRecordDetail")
     Call<BaseResponse<TradeDetailData>> getTradeRecordDetail(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/TakeDoctorCash")
+    Call<BaseResponse<Object>> withdraw(@Body HashMap<String, Object> params);
 }

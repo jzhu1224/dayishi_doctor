@@ -52,7 +52,7 @@ public class ProcessOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,B
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setParams(0,0);
+        orderPresenter.setParams("0","0");
     }
 
     @Override

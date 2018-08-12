@@ -51,7 +51,7 @@ public class CanceledOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo,
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setParams(2,0);
+        orderPresenter.setParams("2","0");
     }
 
     @Override

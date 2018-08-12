@@ -20,6 +20,8 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -46,6 +48,7 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
     AccountData accountData;
 
     QMUICommonListItemView phoneFee,doorFee,tuiguangFee,bindCard;
+
 
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -137,6 +140,11 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         bindCard.setDetailText(accountData.isBindornot()?"已绑定":"未绑定");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     @OnClick(R.id.btn_withdraw)
     void onWithdrawClicked() {
 
@@ -147,7 +155,7 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         }
 
         Intent intent = new Intent(mActivity, WithdrawActivity.class);
-        intent.putExtra("money", accountData.getUndrawnamount());
+        intent.putExtra("money", String.valueOf(accountData.getUndrawnamount()));
         startActivity(intent);
     }
 }

@@ -19,8 +19,8 @@ public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreVie
     private int totalPage = 1;
     private int pageSize = 20;
 
-    private int orderstate;
-    private int ordertype;//1 电话订单 2 门诊订单
+    private String orderstate;
+    private String ordertype;//1 电话订单 2 门诊订单
 
     @Inject
     DaYiShiServiceApi api;
@@ -30,7 +30,7 @@ public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreVie
         this.api = api;
     }
 
-    public void setParams(int orderstate, int ordertype) {
+    public void setParams(String orderstate, String ordertype) {
         this.orderstate = orderstate;
         this.ordertype = ordertype;
     }

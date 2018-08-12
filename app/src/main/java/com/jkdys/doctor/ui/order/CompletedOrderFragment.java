@@ -52,7 +52,7 @@ public class CompletedOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setParams(1,0);
+        orderPresenter.setParams("1","0");
     }
 
     @Override
