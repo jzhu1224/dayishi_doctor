@@ -52,6 +52,9 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
     @BindView(R.id.img_avatar)
     ImageView imgHeader;
 
+    @BindView(R.id.tv_state)
+    TextView tvState;
+
     @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.tv_price)
@@ -155,6 +158,14 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
         tvPrice.setText(String.valueOf(phoneOrderDetail.getAmount()));
         tvGender.setText(phoneOrderDetail.getGender().equals("1")?"男":"女");
         tvAge.setText(String.valueOf(phoneOrderDetail.getAge()));
+
+        if (phoneOrderDetail.getStatus().equals("0")) {
+            tvState.setText("待处理");
+        } else if (phoneOrderDetail.getStatus().equals("1")) {
+            tvState.setText("已完成");
+        } else if (phoneOrderDetail.getStatus().equals("2")) {
+            tvState.setText("已取消");
+        }
 
 
         nineGridImageView.setImagesData(phoneOrderDetail.getImages());

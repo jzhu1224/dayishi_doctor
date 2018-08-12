@@ -12,6 +12,7 @@ import com.jkdys.doctor.ui.base.BaseRefreshLoadMoreFrament;
 import com.jkdys.doctor.ui.consult.OrderPresenter;
 import com.jkdys.doctor.ui.consult.adapter.OrderAdapter;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
+import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,15 +34,25 @@ public class CompletedOrderFragment extends BaseRefreshLoadMoreFrament<OrderInfo
     @Override
     protected void onItemClicked(BaseQuickAdapter adapter, View view, int position) {
         super.onItemClicked(adapter, view, position);
-        Intent intent = new Intent(getActivity(), DiagnosisOnPhoneActivity.class);
-        intent.putExtra("orderId", ((OrderInfo) Objects.requireNonNull(adapter.getItem(position))).getOrderid());
+        OrderInfo orderInfo = (OrderInfo) (adapter.getItem(position));
+        if (orderInfo == null)
+            return;
+
+        Intent intent;
+
+        if (orderInfo.getOrdertype().equals("1")) {
+            intent = new Intent(getActivity(), DiagnosisOnPhoneActivity.class);
+        } else {
+            intent = new Intent(getActivity(), DiagnosisFace2FaceActivity.class);
+        }
+        intent.putExtra("orderId", orderInfo.getOrderid());
         startActivity(intent);
 
     }
 
     @Override
     protected void afterCreatePresenter() {
-        orderPresenter.setParams(0,1);
+        orderPresenter.setParams(1,0);
     }
 
     @Override

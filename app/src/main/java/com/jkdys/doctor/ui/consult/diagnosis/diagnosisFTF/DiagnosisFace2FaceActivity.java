@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.chairoad.framework.util.DateUtil;
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
@@ -23,15 +21,11 @@ import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.DelayRecordActivity;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
-import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -190,6 +184,14 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
         // "status": "0",//0，待处理、1，已完成、2，已取消'
         // "regstatus": "0"//门诊订单状态。0待处理、1处理中、2已完成、3已取消
 
+        if (face2FaceOrderDetail.getStatus().equals("0")) {
+            tvState.setText("待处理");
+        } else if (face2FaceOrderDetail.getStatus().equals("1")) {
+            tvState.setText("已完成");
+        } else if (face2FaceOrderDetail.getStatus().equals("2")) {
+            tvState.setText("已取消");
+        }
+
 
         if (delayMode) {
             btnAccept.setVisibility(View.GONE);
@@ -205,7 +207,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             return;
         }
 
-        if (face2FaceOrderDetail.getRegstatus().equals("0")) {
+        if (face2FaceOrderDetail.getRegstatus().equals("1")) {
             //待处理的时候可以编辑
             btnAccept.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
@@ -213,7 +215,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             btnComplete.setVisibility(View.GONE);
             edtAddress.setEnabled(true);
             vTime.setEnabled(true);
-        } else if (face2FaceOrderDetail.getRegstatus().equals("1")) {
+        } else if (face2FaceOrderDetail.getRegstatus().equals("2")) {
             if (face2FaceOrderDetail.getCandelay() != null && face2FaceOrderDetail.getCandelay()) {
                 //可以延期
                 btnDelay.setVisibility(View.VISIBLE);
@@ -228,14 +230,14 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             edtAddress.setEnabled(false);
             vTime.setEnabled(false);
 
-        } else if (face2FaceOrderDetail.getRegstatus().equals("2")) {
+        } else if (face2FaceOrderDetail.getRegstatus().equals("3")) {
             //已完成
             btnDelay.setVisibility(View.GONE);
             btnAccept.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
             edtAddress.setEnabled(false);
             vTime.setEnabled(false);
-        } else if (face2FaceOrderDetail.getRegstatus().equals("3")) {
+        } else if (face2FaceOrderDetail.getRegstatus().equals("4")) {
             //已取消
             btnDelay.setVisibility(View.GONE);
             btnAccept.setVisibility(View.GONE);

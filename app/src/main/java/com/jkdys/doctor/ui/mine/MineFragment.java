@@ -100,8 +100,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     SystemUtil.call(getActivity(), "400111400");
                 })
                 .addItemView(itemInvent, view1 -> {
-                    Intent intent = new Intent(getActivity(), DiagnosisOnPhoneActivity.class);
-                    startActivity(intent);
+                    // TODO: 2018/8/12 复制邀请码
                 })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);

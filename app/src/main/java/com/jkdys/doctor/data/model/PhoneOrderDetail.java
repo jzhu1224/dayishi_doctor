@@ -11,10 +11,10 @@ public class PhoneOrderDetail {
     private String titlename;
     private String paytype;
     private String paytypename;
-    private Double amount;
+    private double amount;
     private String orderdate;
     private String status;
-    private Boolean isself;
+    private boolean isself;
     private String picheadurl;
     private String patientid;
     private String patientname;
@@ -23,7 +23,7 @@ public class PhoneOrderDetail {
     private String cellphone;
     private String gender;
     private String age;
-    private Boolean isvip;
+    private boolean isvip;
     private String medicalrecord;
 
     private List<DiagnosisImage> images;
@@ -76,11 +76,11 @@ public class PhoneOrderDetail {
         this.paytypename = paytypename;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -100,11 +100,11 @@ public class PhoneOrderDetail {
         this.status = status;
     }
 
-    public Boolean getIsself() {
+    public boolean getIsself() {
         return isself;
     }
 
-    public void setIsself(Boolean isself) {
+    public void setIsself(boolean isself) {
         this.isself = isself;
     }
 
@@ -172,11 +172,11 @@ public class PhoneOrderDetail {
         this.age = age;
     }
 
-    public Boolean getIsvip() {
+    public boolean getIsvip() {
         return isvip;
     }
 
-    public void setIsvip(Boolean isvip) {
+    public void setIsvip(boolean isvip) {
         this.isvip = isvip;
     }
 
