@@ -66,6 +66,7 @@ public class TradeRecordFragment extends BaseRefreshLoadMoreFrament<TradeRecord,
 
         @Override
         protected void convert(BaseViewHolder helper, TradeRecord item) {
+            helper.setText(R.id.tv_order_type,item.getTypename());
             helper.setText(R.id.tv_status, String.format(Locale.CHINESE,"【%s】",item.getStatusname()));
             helper.setText(R.id.tv_time, item.getDate());
             helper.setText(R.id.tv_trade_money, item.getShowmoney());

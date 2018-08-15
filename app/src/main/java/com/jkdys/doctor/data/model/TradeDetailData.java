@@ -16,6 +16,16 @@ public class TradeDetailData implements Parcelable {
      "tradetime": "2017-09-24 22:57",
      "tradeserialnumber": "20180523192827642987000778217828",
      "traderemark": null
+
+
+     "money": 560, //交易金额
+     "moneyshow": "+560.00", //显示金额
+     "tradetime": "2018-07-26 18:00", //交易时间
+     "orderid": "20180709163548460977000485878222", //订单号
+     "ordertype": "1", //收入类型
+     "ordertypename": "电话诊断收入" //收入类型
+
+
      */
 
     private String status;
@@ -29,6 +39,9 @@ public class TradeDetailData implements Parcelable {
     private String tradetime;
     private String tradeserialnumber;
     private String traderemark;
+    private String orderid;
+    private String ordertype;
+    private String ordertypename;
 
     public String getStatus() {
         return status;
@@ -118,6 +131,30 @@ public class TradeDetailData implements Parcelable {
         this.traderemark = traderemark;
     }
 
+    public String getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(String orderid) {
+        this.orderid = orderid;
+    }
+
+    public String getOrdertype() {
+        return ordertype;
+    }
+
+    public void setOrdertype(String ordertype) {
+        this.ordertype = ordertype;
+    }
+
+    public String getOrdertypename() {
+        return ordertypename;
+    }
+
+    public void setOrdertypename(String ordertypename) {
+        this.ordertypename = ordertypename;
+    }
+
 
     @Override
     public int describeContents() {
@@ -137,6 +174,9 @@ public class TradeDetailData implements Parcelable {
         dest.writeString(this.tradetime);
         dest.writeString(this.tradeserialnumber);
         dest.writeString(this.traderemark);
+        dest.writeString(this.orderid);
+        dest.writeString(this.ordertype);
+        dest.writeString(this.ordertypename);
     }
 
     public TradeDetailData() {
@@ -154,6 +194,9 @@ public class TradeDetailData implements Parcelable {
         this.tradetime = in.readString();
         this.tradeserialnumber = in.readString();
         this.traderemark = in.readString();
+        this.orderid = in.readString();
+        this.ordertype = in.readString();
+        this.ordertypename = in.readString();
     }
 
     public static final Parcelable.Creator<TradeDetailData> CREATOR = new Parcelable.Creator<TradeDetailData>() {
