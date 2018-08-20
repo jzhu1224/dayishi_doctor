@@ -104,22 +104,18 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                     }
                 }
                 @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                    // TODO: 2018/7/4  弹出对话框引导用户开启权限
                     ToastUtil.show(mActivity,"弹出对话框引导用户开启权限");
 
                     new QMUIDialog.MessageDialogBuilder(mActivity)
                             .setMessage("检测到没有运行APP需要的必要权限，请到权限管理页面授予相应权限，否则APP无法正常使用")
                             .addAction("取消", (dialog, index) -> {
+                                token.cancelPermissionRequest();
                                 dialog.dismiss();
                                 finish();
                             })
-                            .addAction("确定", (dialog, index) -> {
-                                Intent intent = new Intent();
-                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                                intent.setData(uri);
-                                startActivity(intent);
-                            }).show();
+                            .addAction("申请", (dialog, index) -> {
+                                token.continuePermissionRequest();
+                            }).setCanceledOnTouchOutside(false).show();
                 }
 
             }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();

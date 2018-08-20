@@ -1,22 +1,12 @@
 package com.jkdys.doctor.ui.consult.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.OrderInfo;
-import com.jkdys.doctor.ui.BaseView;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class OrderAdapter extends BaseQuickAdapter<OrderInfo,BaseViewHolder>{
 
