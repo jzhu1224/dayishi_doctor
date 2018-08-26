@@ -13,6 +13,8 @@ import com.jkdys.doctor.ui.consult.diagnosis.DelayRecordFragment;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.diagnosisFTF.DiagnosisFace2FaceActivity;
 import com.jkdys.doctor.ui.customer.CustomerFragment;
+import com.jkdys.doctor.ui.customer.NormalCustomerFragment;
+import com.jkdys.doctor.ui.customer.VipCustomerFragment;
 import com.jkdys.doctor.ui.fee.Face2FaceDiagnosisFeeActivity;
 import com.jkdys.doctor.ui.fee.PhoneDiagnosisFeeActivity;
 import com.jkdys.doctor.ui.fee.PhoneVipDiagnosisFeeActivity;
@@ -59,7 +61,6 @@ import dagger.Component;
 public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(ConsultFragment consultFragment);
-    void inject(CustomerFragment consultFragment);
     void inject(MineFragment mineFragment);
     void inject(LoginActivity loginActivity);
     void inject(PhoneFragment phoneFragment);
@@ -100,5 +101,5 @@ public interface ActivityComponent {
     void inject(PhoneVipDiagnosisFeeActivity phoneVipDiagnosisFeeActivity);
     void inject(MyFriendsFragment myFriendsFragment);
     void inject(TradeDetailActivity tradeDetailActivity);
-    void inject(ScanActivity scanActivity);
+    void inject(NormalCustomerFragment scanActivity);
 }

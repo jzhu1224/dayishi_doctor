@@ -17,6 +17,7 @@ import com.jkdys.doctor.data.model.LoginResponse;
 import com.jkdys.doctor.data.model.MyFriendData;
 import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.model.PatientGroup;
+import com.jkdys.doctor.data.model.PatientInfo;
 import com.jkdys.doctor.data.model.PhoneNumberDetail;
 import com.jkdys.doctor.data.model.PhoneOrderDetail;
 import com.jkdys.doctor.data.model.Physicianstitle;
@@ -80,7 +81,7 @@ public interface DaYiShiServiceApi {
     Call<BaseResponse<LoginResponse>> doctorWorkInfoCheck(@Body DoctorWorkInfo doctorWorkInfo);
 
     @POST("/api/Doctor/Doctor/GetMyPatientList")
-    Call<BaseResponse<List<PatientGroup>>> getMyPatientList(); //病人列表
+    Call<BaseResponse<List<PatientInfo>>> getMyPatientList(@Body HashMap<String, Object> params); //病人列表
 
     @POST("/api/Doctor/Doctor/GetDoctorDetailInfo")
     Call<BaseResponse<Doctor>> getDoctorDetailInfo();//获取医生个人信息

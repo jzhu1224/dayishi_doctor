@@ -9,12 +9,19 @@ import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMorePresenter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class CustomerPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreView<MyPatientSection>,MyPatientSection> {
+public class CustomerPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreView<PatientInfo>,PatientInfo> {
+
+    private int page = 1;
+    private int totalPage = 1;
+    private int pageSize = 20;
+
+    private int grouptype;//分组类型，1是特需患者（VIP），2是普通患者
 
     DaYiShiServiceApi api;
 
@@ -23,47 +30,44 @@ public class CustomerPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMore
         this.api = api;
     }
 
+    public void setGrouptype(int grouptype) {
+        this.grouptype = grouptype;
+    }
+
     @Override
     public void loadMore(boolean pullToRefresh) {
+
+        if (pullToRefresh) {
+            page = 1;
+        }
+
         ifViewAttached(view -> view.showLoading(pullToRefresh));
-        api.getMyPatientList().enqueue(new BaseCallback<BaseResponse<List<PatientGroup>>>(getView()) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pageindex", page);
+        params.put("pagesize", pageSize);
+        params.put("grouptype", grouptype);
+
+        api.getMyPatientList(params).enqueue(new BaseCallback<BaseResponse<List<PatientInfo>>>(getView()) {
             @Override
-            public void onBusinessSuccess(BaseResponse<List<PatientGroup>> response) {
+            public void onBusinessSuccess(BaseResponse<List<PatientInfo>> response) {
+                totalPage = response.getTotalPage();
 
-                List<MyPatientSection> myPatientSectionList = new ArrayList<>();
-
-                int i = 0;
-                if (response.getData() != null) {
-                    for (PatientGroup patienGroup:response.getData()) {
-                        MyPatientSection myPatientSection = new MyPatientSection(true,patienGroup.getGroupname());
-                        myPatientSectionList.add(myPatientSection);
-                        if (patienGroup.getDetail() != null) {
-                            for (PatientInfo patienInfo: patienGroup.getDetail()) {
-                                myPatientSection = new MyPatientSection(patienInfo);
-                                myPatientSectionList.add(myPatientSection);
-                            }
-                        }
-
-                        if (i == 0) {
-                            PatientInfo patientInfo = new PatientInfo();
-                            patientInfo.setAge("39");
-                            patientInfo.setGender("男");
-                            patientInfo.setPatientname("宝强");
-                            myPatientSectionList.add(new MyPatientSection(patientInfo));
-                        }
-
-                        if (i == 1) {
-                            PatientInfo patientInfo = new PatientInfo();
-                            patientInfo.setAge("36");
-                            patientInfo.setGender("女");
-                            patientInfo.setPatientname("沈月");
-                            myPatientSectionList.add(new MyPatientSection(patientInfo));
-                        }
-
-                        i++;
-                    }
+                if (page == 1) {
+                    ifViewAttached(view -> {
+                        view.setData(response.getData());
+                        view.showContent();
+                    });
+                } else {
+                    ifViewAttached(view -> view.setMoreData(response.getData()));
                 }
-                ifViewAttached(view -> view.setData(myPatientSectionList));
+                //已经最后一页了
+                if (page >= totalPage) {
+                    ifViewAttached(BaseLoadMoreView::noMoreData);
+                    //view.noMoreData();
+                } else {
+                    page++;
+                }
             }
         });
     }
