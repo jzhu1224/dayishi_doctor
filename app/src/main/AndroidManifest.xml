@@ -138,9 +138,10 @@
         <activity android:name=".ui.fee.Face2FaceDiagnosisFeeActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.fee.PhoneDiagnosisFeeActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.fee.PhoneVipDiagnosisFeeActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.chat.MyFriendsActivity" />
+        <activity android:name=".ui.chat.MyFriendsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.myAccount.bank.tradeDetail.TradeDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.base.BaseWebActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.aboutus.AboutUsActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

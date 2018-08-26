@@ -7,11 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.AccountData;
-import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.myAccount.bank.BankCardListActivity;
 import com.jkdys.doctor.ui.myAccount.bank.tradeRecord.TradeRecordActivity;
@@ -19,11 +17,7 @@ import com.jkdys.doctor.ui.myAccount.bank.withdraw.WithdrawActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
-
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 

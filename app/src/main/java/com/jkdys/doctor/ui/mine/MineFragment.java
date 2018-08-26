@@ -15,8 +15,10 @@ import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Doctor;
+import com.jkdys.doctor.data.network.Api;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
+import com.jkdys.doctor.ui.aboutus.AboutUsActivity;
 import com.jkdys.doctor.ui.base.BaseWebActivity;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
@@ -86,6 +88,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
         QMUICommonListItemView itemSetting = createItemView(R.drawable.ic_low,"法律声明");
         QMUICommonListItemView itemCustomerService = createItemView(R.drawable.ic_customer_service,"联系客服", "400-111-400", QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
         QMUICommonListItemView itemInvent = createItemView(R.drawable.ic_invent,"我的邀请码",loginInfoUtil.getInventCode(),QMUICommonListItemView.ACCESSORY_TYPE_NONE);
+        QMUICommonListItemView itemAboutUs = createItemView(R.drawable.ic_invent,"关于我们");
 
         QMUIGroupListView.newSection(getContext())
                 .addItemView(itemAccount, view1 -> {
@@ -100,7 +103,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     startActivity(new Intent(getActivity(), SettingFeesActivity.class))
                 )
                 .addItemView(itemSetting, view1 -> {
-                    BaseWebActivity.openInWeb(getActivity(), "http://m.jd.com");
+                    BaseWebActivity.openInWeb(getActivity(), Api.STATEMENTS);
                 })
                 .addItemView(itemCustomerService, view1 -> {
                     //ShareManager.get().share(getActivity(),new ShareInfoModel());
@@ -108,6 +111,9 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                 })
                 .addItemView(itemInvent, view1 -> {
                     copy(loginInfoUtil.getInventCode(), Objects.requireNonNull(getContext()));
+                })
+                .addItemView(itemAboutUs, view1 -> {
+                    startActivity(new Intent(getActivity(), AboutUsActivity.class));
                 })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
