@@ -51,7 +51,7 @@ public class AboutUsActivity extends BaseAppCompatActivity {
                 .addItemView(item2, view -> {
                     BaseWebActivity.openInWeb(mActivity, "http://www.jkdys.com");})
                 .addItemView(item3, view -> {
-                    BaseWebActivity.openInWeb(mActivity, Api.STATEMENTS);})
+                    BaseWebActivity.openInWeb(mActivity, Api.SERVICE_CONTRACT);})
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
 
