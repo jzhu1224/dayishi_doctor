@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by yanxin on 2018/6/26.
  */
 
-public class ScanActivity extends BaseScanActivity implements BaseView{
+public class ScanActivity extends BaseScanActivity implements BaseView {
 
     @BindView(R.id.toolbar)
     QMUITopBar titleBar;

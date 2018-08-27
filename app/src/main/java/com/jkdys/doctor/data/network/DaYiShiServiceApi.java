@@ -25,6 +25,7 @@ import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.model.ProvinceData;
 import com.jkdys.doctor.data.model.ScanData;
 import com.jkdys.doctor.data.model.SearchDoctorData;
+import com.jkdys.doctor.data.model.ShareData;
 import com.jkdys.doctor.data.model.TradeDetailData;
 import com.jkdys.doctor.data.model.TradeRecord;
 import com.jkdys.doctor.data.model.UploadImageData;
@@ -177,4 +178,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/GetDoctorScanResult")
     Call<BaseResponse<ScanData>> scan(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Common/GetDoctorShareInfo")
+    Call<BaseResponse<ShareData>> share();
 }

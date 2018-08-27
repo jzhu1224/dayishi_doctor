@@ -2,6 +2,7 @@ package com.jkdys.doctor.ui.consult;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,15 +10,22 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.ShareData;
+import com.jkdys.doctor.ui.BaseAppCompatActivity;
 import com.jkdys.doctor.ui.BaseFragment;
+import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.scan.ScanActivity;
 import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
-public class ConsultFragment extends BaseFragment{
+public class ConsultFragment extends MvpFragment<ConsultView, ConsultPresenter> implements ConsultView{
 
 
     @BindView(R.id.tabSegment)
@@ -27,6 +35,47 @@ public class ConsultFragment extends BaseFragment{
 
     ContentPagerAdapter contentPagerAdapter;
     List<Fragment> fragmentList;
+
+    @Inject
+    ConsultPresenter presenter;
+
+    private ShareData shareData;
+
+    @Override
+    public void onGetShareDataSuccess(ShareData shareData) {
+        this.shareData = shareData;
+
+        if (null != shareData) {
+            ShareInfoModel shareInfoModel = new ShareInfoModel();
+            shareInfoModel.title = shareData.getTitle();
+            shareInfoModel.desc = shareData.getContent();
+            shareInfoModel.imgUrl = shareData.getUrl();
+            shareInfoModel.siteUrl = shareData.getUrl();
+            ShareManager.get().share(getActivity(),shareInfoModel);
+        }
+    }
+
+    @Override
+    public void showLoading(boolean pullToRefresh) {
+        ((BaseAppCompatActivity) Objects.requireNonNull(getActivity())).showLoading(pullToRefresh);
+    }
+
+    @Override
+    public void showContent() {
+        ((BaseAppCompatActivity) Objects.requireNonNull(getActivity())).showContent();
+    }
+
+    @Override
+    public void showError(String message) {
+        ((BaseAppCompatActivity) Objects.requireNonNull(getActivity())).showError(message);
+    }
+
+    @NonNull
+    @Override
+    public ConsultPresenter createPresenter() {
+        getActivityComponent().inject(this);
+        return presenter;
+    }
 
     private class ContentPagerAdapter extends FragmentPagerAdapter {
 
@@ -54,7 +103,17 @@ public class ConsultFragment extends BaseFragment{
                 }
         );
         toolbar.addRightImageButton(R.drawable.ic_share,R.id.id_share).setOnClickListener(view1 -> {
-            ShareManager.get().share(getActivity(),new ShareInfoModel());
+
+            if (null != shareData) {
+                ShareInfoModel shareInfoModel = new ShareInfoModel();
+                shareInfoModel.title = shareData.getTitle();
+                shareInfoModel.desc = shareData.getContent();
+                shareInfoModel.imgUrl = shareData.getUrl();
+                shareInfoModel.siteUrl = shareData.getUrl();
+                ShareManager.get().share(getActivity(),shareInfoModel);
+            } else {
+                presenter.share();
+            }
         });
         initTabAndPager();
     }
