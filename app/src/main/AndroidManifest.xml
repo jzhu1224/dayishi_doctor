@@ -71,13 +71,13 @@
             android:value="5a6016068f4a9d3a41000164" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="chairoad" />
+            android:value="dayishi_doctor" />
         <meta-data
             android:name="Mob-AppKey"
-            android:value="24a0806b26290" />
+            android:value="27925f03127a7" />
         <meta-data
             android:name="Mob-AppSecret"
-            android:value="2c83259a64808cbcb8e2d18d8c1421f1" />
+            android:value="9f1d3c42726ceb02a454cbac76d290d6" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="wXNKpr9GfkBg928azCBaeyunGjN0Ca5t" />

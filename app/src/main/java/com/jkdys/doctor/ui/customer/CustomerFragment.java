@@ -40,7 +40,7 @@ public class CustomerFragment extends BaseFragment {
 
     @Override
     protected void initViews(View view, Bundle saveInstanceState) {
-        toolbar.setTitle(R.string.consult);
+        toolbar.setTitle("我的患者");
         toolbar.setBackgroundDividerEnabled(false);
         initTabAndPager();
     }
@@ -51,7 +51,7 @@ public class CustomerFragment extends BaseFragment {
         fragmentList.add(new VipCustomerFragment());
         fragmentList.add(new NormalCustomerFragment());
 
-        contentPagerAdapter = new CustomerFragment.ContentPagerAdapter(getFragmentManager());
+        contentPagerAdapter = new CustomerFragment.ContentPagerAdapter(getChildFragmentManager());
         mContentViewPager.setAdapter(contentPagerAdapter);
         mContentViewPager.setCurrentItem(0, false);
         mTabSegment.setHasIndicator(true);
@@ -90,5 +90,4 @@ public class CustomerFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_consult;
     }
-
 }

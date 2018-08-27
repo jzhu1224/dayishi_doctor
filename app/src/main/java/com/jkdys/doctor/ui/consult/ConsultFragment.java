@@ -65,7 +65,7 @@ public class ConsultFragment extends BaseFragment{
         fragmentList.add(new PhoneFragment());
         fragmentList.add(new DoorFragment());
 
-        contentPagerAdapter = new ContentPagerAdapter(getFragmentManager());
+        contentPagerAdapter = new ContentPagerAdapter(getChildFragmentManager());
         mContentViewPager.setAdapter(contentPagerAdapter);
         mContentViewPager.setCurrentItem(0, false);
         mTabSegment.setHasIndicator(true);

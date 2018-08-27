@@ -3,7 +3,6 @@ package com.jkdys.doctor.ui.order;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chairoad.framework.util.LogUtil;

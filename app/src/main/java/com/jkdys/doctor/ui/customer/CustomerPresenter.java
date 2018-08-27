@@ -1,18 +1,13 @@
 package com.jkdys.doctor.ui.customer;
 
 import com.jkdys.doctor.data.model.BaseResponse;
-import com.jkdys.doctor.data.model.PatientGroup;
 import com.jkdys.doctor.data.model.PatientInfo;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMorePresenter;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.inject.Inject;
 
 public class CustomerPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreView<PatientInfo>,PatientInfo> {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+	<ShareSDK
+		AppKey = "27925f03127a7"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+
+	<SinaWeibo
+		Id="1"
+		SortId="1"
+		AppKey="2409477199"
+		AppSecret="83d3a0fee458b4b34e3c16ed538002d1"
+		RedirectUrl="http://www.chairoad.com"
+		ShareByAppClient="true"
+		Enable="true" />
+
+	<Wechat
+		Id="4"
+		SortId="4"
+		AppId="wxbf96ded41199e974"
+		AppSecret="2aa377a363c47d251aabc92629dd5ed0"
+		UserName="gh_afb25ac019c9"
+		Path="pages/index/index.html?id=1"
+		BypassApproval="false"
+		Enable="true" />
+
+	<WechatMoments
+		Id="5"
+		SortId="5"
+		AppId="wxbf96ded41199e974"
+		AppSecret="2aa377a363c47d251aabc92629dd5ed0"
+		BypassApproval="false"
+		Enable="true" />
+
+	<WechatFavorite
+		Id="6"
+		SortId="6"
+		AppId="wxbf96ded41199e974"
+		AppSecret="2aa377a363c47d251aabc92629dd5ed0"
+		Enable="true" />
+
+</DevInfor>

@@ -19,8 +19,6 @@ public class VipCustomerFragment extends BaseRefreshLoadMoreFrament<PatientInfo,
     @Inject
     CustomerPresenter customerPresenter;
 
-
-
     @Override
     protected BaseQuickAdapter<PatientInfo, BaseViewHolder> createAdapter(List<PatientInfo> mDatas) {
         return new CustomerAdapter(mDatas);
