@@ -16,6 +16,7 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.widget.NumView;
 
 public class YunAdapter extends AbstractAdapter<EMConversation> {
@@ -72,7 +73,7 @@ public class YunAdapter extends AbstractAdapter<EMConversation> {
             nickname = emConversation.conversationId();
         }
 
-        //MyImageLoader.with(context).placeholder(R.drawable.avatar).load(avatar).into(holder.avatar);
+        ImageLoader.with(context).placeholder(R.drawable.img_doctor).load(avatar).into(holder.avatar);
         holder.name.setText(nickname);
         if (emConversation.getUnreadMsgCount() > 0) {
             // show unread message count

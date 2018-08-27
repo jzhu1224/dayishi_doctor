@@ -22,6 +22,7 @@ public class DoctorDetailData {
     private String goodat;
     private String personalprofile;
     private boolean isfriend;
+    private String hxid;
 
     public String getDoctorpicheadurl() {
         return doctorpicheadurl;
@@ -77,5 +78,13 @@ public class DoctorDetailData {
 
     public void setIsfriend(boolean isfriend) {
         this.isfriend = isfriend;
+    }
+
+    public String getHxid() {
+        return hxid;
+    }
+
+    public void setHxid(String hxid) {
+        this.hxid = hxid;
     }
 }

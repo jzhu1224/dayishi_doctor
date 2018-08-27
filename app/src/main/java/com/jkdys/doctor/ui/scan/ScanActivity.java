@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.scan;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,17 +13,26 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chairoad.framework.util.LogUtil;
+import com.chairoad.framework.util.ToastUtil;
 import com.google.zxing.client.android.ViewfinderView;
 import com.jkdys.doctor.MyApplication;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.DoctorDetailData;
+import com.jkdys.doctor.data.model.ScanData;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
+import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.jkdys.doctor.di.component.ActivityComponent;
 import com.jkdys.doctor.di.component.DaggerActivityComponent;
 import com.jkdys.doctor.di.module.ActivityModule;
+import com.jkdys.doctor.ui.BaseView;
+import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.qmuiteam.qmui.util.QMUIDeviceHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.scan.framework.ui.BaseScanActivity;
+
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -33,7 +43,7 @@ import butterknife.ButterKnife;
  * Created by yanxin on 2018/6/26.
  */
 
-public class ScanActivity extends BaseScanActivity {
+public class ScanActivity extends BaseScanActivity implements BaseView{
 
     @BindView(R.id.toolbar)
     QMUITopBar titleBar;
@@ -99,7 +109,19 @@ public class ScanActivity extends BaseScanActivity {
     public void onScan(String code) {
         LogUtil.e("Scan","code: "+code);
         if(!TextUtils.isEmpty(code)) {
-
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("url",code);
+            api.scan(params).enqueue(new BaseCallback<BaseResponse<ScanData>>(this) {
+                @Override
+                public void onBusinessSuccess(BaseResponse<ScanData> response) {
+                    if (response.getData() == null)
+                        return;
+                    Intent intent = new Intent(ScanActivity.this, DoctorDetailActivity.class);
+                    intent.putExtra("doctorId", response.getData().getDoctorid());
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
     }
 
@@ -144,4 +166,28 @@ public class ScanActivity extends BaseScanActivity {
         }
     }
 
+    @Override
+    public void showLoading(boolean pullToRefresh) {
+
+    }
+
+    @Override
+    public void showContent() {
+
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        ToastUtil.show(ScanActivity.this, msg);
+    }
+
+    @Override
+    public void showError(String message) {
+        ToastUtil.show(ScanActivity.this, message);
+    }
+
+    @Override
+    public void showDialog(String msg) {
+        ToastUtil.show(ScanActivity.this, msg);
+    }
 }

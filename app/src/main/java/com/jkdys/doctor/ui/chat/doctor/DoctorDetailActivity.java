@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.chat.doctor;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +12,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hyphenate.easeui.domain.EaseUser;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.db.ChatDBManager;
 import com.jkdys.doctor.data.model.DoctorDetailData;
 import com.jkdys.doctor.ui.MvpActivity;
+import com.jkdys.doctor.ui.chat.ChatActivity;
+import com.jkdys.doctor.widget.DoctorGoodAtLayout;
 import com.jkdys.doctor.widget.DoctorGoodAtTag;
 import com.nex3z.flowlayout.FlowLayout;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -37,15 +42,18 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     TextView tvName;
     @BindView(R.id.tv_doctor_info)
     TextView tvDoctorInfo;
-    @BindView(R.id.fl_good_at)
-    FlowLayout flowLayout;
+
     @BindView(R.id.tv_desc)
     TextView tvDesc;
     @BindView(R.id.btn_add)
     Button btnAdd;
 
+    @BindView(R.id.dg_layout)
+    DoctorGoodAtLayout doctorGoodAtLayout;
+
 
     String doctorId;
+    private DoctorDetailData doctorDetailData;
 
     @NonNull
     @Override
@@ -85,29 +93,36 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
 
     @Override
     public void onRequestSuccess(DoctorDetailData doctorDetailData) {
+
+        this.doctorDetailData = doctorDetailData;
+
         tvName.setText(doctorDetailData.getDoctorname());
         tvDoctorInfo.setText(doctorDetailData.getFacultyname()+" "+doctorDetailData.getTitlename());
         tvDesc.setText(doctorDetailData.getPersonalprofile());
         ImageLoader.with(mActivity).load(doctorDetailData.getDoctorpicheadurl()).placeholder(R.drawable.img_doctor).into(imgHeader);
-        btnAdd.setVisibility(doctorDetailData.isIsfriend()? View.GONE:View.VISIBLE);
+        btnAdd.setText(doctorDetailData.isIsfriend()? "发送消息":"加为好友");
         String sGoodAt = doctorDetailData.getGoodat();
-        if (!TextUtils.isEmpty(sGoodAt)) {
-            String[] goodAt = sGoodAt.split(",");
-            for (int i = 0; i < goodAt.length; i++) {
-                DoctorGoodAtTag goodAtTag = new DoctorGoodAtTag(mActivity);
-                goodAtTag.setText(goodAt[i]);
-                flowLayout.addView(goodAtTag);
-            }
-        }
+        doctorGoodAtLayout.setData(sGoodAt);
     }
 
     @Override
     public void onAddFriendSuccess() {
-        btnAdd.setVisibility(View.GONE);
+        btnAdd.setText("发送消息");
+        EaseUser easeUser = new EaseUser(doctorDetailData.getHxid());
+        easeUser.setAvatar(doctorDetailData.getDoctorpicheadurl());
+        easeUser.setNickname(doctorDetailData.getDoctorname());
+        new Thread(() -> ChatDBManager.getInstance().saveContact(easeUser)).start();
     }
 
     @OnClick(R.id.btn_add)
     void onBtnAddClick() {
-        presenter.addFriend(doctorId);
+        if (doctorDetailData != null &&
+                doctorDetailData.isIsfriend()) {
+            Intent intent = new Intent(mActivity, ChatActivity.class);
+            intent.putExtra(ChatActivity.PARAM_USERID,doctorDetailData.getHxid());
+            startActivity(intent);
+        } else {
+            presenter.addFriend(doctorId);
+        }
     }
 }

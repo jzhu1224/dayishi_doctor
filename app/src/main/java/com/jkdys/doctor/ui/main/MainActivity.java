@@ -73,6 +73,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainPresenter.syncData();
     }
 
     @Override
@@ -293,7 +294,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @NonNull
     @Override
     public MainPresenter createPresenter() {
-        //getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
         return mainPresenter;
     }
 

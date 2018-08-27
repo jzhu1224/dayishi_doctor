@@ -23,6 +23,7 @@ import com.jkdys.doctor.data.model.PhoneOrderDetail;
 import com.jkdys.doctor.data.model.Physicianstitle;
 import com.jkdys.doctor.data.model.ProcessFace2FaceOrder;
 import com.jkdys.doctor.data.model.ProvinceData;
+import com.jkdys.doctor.data.model.ScanData;
 import com.jkdys.doctor.data.model.SearchDoctorData;
 import com.jkdys.doctor.data.model.TradeDetailData;
 import com.jkdys.doctor.data.model.TradeRecord;
@@ -173,4 +174,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/TakeDoctorCash")
     Call<BaseResponse<Object>> withdraw(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/GetDoctorScanResult")
+    Call<BaseResponse<ScanData>> scan(@Body HashMap<String, Object> params);
 }

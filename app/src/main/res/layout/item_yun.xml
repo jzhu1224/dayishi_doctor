@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list_itease_layout"
     android:layout_width="match_parent"
     android:layout_height="80dp"
@@ -22,6 +23,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/img_doctor"
+            app:ease_shape_type="round"
             android:scaleType="fitXY" />
 
         <com.jkdys.doctor.widget.NumView

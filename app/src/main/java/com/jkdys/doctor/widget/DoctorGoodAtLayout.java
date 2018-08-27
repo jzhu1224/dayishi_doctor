@@ -56,6 +56,7 @@ public class DoctorGoodAtLayout extends FlowLayout {
         if (TextUtils.isEmpty(tags))
             return;
         String[] tagsArray = tags.split(",");
+        removeAllViews();
 
         for (int i = 0; i < tagsArray.length; i++) {
             DoctorGoodAtTagLayout dl = new DoctorGoodAtTagLayout(getContext());
