@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.SystemUtil;
 import com.jkdys.doctor.BuildConfig;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.network.Api;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
+import com.jkdys.doctor.ui.base.BaseWebActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -43,9 +46,12 @@ public class AboutUsActivity extends BaseAppCompatActivity {
         QMUICommonListItemView item3 = createItemView("服务协议");
 
         QMUIGroupListView.newSection(mActivity)
-                .addItemView(item1, view -> {})
-                .addItemView(item2, view -> {})
-                .addItemView(item3, view -> {})
+                .addItemView(item1, view -> {
+                    SystemUtil.call(mActivity, "400111400");})
+                .addItemView(item2, view -> {
+                    BaseWebActivity.openInWeb(mActivity, "http://www.jkdys.com");})
+                .addItemView(item3, view -> {
+                    BaseWebActivity.openInWeb(mActivity, Api.STATEMENTS);})
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);
 
