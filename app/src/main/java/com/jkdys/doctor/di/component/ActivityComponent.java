@@ -44,6 +44,7 @@ import com.jkdys.doctor.ui.search.searchDepartment.SearchDepartmentActivity;
 import com.jkdys.doctor.ui.search.searchHospital.SearchHospitalActivity;
 import com.jkdys.doctor.ui.search.searchPhysiciansTitle.SearchPhysiciansTitleActivity;
 import com.jkdys.doctor.ui.search.selectArea.SelectAreaActivity;
+import com.jkdys.doctor.ui.setting.SettingActivity;
 import com.jkdys.doctor.ui.verify.doctorVerify.DoctorVerifyActivity;
 import com.jkdys.doctor.ui.verify.personalInfo.PersonalInfoActivity;
 import com.jkdys.doctor.ui.verify.userVerify.IdentityActivity;
@@ -101,4 +102,5 @@ public interface ActivityComponent {
     void inject(TradeDetailActivity tradeDetailActivity);
     void inject(NormalCustomerFragment normalCustomerFragment);
     void inject(VipCustomerFragment vipCustomerFragment);
+    void inject(SettingActivity settingActivity);
 }

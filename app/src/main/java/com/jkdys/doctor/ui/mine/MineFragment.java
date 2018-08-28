@@ -28,6 +28,7 @@ import com.jkdys.doctor.ui.mine.qrcode.MyQRCodeFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.jkdys.doctor.ui.order.MyOrderActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
+import com.jkdys.doctor.ui.setting.SettingActivity;
 import com.jkdys.doctor.ui.verify.doctorVerify.DoctorVerifyActivity;
 import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -112,7 +113,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     startActivity(new Intent(getActivity(), AboutUsActivity.class));
                 })
                 .addItemView(itemSetting, view1 -> {
-
+                    startActivity(new Intent(getActivity(), SettingActivity.class));
                 })
                 .setSeparatorDrawableRes(0,R.drawable.qmui_s_list_item_bg_with_border_bottom,R.drawable.qmui_s_list_item_bg_with_border_none,R.drawable.qmui_s_list_item_bg_with_border_bottom)
                 .addTo(qmuiGroupListView);

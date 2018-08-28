@@ -181,4 +181,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Common/GetDoctorShareInfo")
     Call<BaseResponse<ShareData>> share();
+
+    @POST("/api/Doctor/Doctor/ModifyDoctorGetSMS")
+    Call<BaseResponse<Object>> switchNotification(@Body HashMap<String, Object> params);
 }
