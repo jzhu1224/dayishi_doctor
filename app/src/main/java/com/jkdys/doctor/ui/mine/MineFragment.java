@@ -23,6 +23,7 @@ import com.jkdys.doctor.ui.base.BaseWebActivity;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.fee.SettingFeesActivity;
+import com.jkdys.doctor.ui.invent.InventCodeActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
 import com.jkdys.doctor.ui.mine.qrcode.MyQRCodeFragment;
 import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
@@ -107,6 +108,7 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     BaseWebActivity.openInWeb(getActivity(), Api.STATEMENTS);
                 })
                 .addItemView(itemInvent, view1 -> {
+                    startActivity(new Intent(getActivity(), InventCodeActivity.class));
                     //copy(loginInfoUtil.getInventCode(), Objects.requireNonNull(getContext()));
                 })
                 .addItemView(itemAboutUs, view1 -> {
@@ -189,14 +191,5 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                     if (getActivity() != null)
                         getActivity().finish();
                 }).show();
-    }
-
-
-    public void copy(String content, Context context) {// 得到剪贴板管理器
-        ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData mClipData = ClipData.newPlainText("Label", content);
-        assert cmb != null;
-        cmb.setPrimaryClip(mClipData);
-        ToastUtil.show(context, "已复制到剪贴板");
     }
 }

@@ -20,6 +20,7 @@ public class Doctor {
     private String twodimensioncodeurl;
     private String hxid;
     private String hxpwd;
+    private String parentdoctorid;
     private boolean smsnotice; //是否接收短信
 ;
 
@@ -181,5 +182,13 @@ public class Doctor {
 
     public void setSmsnotice(boolean smsnotice) {
         this.smsnotice = smsnotice;
+    }
+
+    public String getParentdoctorid() {
+        return parentdoctorid;
+    }
+
+    public void setParentdoctorid(String parentdoctorid) {
+        this.parentdoctorid = parentdoctorid;
     }
 }

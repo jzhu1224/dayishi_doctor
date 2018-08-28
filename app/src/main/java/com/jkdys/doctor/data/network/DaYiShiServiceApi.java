@@ -184,4 +184,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/ModifyDoctorGetSMS")
     Call<BaseResponse<Object>> switchNotification(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/ModifyDoctorInviteCode")
+    Call<BaseResponse<Object>> updateInventionCode(@Body HashMap<String, Object> params);
 }
