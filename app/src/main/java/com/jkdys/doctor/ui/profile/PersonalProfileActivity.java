@@ -8,9 +8,12 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.chairoad.framework.util.ToastUtil;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.model.Doctor;
+import com.jkdys.doctor.data.model.UserInfo;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.profile.changeMobile.ChangeMobileActivity;
@@ -185,6 +188,12 @@ public class PersonalProfileActivity extends MvpActivity<PersonalProfileView, Pe
                 .placeholder(R.drawable.img_doctor)
                 .load(url)
                 .into(imgAvatar);
+        EaseUser user = ChatHelper.getInstance().getUserInfo(ChatHelper.getInstance().getCurrentUsernName());
+        UserInfo userInfo = new UserInfo();
+        userInfo.setHeadImgUrl(url);
+        userInfo.setHxUserName(ChatHelper.getInstance().getCurrentUsernName());
+        userInfo.setNickName(user.getNickname());
+        ChatHelper.getInstance().setCurrentUser(userInfo);
     }
 
     /**

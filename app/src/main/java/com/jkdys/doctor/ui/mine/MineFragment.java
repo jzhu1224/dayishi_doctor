@@ -23,8 +23,6 @@ import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.aboutus.AboutUsActivity;
 import com.jkdys.doctor.ui.base.BaseWebActivity;
-import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
-import com.jkdys.doctor.ui.consult.diagnosis.DiagnosisOnPhoneActivity;
 import com.jkdys.doctor.ui.fee.SettingFeesActivity;
 import com.jkdys.doctor.ui.invent.InventCodeActivity;
 import com.jkdys.doctor.ui.login.LoginActivity;
@@ -33,14 +31,9 @@ import com.jkdys.doctor.ui.myAccount.MyAccountActivity;
 import com.jkdys.doctor.ui.order.MyOrderActivity;
 import com.jkdys.doctor.ui.profile.PersonalProfileActivity;
 import com.jkdys.doctor.ui.setting.SettingActivity;
-import com.jkdys.doctor.ui.verify.doctorVerify.DoctorVerifyActivity;
-import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
-
-import java.util.Objects;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
