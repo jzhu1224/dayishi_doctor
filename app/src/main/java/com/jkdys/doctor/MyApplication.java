@@ -9,10 +9,14 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.model.UserInfo;
+import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.di.component.ApplicationComponent;
 import com.jkdys.doctor.di.component.DaggerApplicationComponent;
 import com.jkdys.doctor.di.module.ApplicationModule;
 import com.jkdys.doctor.utils.AppLogger;
+
+import javax.inject.Inject;
 
 /**
  * Created by zhujiang on 2018/3/19.

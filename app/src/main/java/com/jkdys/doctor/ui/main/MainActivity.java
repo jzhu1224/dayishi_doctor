@@ -149,6 +149,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void afterMvpDelegateCreateInvoked() {
         super.afterMvpDelegateCreateInvoked();
+        presenter.setCurrentUserInfo();
     }
 
     private void checkUpdate() {

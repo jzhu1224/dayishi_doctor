@@ -5,6 +5,8 @@ import android.content.Context;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.jkdys.doctor.data.model.UserInfo;
+import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +140,7 @@ public class UserProfileManager {
 //	}
 
 	public void asyncGetCurrentUserInfo() {
+
 //		UserInfo userInfo = UserInfoUtil.instence().get();
 //		if (userInfo == null)
 //			return;

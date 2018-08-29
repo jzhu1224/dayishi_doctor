@@ -438,7 +438,7 @@ public class ChatHelper {
             user = getRobotList().get(username);
         }
 
-        // if user is not in your contacts, set inital letter for him/her
+        // if user is nosett in your contacts, set inital letter for him/her
         if (user == null) {
             user = new EaseUser(username);
             EaseCommonUtils.setUserInitialLetter(user);
