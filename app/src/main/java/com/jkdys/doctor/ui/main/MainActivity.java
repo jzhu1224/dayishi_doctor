@@ -18,7 +18,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.SyncDataService;
 import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.event.LoginEvent;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
@@ -38,6 +40,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.vector.update_app.UpdateAppManager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -73,7 +76,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainPresenter.syncData();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -83,6 +86,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             logoutDialog.dismiss();
             logoutDialog = null;
         }
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -327,6 +331,12 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     public void onEventMainThread(OnNewMessageArriveEvent event) {
         setNotification(ChatHelper.getInstance().getUnReadMessageCount()+"",2);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(LoginEvent loginEvent) {
+        startService(new Intent(mActivity, SyncDataService.class));
+    }
+
 
     private Dialog logoutDialog;
 

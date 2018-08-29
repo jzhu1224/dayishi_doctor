@@ -1,11 +1,18 @@
 package com.jkdys.doctor.ui.login;
 
+import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.event.LoginEvent;
 import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.model.LoginResponse;
+import com.jkdys.doctor.data.model.UserInfo;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -45,8 +52,15 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
             public void onBusinessSuccess(final BaseResponse<LoginResponse> response) {
                 if (response.getData() == null)
                     return;
+                UserInfo userInfo = new UserInfo();
+                Doctor doctor = response.getData().getDoctor();
+                userInfo.setNickName(doctor.getName());
+                userInfo.setHxUserName(doctor.getHxid());
+                userInfo.setHeadImgUrl(doctor.getPicheadurl());
+                ChatHelper.getInstance().setCurrentUser(userInfo);
                ifViewAttached(view -> view.loginSuccess(response.getData()));
                loginInfoUtil.saveLoginResponse(response.getData());
+                EventBus.getDefault().postSticky(new LoginEvent());
             }
         });
     }

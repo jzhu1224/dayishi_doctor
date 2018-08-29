@@ -10,7 +10,12 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.chat.ChatHelper;
+import com.jkdys.doctor.core.event.LoginEvent;
+import com.jkdys.doctor.core.event.LogoutEvent;
 import com.jkdys.doctor.data.model.LoginResponse;
+import com.jkdys.doctor.data.model.UserInfo;
+import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
 import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
 import com.jkdys.doctor.ui.verify.JumpHelper;
@@ -20,6 +25,8 @@ import com.jkdys.doctor.utils.StringUtils;
 import com.jkdys.doctor.widget.CodeInputView;
 import com.jkdys.doctor.widget.CountdownView;
 import com.jkdys.doctor.widget.CountdownView1;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -116,7 +123,6 @@ public class LoginSmsActivity extends MvpActivity<LoginView,LoginPresenter> impl
     @Override
     public void loginSuccess(LoginResponse response) {
         int redirect = response.getDoctorauthstatus().getRedirecttopage();
-
         jumpHelper.jump(mActivity, redirect);
     }
 }

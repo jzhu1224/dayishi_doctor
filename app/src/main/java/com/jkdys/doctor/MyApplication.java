@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.stetho.Stetho;
 import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.di.component.ApplicationComponent;
@@ -40,6 +41,7 @@ public class MyApplication extends MultiDexApplication {
         ChatHelper.getInstance().init(this);
         ImageLoader.init(this);
         Fresco.initialize(this);
+        Stetho.initializeWithDefaults(this);
     }
 
     public static MyApplication getInstance() {

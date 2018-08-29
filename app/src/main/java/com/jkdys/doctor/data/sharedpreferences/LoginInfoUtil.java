@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.data.model.BankCardInfo;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.model.LoginResponse;

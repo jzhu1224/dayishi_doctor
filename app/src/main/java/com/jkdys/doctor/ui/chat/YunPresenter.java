@@ -27,7 +27,10 @@ public class YunPresenter extends MvpBasePresenter<IYunView> {
     public void loadList() {
 //        UserInfo userInfo = UserInfoUtil.instence().get();
 //        if (TextUtils.isEmpty(userInfo.getHxUserName()) || TextUtils.isEmpty(userInfo.getHxPassword()))
-//            return;
+////            return;
+
+        if (null == loginInfoUtil.getLoginResponse())
+            return;
 
         String hxUserName = loginInfoUtil.getHxId();
         String hxPwd = loginInfoUtil.getHxPwd();
@@ -35,13 +38,14 @@ public class YunPresenter extends MvpBasePresenter<IYunView> {
         ChatHelper.getInstance().login(hxUserName, hxPwd, new LoginListener() {
             @Override
             public void onLoginSuccess() {
+                LogUtil.e("zj"," YunPresenter huan xin login success");
                 EventBus.getDefault().post(new ChatLoginEvent());
                 ifViewAttached(view -> view.onLoadSuccess(yunModel.loadConversationList()));
             }
 
             @Override
             public void onLoginFail(String msg) {
-                LogUtil.e("YunPresenter", "环信登录失败:" + msg);
+                LogUtil.e("zj", "YunPresenter 环信登录失败:" + msg);
             }
         });
     }

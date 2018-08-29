@@ -12,8 +12,11 @@ import android.widget.TextView;
 import com.chairoad.framework.util.SystemUtil;
 import com.chairoad.framework.util.ToastUtil;
 import com.framework.share.ShareInfoModel;
+import com.hyphenate.EMCallBack;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.image.ImageLoader;
+import com.jkdys.doctor.data.db.ChatDBManager;
 import com.jkdys.doctor.data.model.Doctor;
 import com.jkdys.doctor.data.network.Api;
 import com.jkdys.doctor.data.sharedpreferences.LoginInfoUtil;
@@ -187,6 +190,23 @@ public class MineFragment extends MvpFragment<MineView,MinePresenter> implements
                 .addAction("确定", (dialog, index) -> {
                     dialog.dismiss();
                     loginInfoUtil.clear();
+                    ChatDBManager.getInstance().closeDB();
+                    ChatHelper.getInstance().logout(true, new EMCallBack() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(int i, String s) {
+
+                        }
+
+                        @Override
+                        public void onProgress(int i, String s) {
+
+                        }
+                    });
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     if (getActivity() != null)
                         getActivity().finish();

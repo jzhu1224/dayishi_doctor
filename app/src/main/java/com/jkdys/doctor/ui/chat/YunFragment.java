@@ -17,6 +17,7 @@ import com.hyphenate.chat.EMConversation;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.chat.ChatConstant;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
+import com.jkdys.doctor.event.SyncDataCompleteEvent;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.chat.doctor.search.SearchDoctorActivity;
 import com.jkdys.doctor.ui.main.MainActivity;
@@ -208,6 +209,11 @@ public class YunFragment extends MvpFragment<IYunView,YunPresenter> implements I
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(OnNewMessageArriveEvent event) {
+        refresh();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(SyncDataCompleteEvent event) {
         refresh();
     }
 

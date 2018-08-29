@@ -68,7 +68,7 @@
             android:value="${EASEMOB_KEY}" />
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5a6016068f4a9d3a41000164" />
+            android:value="5b85fb7bf29d98297000008e" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="dayishi_doctor" />
@@ -144,6 +144,8 @@
         <activity android:name=".ui.aboutus.AboutUsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.setting.SettingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.invent.InventCodeActivity" android:screenOrientation="portrait"/>
+
+        <service android:name=".SyncDataService" />
     </application>
 
 </manifest>

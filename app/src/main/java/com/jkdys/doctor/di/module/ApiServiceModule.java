@@ -3,6 +3,7 @@ package com.jkdys.doctor.di.module;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jkdys.doctor.data.network.Api;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.di.ApplicationContext;
@@ -59,11 +60,19 @@ public class ApiServiceModule {
 
     @Singleton
     @Provides
+    StethoInterceptor providesStethoInterceptor() {
+        return new StethoInterceptor();
+    }
+
+    @Singleton
+    @Provides
     OkHttpClient providesOkHttpClient(CommonHeaderInterceptor commonHeaderInterceptor, HttpLoggingInterceptor httpLoggingInterceptor,
-                                      PersistentCookieJar persistentCookieJar) {
+                                      PersistentCookieJar persistentCookieJar,
+                                      StethoInterceptor stethoInterceptor) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(commonHeaderInterceptor);
         builder.addInterceptor(httpLoggingInterceptor);
+        builder.addInterceptor(stethoInterceptor);
         builder.cookieJar(persistentCookieJar);
         return builder.build();
 
