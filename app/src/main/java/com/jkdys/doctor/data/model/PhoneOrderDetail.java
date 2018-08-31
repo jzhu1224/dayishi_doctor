@@ -11,7 +11,7 @@ public class PhoneOrderDetail {
     private String titlename;
     private String paytype;
     private String paytypename;
-    private double amount;
+    private String amount;
     private String orderdate;
     private String status;
     private boolean isself;
@@ -76,11 +76,11 @@ public class PhoneOrderDetail {
         this.paytypename = paytypename;
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

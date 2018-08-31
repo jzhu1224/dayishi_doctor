@@ -126,11 +126,11 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         if (accountData == null)
             return;
         this.accountData = accountData;
-        tvTotalIncome.setText(accountData.getTelfee()+"");
-        tvAllWithdraw.setText(accountData.getUndrawnamount()+"");
-        phoneFee.setDetailText(accountData.getTelfee()+"");
-        doorFee.setDetailText(accountData.getOutpatientfee()+"");
-        tuiguangFee.setDetailText(accountData.getPromotefee()+"");
+        tvTotalIncome.setText(accountData.getTotalamount()==null?"0.0":accountData.getTotalamount());
+        tvAllWithdraw.setText(accountData.getUndrawnamount()==null?"0.0":accountData.getUndrawnamount());
+        phoneFee.setDetailText(accountData.getTelfee()==null?"0.0":accountData.getTelfee());
+        doorFee.setDetailText(accountData.getOutpatientfee()==null?"0.0":accountData.getOutpatientfee());
+        tuiguangFee.setDetailText(accountData.getPromotefee()==null?"0.0":accountData.getPromotefee());
         bindCard.setDetailText(accountData.isBindornot()?"已绑定":"未绑定");
     }
 
@@ -149,7 +149,7 @@ public class MyAccountActivity extends MvpActivity<MyAccountView,MyAccountPresen
         }
 
         Intent intent = new Intent(mActivity, WithdrawActivity.class);
-        intent.putExtra("money", String.valueOf(accountData.getUndrawnamount()));
+        intent.putExtra("money", accountData.getUndrawnamount());
         startActivity(intent);
     }
 }

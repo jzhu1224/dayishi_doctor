@@ -30,7 +30,7 @@ public class TradeDetailData implements Parcelable {
 
     private String status;
     private String statusname;
-    private Double money;
+    private String money;
     private String moneyshow;
     private String accountname;
     private String bankname;
@@ -59,11 +59,11 @@ public class TradeDetailData implements Parcelable {
         this.statusname = statusname;
     }
 
-    public Double getMoney() {
+    public String getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(String money) {
         this.money = money;
     }
 
@@ -185,7 +185,7 @@ public class TradeDetailData implements Parcelable {
     protected TradeDetailData(Parcel in) {
         this.status = in.readString();
         this.statusname = in.readString();
-        this.money = (Double) in.readValue(Double.class.getClassLoader());
+        this.money = in.readString();
         this.moneyshow = in.readString();
         this.accountname = in.readString();
         this.bankname = in.readString();

@@ -159,7 +159,7 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
                 .into(imgHeader);
 
         tvName.setText(phoneOrderDetail.getPatientname());
-        tvPrice.setText(String.valueOf(phoneOrderDetail.getAmount()));
+        tvPrice.setText(phoneOrderDetail.getAmount() == null?"0.0":phoneOrderDetail.getAmount());
         tvGender.setText(phoneOrderDetail.getGender().equals("1")?"男":"女");
         tvAge.setText(String.valueOf(phoneOrderDetail.getAge()));
 

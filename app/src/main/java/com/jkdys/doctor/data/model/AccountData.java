@@ -1,50 +1,50 @@
 package com.jkdys.doctor.data.model;
 
 public class AccountData {
-    private double telfee;
-    private double outpatientfee;
-    private double promotefee;
-    private double undrawnamount;
-    private double totalamount;
+    private String telfee;
+    private String outpatientfee;
+    private String promotefee;
+    private String undrawnamount;
+    private String totalamount;
     private boolean bindornot;
 
-    public double getTelfee() {
+    public String getTelfee() {
         return telfee;
     }
 
-    public void setTelfee(double telfee) {
+    public void setTelfee(String telfee) {
         this.telfee = telfee;
     }
 
-    public double getOutpatientfee() {
+    public String getOutpatientfee() {
         return outpatientfee;
     }
 
-    public void setOutpatientfee(double outpatientfee) {
+    public void setOutpatientfee(String outpatientfee) {
         this.outpatientfee = outpatientfee;
     }
 
-    public double getPromotefee() {
+    public String getPromotefee() {
         return promotefee;
     }
 
-    public void setPromotefee(double promotefee) {
+    public void setPromotefee(String promotefee) {
         this.promotefee = promotefee;
     }
 
-    public double getUndrawnamount() {
+    public String getUndrawnamount() {
         return undrawnamount;
     }
 
-    public void setUndrawnamount(double undrawnamount) {
+    public void setUndrawnamount(String undrawnamount) {
         this.undrawnamount = undrawnamount;
     }
 
-    public double getTotalamount() {
+    public String getTotalamount() {
         return totalamount;
     }
 
-    public void setTotalamount(double totalamount) {
+    public void setTotalamount(String totalamount) {
         this.totalamount = totalamount;
     }
 
