@@ -3,6 +3,8 @@ package com.jkdys.doctor;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import com.chairoad.framework.util.LogUtil;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.jkdys.doctor.core.chat.ChatHelper;
@@ -45,14 +47,19 @@ public class SyncDataService extends IntentService {
         if (null == loginInfoUtil.getLoginResponse())
             return;
 
-        String hxUserName = loginInfoUtil.getHxId();
-        String hxPwd = loginInfoUtil.getHxPwd();
 
         UserInfo userInfo = new UserInfo();
         userInfo.setHxUserName(loginInfoUtil.getHxId());
         userInfo.setNickName(loginInfoUtil.getDoctor().getName());
         userInfo.setHeadImgUrl(loginInfoUtil.getAvatar());
         ChatHelper.getInstance().setCurrentUser(userInfo);
+
+
+        String hxUserName = loginInfoUtil.getHxId();
+        String hxPwd = loginInfoUtil.getHxPwd();
+
+        if (TextUtils.isEmpty(hxUserName) || TextUtils.isEmpty(hxPwd))
+            return;
 
         ChatHelper.getInstance().login(hxUserName, hxPwd, new LoginListener() {
             @Override

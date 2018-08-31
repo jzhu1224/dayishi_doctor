@@ -77,10 +77,10 @@ public class AboutUsActivity extends BaseAppCompatActivity {
                                             .addAction("取消", (dialog, index) -> {
                                                 token.cancelPermissionRequest();
                                                 dialog.dismiss();
-                                                finish();
                                             })
                                             .addAction("申请", (dialog, index) -> {
                                                 token.continuePermissionRequest();
+                                                dialog.dismiss();
                                             }).setCanceledOnTouchOutside(false).show();
                                 }
                             }).check(); })

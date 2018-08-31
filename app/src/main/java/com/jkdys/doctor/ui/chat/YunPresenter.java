@@ -1,5 +1,7 @@
 package com.jkdys.doctor.ui.chat;
 
+import android.text.TextUtils;
+
 import com.chairoad.framework.util.LogUtil;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jkdys.doctor.core.chat.ChatHelper;
@@ -34,6 +36,9 @@ public class YunPresenter extends MvpBasePresenter<IYunView> {
 
         String hxUserName = loginInfoUtil.getHxId();
         String hxPwd = loginInfoUtil.getHxPwd();
+
+        if (TextUtils.isEmpty(hxUserName) || TextUtils.isEmpty(hxPwd))
+            return;
 
         ChatHelper.getInstance().login(hxUserName, hxPwd, new LoginListener() {
             @Override

@@ -45,10 +45,12 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -111,12 +113,23 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        ToastUtil.show(getActivity(),"录音权限被拒绝");
+                        ToastUtil.show(getActivity(),"录音权限被拒绝,请到设置页面允许录音权限，否则无法正常使用聊天功能");
+                        Objects.requireNonNull(getActivity()).finish();
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        ToastUtil.show(getActivity(),"访问相机或者读取媒体权限被拒绝,请到设置页允许相关权限，以保证程序正常运行");
+                        new QMUIDialog.MessageDialogBuilder(getActivity())
+                                .setMessage("语音聊天需要录音权限，否则APP无法正常使用")
+                                .addAction("取消", (dialog, index) -> {
+                                    token.cancelPermissionRequest();
+                                    dialog.dismiss();
+                                    Objects.requireNonNull(getActivity()).finish();
+                                })
+                                .addAction("申请", (dialog, index) -> {
+                                    token.continuePermissionRequest();
+                                    dialog.dismiss();
+                                }).setCanceledOnTouchOutside(false).show();
                     }
                 }).withErrorListener(error -> ToastUtil.show(getActivity(), error.name())).check();
     }
