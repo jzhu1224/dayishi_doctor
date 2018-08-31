@@ -1,5 +1,6 @@
 package com.jkdys.doctor.ui.aboutus;
 
+import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,12 +8,20 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chairoad.framework.util.SystemUtil;
+import com.chairoad.framework.util.ToastUtil;
 import com.jkdys.doctor.BuildConfig;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.network.Api;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
 import com.jkdys.doctor.ui.base.BaseWebActivity;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
@@ -47,7 +56,34 @@ public class AboutUsActivity extends BaseAppCompatActivity {
 
         QMUIGroupListView.newSection(mActivity)
                 .addItemView(item1, view -> {
-                    SystemUtil.call(mActivity, "400111400");})
+
+                    Dexter.withActivity(mActivity)
+                            .withPermission(Manifest.permission.CALL_PHONE)
+                            .withListener(new PermissionListener() {
+                                @Override
+                                public void onPermissionGranted(PermissionGrantedResponse response) {
+                                    SystemUtil.call(mActivity, "400111400");
+                                }
+
+                                @Override
+                                public void onPermissionDenied(PermissionDeniedResponse response) {
+                                    ToastUtil.show(mActivity,"拨打电话权限被拒绝");
+                                }
+
+                                @Override
+                                public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                    new QMUIDialog.MessageDialogBuilder(mActivity)
+                                            .setMessage("检测到没有拨打电话权限，请到权限管理页面授予相应权限，否则可能导致APP无法正常使用")
+                                            .addAction("取消", (dialog, index) -> {
+                                                token.cancelPermissionRequest();
+                                                dialog.dismiss();
+                                                finish();
+                                            })
+                                            .addAction("申请", (dialog, index) -> {
+                                                token.continuePermissionRequest();
+                                            }).setCanceledOnTouchOutside(false).show();
+                                }
+                            }).check(); })
                 .addItemView(item2, view -> {
                     BaseWebActivity.openInWeb(mActivity, "http://www.jkdys.com");})
                 .addItemView(item3, view -> {

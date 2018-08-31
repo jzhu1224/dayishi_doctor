@@ -200,6 +200,8 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
             dialog.dismiss();
             call(phoneNumberDetail.getCellphone());
         })).create();
+        qmuiDialog.setCanceledOnTouchOutside(false);
+        qmuiDialog.setCancelable(false );
 
         ((TextView) qmuiDialog.findViewById(R.id.tv_phone)).setText(phoneNumberDetail.getDoctorcellphone());
 
