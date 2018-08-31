@@ -168,9 +168,11 @@ public class DiagnosisOnPhoneActivity extends MvpActivity<DiagnosisOnPhoneView, 
             btnComplete.setVisibility(View.VISIBLE);
         } else if (phoneOrderDetail.getStatus().equals("1")) {
             tvState.setText("已完成");
-            btnComplete.setVisibility(View.VISIBLE);
+            btnComplete.setVisibility(View.GONE);
         } else if (phoneOrderDetail.getStatus().equals("2")) {
             tvState.setText("已取消");
+            btnComplete.setVisibility(View.GONE);
+        } else {
             btnComplete.setVisibility(View.GONE);
         }
 
