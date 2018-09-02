@@ -14,12 +14,13 @@ import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
+import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.utils.AndroidBug5497Workaround;
 
 /**
  * Created by zhujiang on 2017/10/26.
  */
-public class ChatActivity extends BaseAppCompatActivity {
+public class ChatActivity extends BaseAppCompatActivity implements ChatFragment.ChatFragmentClickListener{
 
     //保持和EaseConstant.EXTRA_USER_ID值一样
     public static final String PARAM_USERID = "userId";
@@ -86,4 +87,10 @@ public class ChatActivity extends BaseAppCompatActivity {
         builder.detectFileUriExposure();
     }
 
+    @Override
+    public void onAvatarClick(String username) {
+        Intent intent = new Intent(mActivity, DoctorDetailActivity.class);
+        intent.putExtra("hxId", username);
+        startActivity(intent);
+    }
 }

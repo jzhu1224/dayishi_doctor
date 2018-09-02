@@ -31,6 +31,18 @@ public class DoctorDetailPresenter extends MvpBasePresenter<DoctorDetailView> {
         });
     }
 
+    public void getDoctorDetailByHxId(String hxId) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("hxId", hxId);
+        ifViewAttached(view ->  view.showLoading(false));
+        api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<DoctorDetailData>>(getView()) {
+            @Override
+            public void onBusinessSuccess(BaseResponse<DoctorDetailData> response) {
+                ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+            }
+        });
+    }
+
     public void addFriend(String doctorId) {
         ifViewAttached(view -> view.showLoading(false));
         HashMap<String, Object> params = new HashMap<>();

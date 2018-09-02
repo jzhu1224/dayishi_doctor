@@ -11,6 +11,7 @@ import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.chat.LoginListener;
 import com.jkdys.doctor.data.db.ChatDBManager;
 import com.jkdys.doctor.data.model.BaseResponse;
+import com.jkdys.doctor.data.model.DoctorDetailData;
 import com.jkdys.doctor.data.model.MyFriendData;
 import com.jkdys.doctor.data.model.UserInfo;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
@@ -44,9 +45,10 @@ public class SyncDataService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (null == loginInfoUtil.getLoginResponse())
+        if (null == loginInfoUtil.getLoginResponse() || null == intent)
             return;
 
+        String hxId = intent.getStringExtra("hxId");
 
         UserInfo userInfo = new UserInfo();
         userInfo.setHxUserName(loginInfoUtil.getHxId());
@@ -64,6 +66,13 @@ public class SyncDataService extends IntentService {
         ChatHelper.getInstance().login(hxUserName, hxPwd, new LoginListener() {
             @Override
             public void onLoginSuccess() {
+
+
+                if (!TextUtils.isEmpty(hxId)) {
+                    syncData(hxId);
+                    return;
+                }
+
 
                 LogUtil.e("zj","huan xin login success");
 
@@ -94,6 +103,25 @@ public class SyncDataService extends IntentService {
             @Override
             public void onLoginFail(String msg) {
                 LogUtil.e("zj", "环信登录失败:" + msg);
+            }
+        });
+    }
+
+    private void syncData(String hxId) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("hxid", hxId);
+        api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<DoctorDetailData>>() {
+            @Override
+            public void onBusinessSuccess(BaseResponse<DoctorDetailData> response) {
+
+                EaseUser easeUser = new EaseUser(response.getData().getHxid());
+                easeUser.setNickname(response.getData().getDoctorname());
+                easeUser.setAvatar(response.getData().getDoctorpicheadurl());
+
+                ChatDBManager.getInstance().saveContact(easeUser);
+
+                EventBus.getDefault().postSticky(new SyncDataCompleteEvent());
+
             }
         });
     }

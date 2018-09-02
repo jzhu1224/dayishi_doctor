@@ -52,7 +52,7 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     DoctorGoodAtLayout doctorGoodAtLayout;
 
 
-    String doctorId;
+    String doctorId, hxId;
     private DoctorDetailData doctorDetailData;
 
     @NonNull
@@ -66,7 +66,26 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     protected void onStart() {
         super.onStart();
         doctorId = getIntent().getStringExtra("doctorId");
-        doctorDetailPresenter.getDoctorDetail(doctorId);
+        hxId = getIntent().getStringExtra("hxId");
+
+        if (TextUtils.isEmpty(doctorId)) {
+            doctorDetailPresenter.getDoctorDetail(doctorId);
+        } else {
+            doctorDetailPresenter.getDoctorDetail(hxId);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        doctorId = intent.getStringExtra("doctorId");
+        hxId = intent.getStringExtra("hxId");
+
+        if (TextUtils.isEmpty(doctorId)) {
+            doctorDetailPresenter.getDoctorDetail(doctorId);
+        } else {
+            doctorDetailPresenter.getDoctorDetail(hxId);
+        }
     }
 
     @Override
@@ -122,7 +141,8 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
             intent.putExtra(ChatActivity.PARAM_USERID,doctorDetailData.getHxid());
             startActivity(intent);
         } else {
-            presenter.addFriend(doctorId);
+            assert doctorDetailData != null;
+            presenter.addFriend(doctorDetailData.getDoctorid());
         }
     }
 }
