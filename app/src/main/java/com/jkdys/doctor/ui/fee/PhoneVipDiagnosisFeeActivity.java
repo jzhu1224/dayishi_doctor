@@ -112,6 +112,7 @@ public class PhoneVipDiagnosisFeeActivity extends MvpActivity<Face2FaceDiagnosie
 
     @Override
     public void onEditSuccess() {
+        originPrice = getData();
         editMode(false);
         rightBtn.setText("编辑");
         tvAddPrice.setVisibility(View.GONE);
