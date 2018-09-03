@@ -11,8 +11,8 @@
     <string name="person_center">个人中心</string>
     <string name="customer">患者</string>
     <string name="message">消息</string>
-    <string name="tabSegment_item_1_title">电话</string>
-    <string name="tabSegment_item_2_title">门诊</string>
+    <string name="tabSegment_item_1_title">电话诊断</string>
+    <string name="tabSegment_item_2_title">门诊预约</string>
     <string name="tabSegment_item_3_title">特需患者</string>
     <string name="tabSegment_item_4_title">普通患者</string>
     <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
