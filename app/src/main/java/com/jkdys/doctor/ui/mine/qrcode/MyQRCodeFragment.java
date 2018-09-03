@@ -32,7 +32,7 @@ public class MyQRCodeFragment extends DialogFragment {
 
 
     private final static int QRD_WIDHT_AND_HEIGHT_DP = 200;
-    private final static int QRD_LOGO_WIDTH_AND_HEIGHT_DP = 20;
+    private final static int QRD_LOGO_WIDTH_AND_HEIGHT_DP = 18;
 
     @Nullable
     @Override
