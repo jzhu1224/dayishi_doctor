@@ -92,8 +92,8 @@ public class SyncDataService extends IntentService {
                             easeUser.setAvatar(data.getPicheadurl());
                             easeUsers.add(easeUser);
                         }
-                        ChatDBManager.getInstance().saveContactList(easeUsers);
 
+                        ChatHelper.getInstance().updateContactList(easeUsers);
                         EventBus.getDefault().postSticky(new SyncDataCompleteEvent());
 
                     }
@@ -117,6 +117,10 @@ public class SyncDataService extends IntentService {
                 EaseUser easeUser = new EaseUser(response.getData().getHxid());
                 easeUser.setNickname(response.getData().getDoctorname());
                 easeUser.setAvatar(response.getData().getDoctorpicheadurl());
+
+                List<EaseUser> list = new ArrayList<>();
+                list.add(easeUser);
+                ChatHelper.getInstance().updateContactList(list);
 
                 ChatDBManager.getInstance().saveContact(easeUser);
 
