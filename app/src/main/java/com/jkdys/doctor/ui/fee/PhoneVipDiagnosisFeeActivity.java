@@ -54,7 +54,7 @@ public class PhoneVipDiagnosisFeeActivity extends MvpActivity<Face2FaceDiagnosie
 
     private String type = "2";
 
-    private String originPrice;
+    private String originPrice = "";
 
     @NonNull
     @Override
