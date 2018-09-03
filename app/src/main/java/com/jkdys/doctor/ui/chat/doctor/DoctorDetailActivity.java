@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chairoad.framework.util.ToastUtil;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.core.image.ImageLoader;
@@ -68,10 +69,12 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
         doctorId = getIntent().getStringExtra("doctorId");
         hxId = getIntent().getStringExtra("hxId");
 
-        if (TextUtils.isEmpty(doctorId)) {
+        if (!TextUtils.isEmpty(doctorId)) {
             doctorDetailPresenter.getDoctorDetail(doctorId);
+        } else if (!TextUtils.isEmpty(hxId)) {
+            doctorDetailPresenter.getDoctorDetailByHxId(hxId);
         } else {
-            doctorDetailPresenter.getDoctorDetail(hxId);
+            ToastUtil.show(mActivity, "参数错误");
         }
     }
 
@@ -81,10 +84,12 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
         doctorId = intent.getStringExtra("doctorId");
         hxId = intent.getStringExtra("hxId");
 
-        if (TextUtils.isEmpty(doctorId)) {
+        if (!TextUtils.isEmpty(doctorId)) {
             doctorDetailPresenter.getDoctorDetail(doctorId);
+        } else if (!TextUtils.isEmpty(hxId)){
+            doctorDetailPresenter.getDoctorDetailByHxId(hxId);
         } else {
-            doctorDetailPresenter.getDoctorDetail(hxId);
+            ToastUtil.show(mActivity, "参数错误");
         }
     }
 

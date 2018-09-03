@@ -13,9 +13,12 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.SyncDataService;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
 import com.jkdys.doctor.ui.chat.doctor.DoctorDetailActivity;
 import com.jkdys.doctor.utils.AndroidBug5497Workaround;
+
+import java.util.Objects;
 
 /**
  * Created by zhujiang on 2017/10/26.
@@ -52,7 +55,12 @@ public class ChatActivity extends BaseAppCompatActivity implements ChatFragment.
 
         chatFragment = new ChatFragment();
         chatFragment.setArguments(getIntent().getExtras());
+        ((ChatFragment)chatFragment).setChatFragmentClickListener(this);
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
+
+        Intent intent = new Intent(ChatActivity.this, SyncDataService.class);
+        intent.putExtra("hxId",toChatUsername);
+        startService(intent);
     }
 
     @Override
@@ -90,7 +98,7 @@ public class ChatActivity extends BaseAppCompatActivity implements ChatFragment.
     @Override
     public void onAvatarClick(String username) {
         Intent intent = new Intent(mActivity, DoctorDetailActivity.class);
-        intent.putExtra("hxId", username);
+        intent.putExtra("hxId", toChatUsername);
         startActivity(intent);
     }
 }

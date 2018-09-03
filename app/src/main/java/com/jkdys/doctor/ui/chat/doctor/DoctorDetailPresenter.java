@@ -33,7 +33,7 @@ public class DoctorDetailPresenter extends MvpBasePresenter<DoctorDetailView> {
 
     public void getDoctorDetailByHxId(String hxId) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("hxId", hxId);
+        params.put("hxid", hxId);
         ifViewAttached(view ->  view.showLoading(false));
         api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<DoctorDetailData>>(getView()) {
             @Override
