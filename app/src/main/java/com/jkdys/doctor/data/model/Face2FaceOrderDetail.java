@@ -14,7 +14,7 @@ public class Face2FaceOrderDetail {
     private Object titlename;
     private Object paytype;
     private String paytypename;
-    private Integer amount;
+    private String amount;
     private String orderdate;
     private String status;
     private Boolean isself;
@@ -88,11 +88,11 @@ public class Face2FaceOrderDetail {
         this.paytypename = paytypename;
     }
 
-    public Integer getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
