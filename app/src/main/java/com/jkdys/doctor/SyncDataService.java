@@ -110,22 +110,23 @@ public class SyncDataService extends IntentService {
     private void syncData(String hxId) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("hxid", hxId);
-        api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<DoctorDetailData>>() {
+        api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<List<DoctorDetailData>>>() {
             @Override
-            public void onBusinessSuccess(BaseResponse<DoctorDetailData> response) {
+            public void onBusinessSuccess(BaseResponse<List<DoctorDetailData>> response) {
 
-                EaseUser easeUser = new EaseUser(response.getData().getHxid());
-                easeUser.setNickname(response.getData().getDoctorname());
-                easeUser.setAvatar(response.getData().getDoctorpicheadurl());
 
-                List<EaseUser> list = new ArrayList<>();
-                list.add(easeUser);
-                ChatHelper.getInstance().updateContactList(list);
+                List<EaseUser> easeUsers = new ArrayList<>();
 
-                ChatDBManager.getInstance().saveContact(easeUser);
+                List<DoctorDetailData> myFriendData = response.getData();
+                for (DoctorDetailData data:myFriendData) {
+                    EaseUser easeUser = new EaseUser(data.getHxid());
+                    easeUser.setNickname(data.getDoctorname());
+                    easeUser.setAvatar(data.getDoctorpicheadurl());
+                    easeUsers.add(easeUser);
+                }
 
+                ChatHelper.getInstance().updateContactList(easeUsers);
                 EventBus.getDefault().postSticky(new SyncDataCompleteEvent());
-
             }
         });
     }

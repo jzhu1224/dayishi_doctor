@@ -7,29 +7,22 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
 import com.jkdys.doctor.R;
-import com.jkdys.doctor.SyncDataService;
 import com.jkdys.doctor.core.chat.ChatConstant;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.event.SyncDataCompleteEvent;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.chat.doctor.search.SearchDoctorActivity;
-import com.jkdys.doctor.ui.main.MainActivity;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
-import java.util.Objects;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 

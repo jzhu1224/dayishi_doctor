@@ -37,6 +37,7 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.jkdys.doctor.BuildConfig;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.SyncDataService;
 import com.jkdys.doctor.core.event.OnNewMessageArriveEvent;
 import com.jkdys.doctor.data.db.RobotUser;
 import com.jkdys.doctor.data.model.UserInfo;
@@ -459,13 +460,29 @@ public class ChatHelper {
             public void onMessageReceived(List<EMMessage> messages) {
                 EventBus.getDefault().post(new OnNewMessageArriveEvent());
                 //addContactWhenMsgReceived(messages);
+                StringBuilder stringBuilder = new StringBuilder();
+
+                int i = 0;
+
                 for (EMMessage message : messages) {
+
+                    if (i == 0) {
+                        stringBuilder.append(message.conversationId());
+                    } else {
+                        stringBuilder.append(",").append(message.conversationId());
+                    }
+
                     EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
                     // in background, do not refresh UI, notify it in notification bar
                     if (!easeUI.hasForegroundActivies()) {
                         getNotifier().onNewMsg(message);
                     }
+                    i++;
                 }
+
+                Intent intent = new Intent(appContext, SyncDataService.class);
+                intent.putExtra("hxId", stringBuilder.toString());
+                appContext.startService(intent);
             }
 
             @Override

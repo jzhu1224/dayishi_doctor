@@ -7,6 +7,7 @@ import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,10 +36,10 @@ public class DoctorDetailPresenter extends MvpBasePresenter<DoctorDetailView> {
         HashMap<String, Object> params = new HashMap<>();
         params.put("hxid", hxId);
         ifViewAttached(view ->  view.showLoading(false));
-        api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<DoctorDetailData>>(getView()) {
+        api.getDoctorDetailInfoByHxid(params).enqueue(new BaseCallback<BaseResponse<List<DoctorDetailData>>>(getView()) {
             @Override
-            public void onBusinessSuccess(BaseResponse<DoctorDetailData> response) {
-                ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+            public void onBusinessSuccess(BaseResponse<List<DoctorDetailData>> response) {
+                ifViewAttached(view -> view.onRequestSuccess(response.getData().get(0)));
             }
         });
     }

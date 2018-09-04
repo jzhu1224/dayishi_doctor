@@ -190,5 +190,5 @@ public interface DaYiShiServiceApi {
     Call<BaseResponse<Object>> updateInventionCode(@Body HashMap<String, Object> params);
 
     @POST("/api/Doctor/Doctor/GetDoctorDetailInfoByHXid")
-    Call<BaseResponse<DoctorDetailData>> getDoctorDetailInfoByHxid(@Body HashMap<String, Object> params);
+    Call<BaseResponse<List<DoctorDetailData>>> getDoctorDetailInfoByHxid(@Body HashMap<String, Object> params);
 }
