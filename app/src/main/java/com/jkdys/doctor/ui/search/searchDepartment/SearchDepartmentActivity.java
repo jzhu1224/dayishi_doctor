@@ -1,21 +1,29 @@
 package com.jkdys.doctor.ui.search.searchDepartment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Filter;
 
+import com.jkdys.doctor.R;
+import com.jkdys.doctor.data.model.DepartmentData;
+import com.jkdys.doctor.data.model.GroupDepartmentData;
+import com.jkdys.doctor.ui.MvpActivity;
 import com.jkdys.doctor.ui.search.BaseSearchActivity;
 import com.jkdys.doctor.ui.search.SearchData;
-import com.jkdys.doctor.ui.search.SearchView;
+import com.jkdys.doctor.ui.search.searchDepartment.adapter.DepartmentAdapter;
+import com.jkdys.doctor.ui.search.searchDepartment.adapter.GroupDepartmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import butterknife.BindView;
+import me.zhouzhuo.zzsecondarylinkage.ZzSecondaryLinkage;
+import me.zhouzhuo.zzsecondarylinkage.model.ILinkage;
 
-public class SearchDepartmentActivity extends BaseSearchActivity<SearchView,SearchDepartmentPresenter> {
+public class SearchDepartmentActivity extends MvpActivity<SelectDepartmentView,SearchDepartmentPresenter> implements SelectDepartmentView {
 
     public static final String KEY_HOSPITAL_ID = "key_hospital_id";
     public static final String KEY_HOSPITAL_NAME = "key_hospital_name";
@@ -23,10 +31,16 @@ public class SearchDepartmentActivity extends BaseSearchActivity<SearchView,Sear
     @Inject
     SearchDepartmentPresenter searchDepartmentPresenter;
 
-    String hospitalId,hospitalName;
-    Filter filter;
+    @BindView(R.id.zz_linkage)
+    ZzSecondaryLinkage zzSecondaryLinkage;
 
-    List<SearchData> searchDataList;
+    GroupDepartmentAdapter groupDepartmentAdapter;
+    DepartmentAdapter departmentAdapter;
+
+    String hospitalId,hospitalName;
+
+    List<GroupDepartmentData> groupDepartmentData = new ArrayList<>();
+    List<DepartmentData> departmentData = new ArrayList<>();
 
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
@@ -34,37 +48,35 @@ public class SearchDepartmentActivity extends BaseSearchActivity<SearchView,Sear
 
         hospitalId = getIntent().getStringExtra(KEY_HOSPITAL_ID);
         hospitalName = getIntent().getStringExtra(KEY_HOSPITAL_NAME);
-        edtContent.setHint("搜索科室");
 
         toolbar.setTitle(hospitalName+"->科室");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
 
-        filter = new Filter() {
+        groupDepartmentAdapter = new GroupDepartmentAdapter(mActivity,groupDepartmentData);
+        departmentAdapter = new DepartmentAdapter(mActivity, departmentData);
+
+        zzSecondaryLinkage.setLeftMenuAdapter(groupDepartmentAdapter);
+        zzSecondaryLinkage.setRightContentAdapter(departmentAdapter);
+
+        zzSecondaryLinkage.setOnItemClickListener(new ILinkage.OnItemClickListener() {
             @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults results = new FilterResults();
-                if (constraint == null || constraint.length() == 0) {
-                    //no constraint given, just return all the data. (no search)
-                    results.count = searchDataList.size();
-                    results.values = searchDataList;
-                } else {//do the search
-                    List<SearchData> resultsData = new ArrayList<>();
-                    String searchStr = constraint.toString();
-                    for (SearchData o : searchDataList)
-                        if (o.getText().contains(searchStr)) resultsData.add(o);
-                    results.count = resultsData.size();
-                    results.values = resultsData;
-                }
-                return results;
+            public void onLeftClick(View itemView, int position) {
+                departmentAdapter.setList(((GroupDepartmentData)groupDepartmentAdapter.getItem(position)).getDetaillist());
             }
 
             @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mData.clear();
-                mData.addAll((ArrayList<SearchData>) filterResults.values);
-                searchAdapter.notifyDataSetChanged();
+            public void onRightClick(View itemView, int position) {
+                Intent intent = getIntent();
+                DepartmentData departmentData1 = departmentData.get(position);
+                SearchData searchData = new SearchData();
+                searchData.setText(departmentData1.getFacultyname());
+                searchData.setId(departmentData1.getFid());
+                intent.putExtra(BaseSearchActivity.KEY_RETURN_DATA, searchData);
+                setResult(RESULT_OK,intent);
+                finish();
             }
-        };
+        });
+
     }
 
     @NonNull
@@ -76,41 +88,16 @@ public class SearchDepartmentActivity extends BaseSearchActivity<SearchView,Sear
 
     @Override
     protected void afterMvpDelegateCreateInvoked() {
-        searchDepartmentPresenter.search(hospitalId);
+        searchDepartmentPresenter.getData(hospitalId);
     }
 
     @Override
-    protected void onSearch(String text) {
-        searchAdapter.getFilter().filter(text);
+    protected int getLayout() {
+        return R.layout.activity_select_area;
     }
 
     @Override
-    protected void onTextChangedEmpty() {
-        rlClear.setVisibility(View.GONE);
-        mData.clear();
-        mData.addAll(searchDataList);
-        searchAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onSearchResult(List<SearchData> searchData) {
-        searchDataList = searchData;
-        mData.clear();
-        mData.addAll(searchData);
-        searchAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onClearClicked() {
-        rlClear.setVisibility(View.GONE);
-        edtContent.setText("");
-        mData.clear();
-        mData.addAll(searchDataList);
-        searchAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected Filter getFilter() {
-        return filter;
+    public void onDataReturn(List<GroupDepartmentData> groupDepartmentDataList) {
+        groupDepartmentAdapter.setList(groupDepartmentDataList);
     }
 }

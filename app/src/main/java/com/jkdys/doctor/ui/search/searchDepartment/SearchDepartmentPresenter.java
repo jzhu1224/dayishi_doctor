@@ -1,20 +1,15 @@
 package com.jkdys.doctor.ui.search.searchDepartment;
 
+import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.jkdys.doctor.data.model.BaseResponse;
-import com.jkdys.doctor.data.model.DepartmentData;
+import com.jkdys.doctor.data.model.GroupDepartmentData;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
-import com.jkdys.doctor.ui.search.BaseSearchPresenter;
-import com.jkdys.doctor.ui.search.SearchData;
-import com.jkdys.doctor.ui.search.SearchView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.inject.Inject;
 
-public class SearchDepartmentPresenter extends BaseSearchPresenter<SearchView> {
+public class SearchDepartmentPresenter extends MvpBasePresenter<SelectDepartmentView> {
 
     @Inject
     DaYiShiServiceApi api;
@@ -24,22 +19,14 @@ public class SearchDepartmentPresenter extends BaseSearchPresenter<SearchView> {
         this.api = api;
     }
 
-    @Override
-    public void search(String... params) {
+    public void getData(String hospitalId) {
         HashMap<String,Object> map = new HashMap<>();
         ifViewAttached(view -> view.showLoading(false));
-        map.put("hospital_id", params[0]);
-        api.getFacultyInfoListByHospitalId(map).enqueue(new BaseCallback<BaseResponse<List<DepartmentData>>>(getView()) {
+        map.put("hospital_id", hospitalId);
+        api.getFacultyInfoListByHospitalId(map).enqueue(new BaseCallback<BaseResponse<List<GroupDepartmentData>>>(getView()) {
             @Override
-            public void onBusinessSuccess(BaseResponse<List<DepartmentData>> response) {
-                List<SearchData> searchDatas = new ArrayList<>();
-                for (DepartmentData departmentData:response.getData()) {
-                    SearchData searchData = new SearchData();
-                    searchData.setId(departmentData.getFid());
-                    searchData.setText(departmentData.getFacultyname());
-                    searchDatas.add(searchData);
-                }
-                onSearchDataReturn(searchDatas);
+            public void onBusinessSuccess(BaseResponse<List<GroupDepartmentData>> response) {
+               ifViewAttached(view -> view.onDataReturn(response.getData()));
             }
         });
     }
