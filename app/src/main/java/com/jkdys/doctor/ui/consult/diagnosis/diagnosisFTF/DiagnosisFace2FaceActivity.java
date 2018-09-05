@@ -22,6 +22,9 @@ import com.jkdys.doctor.ui.consult.diagnosis.DelayRecordActivity;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogBuilder;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -235,6 +238,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             btnDelay.setVisibility(View.GONE);
             btnAccept.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
+            btnComplete.setVisibility(View.GONE);
             edtAddress.setEnabled(false);
             vTime.setEnabled(false);
         } else if (face2FaceOrderDetail.getRegstatus().equals("4")) {
@@ -242,6 +246,7 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
             btnDelay.setVisibility(View.GONE);
             btnAccept.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
+            btnComplete.setVisibility(View.GONE);
             edtAddress.setEnabled(false);
             vTime.setEnabled(false);
         }
@@ -309,10 +314,19 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
     @OnClick(R.id.btn_cancel)
     void onBtnCancelClick() {
         //取消订单
-        ProcessFace2FaceOrder processFace2FaceOrder = new ProcessFace2FaceOrder();
-        processFace2FaceOrder.setOrderid(orderId);
-        processFace2FaceOrder.setHandletype("4");
-        presenter.processOrder(processFace2FaceOrder);
+        new QMUIDialog.MessageDialogBuilder(mActivity)
+                .setMessage("取消订单后将会释放该订单，确定取消吗？")
+                .addAction("否", (dialog, index) -> {
+                    dialog.dismiss();
+                })
+                .addAction("确定", (dialog, index) -> {
+                    dialog.dismiss();
+                    ProcessFace2FaceOrder processFace2FaceOrder = new ProcessFace2FaceOrder();
+                    processFace2FaceOrder.setOrderid(orderId);
+                    processFace2FaceOrder.setHandletype("4");
+                    presenter.processOrder(processFace2FaceOrder);
+                })
+                .create().show();
     }
 
     @OnClick(R.id.btn_confirm_delay)
