@@ -21,7 +21,7 @@
         android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="未注册大医师账号的手机号，登录时将自动注册"
+        android:text="未注册滋鸿健康账号的手机号，登录时将自动注册"
         android:textColor="#FFA6AFBE"
         android:textSize="16sp"/>
     <FrameLayout
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="注册/登录即代表您已经同意《大医师平台服务协议》"
+        android:text="注册/登录即代表您已经同意《滋鸿健康平台服务协议》"
         android:textColor="#FFADB5C1"
         android:textSize="12sp"
         />

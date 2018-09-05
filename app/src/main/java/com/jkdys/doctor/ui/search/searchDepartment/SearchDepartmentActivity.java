@@ -42,6 +42,8 @@ public class SearchDepartmentActivity extends MvpActivity<SelectDepartmentView,S
     List<GroupDepartmentData> groupDepartmentData = new ArrayList<>();
     List<DepartmentData> departmentData = new ArrayList<>();
 
+    private int selectedPosition;
+
     @Override
     protected void afterBindView(@Nullable Bundle savedInstanceState) {
         super.afterBindView(savedInstanceState);
@@ -61,13 +63,16 @@ public class SearchDepartmentActivity extends MvpActivity<SelectDepartmentView,S
         zzSecondaryLinkage.setOnItemClickListener(new ILinkage.OnItemClickListener() {
             @Override
             public void onLeftClick(View itemView, int position) {
+                selectedPosition =  position;
                 departmentAdapter.setList(((GroupDepartmentData)groupDepartmentAdapter.getItem(position)).getDetaillist());
             }
 
             @Override
             public void onRightClick(View itemView, int position) {
                 Intent intent = getIntent();
-                DepartmentData departmentData1 = departmentData.get(position);
+                DepartmentData departmentData1 = ((GroupDepartmentData)groupDepartmentAdapter.getItem(selectedPosition))
+                        .getDetaillist().get(position);
+
                 SearchData searchData = new SearchData();
                 searchData.setText(departmentData1.getFacultyname());
                 searchData.setId(departmentData1.getFid());
