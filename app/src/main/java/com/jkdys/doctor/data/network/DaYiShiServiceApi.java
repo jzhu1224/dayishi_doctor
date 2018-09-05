@@ -191,4 +191,7 @@ public interface DaYiShiServiceApi {
 
     @POST("/api/Doctor/Doctor/GetDoctorDetailInfoByHXid")
     Call<BaseResponse<List<DoctorDetailData>>> getDoctorDetailInfoByHxid(@Body HashMap<String, Object> params);
+
+    @POST("/api/Doctor/Doctor/ModifyDoctorHeadPicUrl")
+    Call<BaseResponse<Object>> modifyDoctorHeadPicUrl(@Body HashMap<String, Object> params);
 }

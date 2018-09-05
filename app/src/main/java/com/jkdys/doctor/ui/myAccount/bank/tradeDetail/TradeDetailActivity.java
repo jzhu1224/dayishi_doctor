@@ -89,7 +89,7 @@ public class TradeDetailActivity extends MvpActivity<TradeDetailView, TradeDetai
     public void onRequestSuccess(TradeDetailData data) {
         tvTradeTime.setText(data.getTradetime());
         tvMoney.setText(data.getMoneyshow());
-        if (type.equals("2")) {
+        if (type.equals("5")) {
             tvStatus.setText(data.getStatusname());
             tvAccountName.setText(data.getAccountname());
             tvBankAccount.setText(data.getBankaccount());

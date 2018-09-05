@@ -74,9 +74,16 @@ public class PersonalProfilePresenter extends MvpBasePresenter<PersonalProfileVi
             @Override
             public void onUploadSuccess(String url) {
                 ifViewAttached(view -> {
-                    loginInfoUtil.saveAvatar(url);
-                    view.onModifyAvatarSuccess(url);
-                    view.showContent();
+                    HashMap<String,Object> params = new HashMap<>();
+                    params.put("headpicurl", url);
+                    api.modifyDoctorHeadPicUrl(params).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
+                        @Override
+                        public void onBusinessSuccess(BaseResponse<Object> response) {
+                            loginInfoUtil.saveAvatar(url);
+                            view.onModifyAvatarSuccess(url);
+                            view.showContent();
+                        }
+                    });
                 });
             }
         });
