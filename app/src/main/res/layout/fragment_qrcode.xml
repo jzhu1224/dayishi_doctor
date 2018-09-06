@@ -50,7 +50,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="让患者扫描二维码可以添加医生，让患者扫描二维码可以添加医生"
+        android:text="扫码关注 扫码下载"
         android:textColor="@color/color_495363"
         android:textSize="14sp"
         android:layout_marginBottom="40dp"
