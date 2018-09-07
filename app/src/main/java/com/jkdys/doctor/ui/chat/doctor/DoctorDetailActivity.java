@@ -130,6 +130,7 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     @Override
     public void onAddFriendSuccess() {
         btnAdd.setText("发送消息");
+        doctorDetailData.setIsfriend(true);
         EaseUser easeUser = new EaseUser(doctorDetailData.getHxid());
         easeUser.setAvatar(doctorDetailData.getDoctorpicheadurl());
         easeUser.setNickname(doctorDetailData.getDoctorname());
