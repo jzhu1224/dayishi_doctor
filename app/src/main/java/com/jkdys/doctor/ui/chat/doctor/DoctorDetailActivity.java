@@ -64,8 +64,8 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void afterMvpDelegateCreateInvoked() {
+        super.afterMvpDelegateCreateInvoked();
         doctorId = getIntent().getStringExtra("doctorId");
         hxId = getIntent().getStringExtra("hxId");
 
@@ -81,12 +81,17 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        doctorId = intent.getStringExtra("doctorId");
-        hxId = intent.getStringExtra("hxId");
+        String doctorId = intent.getStringExtra("doctorId");
+        String hxId = intent.getStringExtra("hxId");
+
+        if ((!TextUtils.isEmpty(doctorId) && doctorId.equals(DoctorDetailActivity.this.doctorId)) || (!TextUtils.isEmpty(hxId) && hxId.equals(DoctorDetailActivity.this.hxId)))
+            return;
 
         if (!TextUtils.isEmpty(doctorId)) {
+            DoctorDetailActivity.this.doctorId = doctorId;
             doctorDetailPresenter.getDoctorDetail(doctorId);
         } else if (!TextUtils.isEmpty(hxId)){
+            DoctorDetailActivity.this.hxId = hxId;
             doctorDetailPresenter.getDoctorDetailByHxId(hxId);
         } else {
             ToastUtil.show(mActivity, "参数错误");
