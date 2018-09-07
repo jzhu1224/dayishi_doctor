@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.chairoad.framework.util.ToastUtil;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.jkdys.doctor.R;
+import com.jkdys.doctor.core.chat.ChatHelper;
 import com.jkdys.doctor.core.image.ImageLoader;
 import com.jkdys.doctor.data.db.ChatDBManager;
 import com.jkdys.doctor.data.model.DoctorDetailData;
@@ -24,6 +25,9 @@ import com.jkdys.doctor.widget.DoctorGoodAtLayout;
 import com.jkdys.doctor.widget.DoctorGoodAtTag;
 import com.nex3z.flowlayout.FlowLayout;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -139,7 +143,7 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
         EaseUser easeUser = new EaseUser(doctorDetailData.getHxid());
         easeUser.setAvatar(doctorDetailData.getDoctorpicheadurl());
         easeUser.setNickname(doctorDetailData.getDoctorname());
-        new Thread(() -> ChatDBManager.getInstance().saveContact(easeUser)).start();
+        new Thread(() -> ChatHelper.getInstance().saveContact(easeUser)).start();
     }
 
     @OnClick(R.id.btn_add)

@@ -69,11 +69,20 @@ public class MyQRCodeFragment extends DialogFragment {
         protected Void doInBackground(Void... voids) {
             try {
                 mLogoBitmap = Picasso.get().load(mAvatar).get();
-                mQRDBitmap = EncodingHandler.createQRCodeWithLogo(mUrl, mLogoBitmap,
-                        DeviceUtil.getPixelFromDip(getActivity(), QRD_WIDHT_AND_HEIGHT_DP),
-                        DeviceUtil.getPixelFromDip(getActivity(), QRD_LOGO_WIDTH_AND_HEIGHT_DP));
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }
+
+            try {
+                if (mLogoBitmap == null) {
+                    mQRDBitmap = EncodingHandler.createQRCode(mUrl, QRD_WIDHT_AND_HEIGHT_DP);
+                } else {
+                    mQRDBitmap = EncodingHandler.createQRCodeWithLogo(mUrl, mLogoBitmap,
+                            DeviceUtil.getPixelFromDip(getActivity(), QRD_WIDHT_AND_HEIGHT_DP),
+                            DeviceUtil.getPixelFromDip(getActivity(), QRD_LOGO_WIDTH_AND_HEIGHT_DP));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return null;
         }
