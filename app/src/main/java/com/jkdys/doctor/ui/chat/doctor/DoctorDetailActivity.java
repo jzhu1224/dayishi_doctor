@@ -117,9 +117,7 @@ public class DoctorDetailActivity extends MvpActivity<DoctorDetailView, DoctorDe
 
     @Override
     public void onRequestSuccess(DoctorDetailData doctorDetailData) {
-
         this.doctorDetailData = doctorDetailData;
-
         tvName.setText(doctorDetailData.getDoctorname());
         tvDoctorInfo.setText(doctorDetailData.getFacultyname()+" "+doctorDetailData.getTitlename());
         tvDesc.setText(doctorDetailData.getPersonalprofile());

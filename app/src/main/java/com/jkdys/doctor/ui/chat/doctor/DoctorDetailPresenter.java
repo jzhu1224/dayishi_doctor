@@ -27,7 +27,9 @@ public class DoctorDetailPresenter extends MvpBasePresenter<DoctorDetailView> {
         api.getDoctorDetail(params).enqueue(new BaseCallback<BaseResponse<DoctorDetailData>>(getView()) {
             @Override
             public void onBusinessSuccess(BaseResponse<DoctorDetailData> response) {
-                ifViewAttached(view -> view.onRequestSuccess(response.getData()));
+                DoctorDetailData doctorDetailData = response.getData();
+                doctorDetailData.setDoctorid(doctorId);
+                ifViewAttached(view -> view.onRequestSuccess(doctorDetailData));
             }
         });
     }
@@ -51,7 +53,7 @@ public class DoctorDetailPresenter extends MvpBasePresenter<DoctorDetailView> {
         api.addFriends(params).enqueue(new BaseCallback<BaseResponse<Object>>(getView()) {
             @Override
             public void onBusinessSuccess(BaseResponse<Object> response) {
-                ifViewAttached(view -> view.onAddFriendSuccess());
+                ifViewAttached(DoctorDetailView::onAddFriendSuccess);
             }
         });
     }

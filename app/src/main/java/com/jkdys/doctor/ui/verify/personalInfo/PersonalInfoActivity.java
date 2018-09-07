@@ -123,7 +123,7 @@ public class PersonalInfoActivity extends MvpActivity<PersonalInfoView,PersonalI
 
     @OnTextChanged(R.id.edt_invent_code)
     public void onEdtInventCodeChanged() {
-        if (TextUtils.isEmpty(edtInventCode.getText().toString())) {
+        if (!TextUtils.isEmpty(edtInventCode.getText().toString())) {
             doctorWorkInfo.setInvitationcode(edtInventCode.getText().toString());
         }
     }
