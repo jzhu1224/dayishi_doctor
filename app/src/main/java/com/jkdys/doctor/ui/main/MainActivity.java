@@ -159,7 +159,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 //当前Activity
                 .setActivity(this)
                 //更新地址
-                .setUpdateUrl("https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json.txt")
+                .setUpdateUrl("/api/Doctor/Common/UpgradeCheck")
                 //实现httpManager接口的对象
                 .setHttpManager(updateAppHttpUtil)
                 .setThemeColor(getResources().getColor(R.color.color_6196FF))

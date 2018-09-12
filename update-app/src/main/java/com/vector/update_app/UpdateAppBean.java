@@ -42,7 +42,7 @@ public class UpdateAppBean implements Serializable {
     /**********以下是内部使用的数据**********/
 
     //网络工具，内部使用
-    private HttpManager httpManager;
+    //private HttpManager httpManager;
     private String targetPath;
     private boolean mHideDialog;
     private boolean mShowIgnoreVersion;
@@ -62,13 +62,13 @@ public class UpdateAppBean implements Serializable {
         return !TextUtils.isEmpty(this.update) && "Yes".equals(this.update);
     }
 
-    public HttpManager getHttpManager() {
-        return httpManager;
-    }
-
-    public void setHttpManager(HttpManager httpManager) {
-        this.httpManager = httpManager;
-    }
+//    public HttpManager getHttpManager() {
+//        return httpManager;
+//    }
+//
+//    public void setHttpManager(HttpManager httpManager) {
+//        this.httpManager = httpManager;
+//    }
 
     public String getTargetPath() {
         return targetPath;

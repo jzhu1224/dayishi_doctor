@@ -55,6 +55,13 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
     private NumberProgressBar mNumberProgressBar;
     private ImageView mIvClose;
     private TextView mTitleTextView;
+    private HttpManager mHttpManager;
+
+    public UpdateDialogFragment setHttpManager(HttpManager mHttpManager) {
+        this.mHttpManager = mHttpManager;
+        return this;
+    }
+
     /**
      * 回调
      */
@@ -62,7 +69,7 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            startDownloadApp((DownloadService.DownloadBinder) service);
+            startDownloadApp(mHttpManager,(DownloadService.DownloadBinder) service);
         }
 
         @Override
@@ -374,13 +381,13 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
     /**
      * 回调监听下载
      */
-    private void startDownloadApp(DownloadService.DownloadBinder binder) {
+    private void startDownloadApp(HttpManager mHttpManager,DownloadService.DownloadBinder binder) {
         // 开始下载，监听下载进度，可以用对话框显示
         if (mUpdateApp != null) {
 
             this.mDownloadBinder = binder;
 
-            binder.start(mUpdateApp, new DownloadService.DownloadCallback() {
+            binder.start(mHttpManager,mUpdateApp, new DownloadService.DownloadCallback() {
                 @Override
                 public void onStart() {
                     if (!UpdateDialogFragment.this.isRemoving()) {

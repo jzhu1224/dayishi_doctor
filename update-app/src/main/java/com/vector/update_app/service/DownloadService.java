@@ -120,7 +120,7 @@ public class DownloadService extends Service {
     /**
      * 下载模块
      */
-    private void startDownload(UpdateAppBean updateApp, final DownloadCallback callback) {
+    private void startDownload(HttpManager httpManager,UpdateAppBean updateApp, final DownloadCallback callback) {
 
         mDismissNotificationProgress = updateApp.isDismissNotificationProgress();
 
@@ -139,7 +139,7 @@ public class DownloadService extends Service {
 
         String target = appDir + File.separator + updateApp.getNewVersion();
 
-        updateApp.getHttpManager().download(apkUrl, target, appName, new FileDownloadCallBack(callback));
+        httpManager.download(apkUrl, target, appName, new FileDownloadCallBack(callback));
     }
 
     private void stop(String contentText) {
@@ -218,9 +218,9 @@ public class DownloadService extends Service {
          * @param updateApp 新app信息
          * @param callback  下载回调
          */
-        public void start(UpdateAppBean updateApp, DownloadCallback callback) {
+        public void start(HttpManager httpManager,UpdateAppBean updateApp, DownloadCallback callback) {
             //下载
-            startDownload(updateApp, callback);
+            startDownload(httpManager,updateApp, callback);
         }
 
         public void stop(String msg) {

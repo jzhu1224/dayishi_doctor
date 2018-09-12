@@ -83,7 +83,7 @@ public class UpdateAppManager {
      * @param updateAppBean    下载信息配置
      * @param downloadCallback 下载回调
      */
-    public static void download(final Context context, @NonNull final UpdateAppBean updateAppBean, @Nullable final DownloadService.DownloadCallback downloadCallback) {
+    public static void download(final Context context, @NonNull final HttpManager httpManager, @NonNull final UpdateAppBean updateAppBean, @Nullable final DownloadService.DownloadCallback downloadCallback) {
 
         if (updateAppBean == null) {
             throw new NullPointerException("updateApp 不能为空");
@@ -92,7 +92,7 @@ public class UpdateAppManager {
         DownloadService.bindService(context.getApplicationContext(), new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                ((DownloadService.DownloadBinder) service).start(updateAppBean, downloadCallback);
+                ((DownloadService.DownloadBinder) service).start(httpManager,updateAppBean, downloadCallback);
             }
 
             @Override
@@ -135,7 +135,7 @@ public class UpdateAppManager {
     public UpdateAppBean fillUpdateAppData() {
         if (mUpdateApp != null) {
             mUpdateApp.setTargetPath(mTargetPath);
-            mUpdateApp.setHttpManager(mHttpManager);
+            //mUpdateApp.setHttpManager(mHttpManager);
             mUpdateApp.setHideDialog(mHideDialog);
             mUpdateApp.showIgnoreVersion(mShowIgnoreVersion);
             mUpdateApp.dismissNotificationProgress(mDismissNotificationProgress);
@@ -187,6 +187,7 @@ public class UpdateAppManager {
 
             UpdateDialogFragment
                     .newInstance(bundle)
+                    .setHttpManager(mHttpManager)
                     .setUpdateDialogFragmentListener(mUpdateDialogFragmentListener)
                     .show(((FragmentActivity) mActivity).getSupportFragmentManager(), "dialog");
 
@@ -295,11 +296,11 @@ public class UpdateAppManager {
             throw new NullPointerException("updateApp 不能为空");
         }
         mUpdateApp.setTargetPath(mTargetPath);
-        mUpdateApp.setHttpManager(mHttpManager);
+        //mUpdateApp.setHttpManager(mHttpManager);
         DownloadService.bindService(mActivity.getApplicationContext(), new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                ((DownloadService.DownloadBinder) service).start(mUpdateApp, downloadCallback);
+                ((DownloadService.DownloadBinder) service).start(mHttpManager,mUpdateApp, downloadCallback);
             }
 
             @Override
