@@ -41,6 +41,14 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
             onBusinessSuccess(response.body());
         } else if (baseResponse.getCode() == 100 && isViewAttached()) {
 
+            if (baseResponse.isShowdialog()) {
+                view.showDialog(baseResponse.getMsg());
+            }
+
+            if (baseResponse.isShowmessage()) {
+                view.showMessage(baseResponse.getMsg());
+            }
+
             Activity activity = null;
             //token失效
             if (view instanceof Activity) {
