@@ -41,10 +41,6 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
             onBusinessSuccess(response.body());
         } else if (baseResponse.getCode() == 100 && isViewAttached()) {
 
-            if (baseResponse.isShowdialog()) {
-                view.showDialog(baseResponse.getMsg());
-            }
-
             if (baseResponse.isShowmessage()) {
                 view.showMessage(baseResponse.getMsg());
             }
@@ -62,6 +58,9 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
 
             Intent intent = new Intent(activity, MainActivity.class);
             intent.putExtra("TOKEN_EXPIRED",true);
+            if (baseResponse.isShowdialog()) {
+                intent.putExtra("dialog_msg", baseResponse.getMsg());
+            }
             activity.startActivity(intent);
 
         } else if (baseResponse.isShowdialog() && isViewAttached()) {

@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -362,9 +363,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     private boolean needLogout(Intent intent) {
         if (intent.getBooleanExtra("TOKEN_EXPIRED",false)) {
             loginInfoUtil.clear();
-            if (logoutDialog == null) {
+            mainPresenter.logout();
+            if (!TextUtils.isEmpty(intent.getStringExtra("dialog_msg"))) {
                 logoutDialog = new QMUIDialog.MessageDialogBuilder(mActivity)
-                        .setMessage("登录过期，请重新登录")
+                        .setMessage(intent.getStringExtra("dialog_msg"))
                         .setCancelable(false)
                         .setCanceledOnTouchOutside(false)
                         .addAction("退出", ((dialog, index) -> finish()))
@@ -373,12 +375,14 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                             startActivity(intent2);
                             finish();
                         }).create();
+                if (!logoutDialog.isShowing()) {
+                    logoutDialog.show();
+                }
+            } else {
+                Intent intent2 = new Intent(mActivity, LoginActivity.class);
+                startActivity(intent2);
+                finish();
             }
-
-            if (!logoutDialog.isShowing()) {
-                logoutDialog.show();
-            }
-            mainPresenter.logout();
             return true;
         }
         return false;
