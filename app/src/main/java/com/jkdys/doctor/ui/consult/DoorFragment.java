@@ -43,7 +43,13 @@ public class DoorFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadM
         super.onItemClicked(adapter, view, position);
         Intent intent = new Intent(getActivity(), DiagnosisFace2FaceActivity.class);
         intent.putExtra("orderId", ((OrderInfo) Objects.requireNonNull(adapter.getItem(position))).getOrderid());
-        startActivity(intent);
+        Objects.requireNonNull(getActivity()).startActivityForResult(intent,2);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        loadData(true,true);
     }
 
     @Override
@@ -54,5 +60,10 @@ public class DoorFragment extends BaseRefreshLoadMoreFrament<OrderInfo,BaseLoadM
     @Override
     public void showMessage(String msg) {
         ToastUtil.show(getActivity(),msg);
+    }
+
+    @Override
+    public void setData(List<OrderInfo> data) {
+        super.setData(data);
     }
 }

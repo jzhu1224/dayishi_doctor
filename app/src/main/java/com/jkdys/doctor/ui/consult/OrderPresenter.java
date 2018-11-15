@@ -5,8 +5,11 @@ import com.jkdys.doctor.data.model.BaseResponse;
 import com.jkdys.doctor.data.model.OrderInfo;
 import com.jkdys.doctor.data.network.DaYiShiServiceApi;
 import com.jkdys.doctor.data.network.callback.BaseCallback;
+import com.jkdys.doctor.event.UpdateTabCountEvent;
 import com.jkdys.doctor.ui.BaseLoadMoreView;
 import com.jkdys.doctor.ui.base.BaseRefreshLoadMorePresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +63,14 @@ public class OrderPresenter extends BaseRefreshLoadMorePresenter<BaseLoadMoreVie
                     ifViewAttached(view -> {
                         view.setData(response.getData());
                         view.showContent();
+                        if (orderstate.equals("0") && ordertype.equals("1")){
+                            //电话诊断订单
+                            EventBus.getDefault().post(new UpdateTabCountEvent(0,response.getTotalrecord()));
+                        }
+                        if (orderstate.equals("0") && ordertype.equals("2")){
+                            //门诊订单
+                            EventBus.getDefault().post(new UpdateTabCountEvent(1,response.getTotalrecord()));
+                        }
                     });
                 } else {
                     ifViewAttached(view -> view.setMoreData(response.getData()));

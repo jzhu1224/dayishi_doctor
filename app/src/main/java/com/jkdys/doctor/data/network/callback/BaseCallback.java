@@ -34,17 +34,23 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
         BaseResponse baseResponse = response.body();
         if (baseResponse == null)
             return;
-        if (isViewAttached())
+
+        if (isViewAttached()) {
+
             view.showContent();
 
-        if (baseResponse.getCode() == 1) {
-            onBusinessSuccess(response.body());
-        } else if (baseResponse.getCode() == 100 && isViewAttached()) {
+            if (baseResponse.isShowdialog()) {
+                view.showDialog(baseResponse.getMsg());
+            }
 
             if (baseResponse.isShowmessage()) {
                 view.showMessage(baseResponse.getMsg());
             }
+        }
 
+        if (baseResponse.getCode() == 1) {
+            onBusinessSuccess(response.body());
+        } else if (baseResponse.getCode() == 100 && isViewAttached()) {
             Activity activity = null;
             //token失效
             if (view instanceof Activity) {
@@ -62,11 +68,6 @@ public abstract class BaseCallback<T extends BaseResponse> implements Callback<T
                 intent.putExtra("dialog_msg", baseResponse.getMsg());
             }
             activity.startActivity(intent);
-
-        } else if (baseResponse.isShowdialog() && isViewAttached()) {
-            view.showDialog(baseResponse.getMsg());
-        } else if (baseResponse.isShowmessage() && isViewAttached()) {
-            view.showMessage(baseResponse.getMsg());
         }
     }
 

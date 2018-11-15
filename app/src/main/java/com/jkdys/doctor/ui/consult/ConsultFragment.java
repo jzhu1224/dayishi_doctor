@@ -11,12 +11,19 @@ import android.view.View;
 import com.framework.share.ShareInfoModel;
 import com.jkdys.doctor.R;
 import com.jkdys.doctor.data.model.ShareData;
+import com.jkdys.doctor.event.RequestSmsCodeEvent;
+import com.jkdys.doctor.event.UpdateTabCountEvent;
 import com.jkdys.doctor.ui.BaseAppCompatActivity;
 import com.jkdys.doctor.ui.BaseFragment;
 import com.jkdys.doctor.ui.MvpFragment;
 import com.jkdys.doctor.ui.scan.ScanActivity;
 import com.jkdys.doctor.utils.ShareManager;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +47,18 @@ public class ConsultFragment extends MvpFragment<ConsultView, ConsultPresenter> 
     ConsultPresenter presenter;
 
     private ShareData shareData;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void onGetShareDataSuccess(ShareData shareData) {
@@ -139,7 +158,7 @@ public class ConsultFragment extends MvpFragment<ConsultView, ConsultPresenter> 
         mTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int index) {
-                mTabSegment.hideSignCountView(index);
+                //mTabSegment.hideSignCountView(index);
             }
 
             @Override
@@ -149,7 +168,7 @@ public class ConsultFragment extends MvpFragment<ConsultView, ConsultPresenter> 
 
             @Override
             public void onTabReselected(int index) {
-                mTabSegment.hideSignCountView(index);
+                //mTabSegment.hideSignCountView(index);
             }
 
             @Override
@@ -157,6 +176,15 @@ public class ConsultFragment extends MvpFragment<ConsultView, ConsultPresenter> 
 
             }
         });
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTabCount(UpdateTabCountEvent updateTabCountEvent) {
+        if (updateTabCountEvent.count == 0) {
+            mTabSegment.hideSignCountView(updateTabCountEvent.index);
+        } else {
+            mTabSegment.showSignCountView(getActivity(),updateTabCountEvent.index, updateTabCountEvent.count);
+        }
+
     }
 
     @Override
