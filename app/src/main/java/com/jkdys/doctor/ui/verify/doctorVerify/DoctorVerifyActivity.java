@@ -24,6 +24,8 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -84,6 +86,7 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
         toolbar.setTitle("医生认证");
         toolbar.addLeftBackImageButton().setOnClickListener(view -> finish());
 
+
         Dexter.withActivity(mActivity)
                 .withPermissions(
                         Manifest.permission.CAMERA,
@@ -92,15 +95,45 @@ public class DoctorVerifyActivity extends MvpActivity<DoctorVerifyView, DoctorVe
                 ).withListener(new MultiplePermissionsListener() {
             @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
                 if (report.areAllPermissionsGranted()) {
+                    //checkUpdate();
                 } else {
                     ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
                 }
             }
             @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                // TODO: 2018/7/4  弹出对话框引导用户开启权限
+                ToastUtil.show(mActivity,"弹出对话框引导用户开启权限");
+
+                new QMUIDialog.MessageDialogBuilder(mActivity)
+                        .setMessage("检测到没有运行APP需要的必要权限，请到权限管理页面授予相应权限，否则APP无法正常使用")
+                        .addAction("取消", (dialog, index) -> {
+                            token.cancelPermissionRequest();
+                            dialog.dismiss();
+                        })
+                        .addAction("申请", (dialog, index) -> {
+                            token.continuePermissionRequest();
+                            dialog.dismiss();
+                        }).setCanceledOnTouchOutside(false).show();
             }
 
         }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
+
+//        Dexter.withActivity(mActivity)
+//                .withPermissions(
+//                        Manifest.permission.CAMERA,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                ).withListener(new MultiplePermissionsListener() {
+//            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                if (report.areAllPermissionsGranted()) {
+//                } else {
+//                    ToastUtil.show(mActivity,"访问相机或者读取媒体权限被拒绝");
+//                }
+//            }
+//            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                // TODO: 2018/7/4  弹出对话框引导用户开启权限
+//            }
+//
+//        }).withErrorListener(error -> ToastUtil.show(mActivity,"error:"+error.name())).check();
 
     }
 
