@@ -257,6 +257,11 @@ public class DiagnosisFace2FaceActivity extends MvpActivity<DiagnosisFace2FaceVi
         } else {
             rlRecord.setVisibility(View.GONE);
         }
+
+        if (edtAddress.isEnabled() && TextUtils.isEmpty(face2FaceOrderDetail.getHistoryregplace())) {
+            edtAddress.setText(face2FaceOrderDetail.getHistoryregplace());
+            edtAddress.setSelection(face2FaceOrderDetail.getHistoryregplace().length());
+        }
     }
 
     @Override

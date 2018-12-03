@@ -31,6 +31,7 @@ public class Face2FaceOrderDetail {
     private String regtime;
     private String regstatus;
     private List<DelayRecord> delayrecord;
+    private String historyregplace;
 
     public String getDoctorpicheadurl() {
         return doctorpicheadurl;
@@ -222,6 +223,14 @@ public class Face2FaceOrderDetail {
 
     public void setDelayrecord(List<DelayRecord> delayrecord) {
         this.delayrecord = delayrecord;
+    }
+
+    public String getHistoryregplace() {
+        return historyregplace;
+    }
+
+    public void setHistoryregplace(String historyregplace) {
+        this.historyregplace = historyregplace;
     }
 
     public static class DelayRecord implements Parcelable {
